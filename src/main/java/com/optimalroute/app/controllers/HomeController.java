@@ -1,4 +1,4 @@
-package com.optimalroute.app;
+package com.optimalroute.app.controllers;
 
 import java.text.DateFormat;
 import java.util.Date;
