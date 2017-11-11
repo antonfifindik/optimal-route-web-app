@@ -1,6 +1,6 @@
 package com.optimalroute.app.objects;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ public class Order {
 	private Client sender;
 	private Client recipient;
 	private Courier courier;
-	private Date date;
+	private LocalDate date;
 	private boolean status;
 
 	public int getId() {
@@ -54,11 +54,11 @@ public class Order {
 		this.courier = courier;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
@@ -68,6 +68,11 @@ public class Order {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", address=" + address + ", sender=" + sender + ", recipient=" + recipient + ", courier=" + courier + ", date=" + date + ", status=" + status + "]";
 	}
 
 }

@@ -50,4 +50,9 @@ public class Client {
 		this.phoneNumber = phoneNumber;
 	}
 
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", surname=" + surname + ", name=" + name + ", patronymic=" + patronymic + ", phoneNumber=" + phoneNumber + "]";
+	}
+
 }

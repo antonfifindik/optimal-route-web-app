@@ -50,4 +50,9 @@ public class Address {
 		this.apartmentNumber = apartmentNumber;
 	}
 
+	@Override
+	public String toString() {
+		return "Address [id=" + id + ", city=" + city + ", street=" + street + ", houseNumber=" + houseNumber + ", apartmentNumber=" + apartmentNumber + "]";
+	}
+
 }

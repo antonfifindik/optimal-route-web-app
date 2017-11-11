@@ -49,4 +49,10 @@ public class Courier {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+
+	@Override
+	public String toString() {
+		return "Courier [id=" + id + ", surname=" + surname + ", name=" + name + ", patronymic=" + patronymic + ", phoneNumber=" + phoneNumber + "]";
+	}
+
 }
