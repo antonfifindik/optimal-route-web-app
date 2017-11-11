@@ -19,6 +19,7 @@ import com.optimalroute.app.objects.Order;
 import com.optimalroute.app.rowmappers.AddressMapper;
 import com.optimalroute.app.rowmappers.ClientMapper;
 import com.optimalroute.app.rowmappers.CourierMapper;
+import com.optimalroute.app.rowmappers.OrderMapper;
 
 @Component("mySqlOrderDao")
 public class MySqlOrderDao implements OrderDao {
@@ -41,9 +42,8 @@ public class MySqlOrderDao implements OrderDao {
 		System.out.println(client);
 		Courier courier = mySqlOrderDao.jdbcTemplate.queryForObject("select * from couriers where id = 2;", new CourierMapper());
 		System.out.println(courier);
-		// Order order = mySqlOrderDao.jdbcTemplate.queryForObject("select * from orders
-		// where id = 2;", new OrderMapper());
-		// System.err.println(order);
+		Order order = mySqlOrderDao.jdbcTemplate.queryForObject("select * from orders where id = 2;", new OrderMapper());
+		System.err.println(order);
 	}
 
 	@Autowired
@@ -79,6 +79,10 @@ public class MySqlOrderDao implements OrderDao {
 	public List<Order> findAll() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
 	}
 
 }
