@@ -56,14 +56,22 @@ public class MySqlOrderDao implements OrderDao {
 
 	@Override
 	public List<Order> findAllOrders() {
-		String sql = "select * from orders";
-		return jdbcTemplate.query(sql, new OrderMapper());
+		return jdbcTemplate.query("select * from orders", new OrderMapper());
 	}
 
 	@Override
 	public List<Courier> findAllCouriers() {
-		String sql = "select * from couriers";
-		return jdbcTemplate.query(sql, new CourierMapper());
+		return jdbcTemplate.query("select * from couriers", new CourierMapper());
+	}
+
+	@Override
+	public List<Address> findAllAddresses() {
+		return jdbcTemplate.query("select * from addresses", new AddressMapper());
+	}
+
+	@Override
+	public List<Client> findAllClients() {
+		return jdbcTemplate.query("select * from clients", new ClientMapper());
 	}
 
 	public JdbcTemplate getJdbcTemplate() {
@@ -89,6 +97,8 @@ public class MySqlOrderDao implements OrderDao {
 		System.out.println(courier);
 		Order order = mySqlOrderDao.jdbcTemplate.queryForObject("select * from orders where id = 2;", new OrderMapper());
 		System.err.println(order);
+
+		mySqlOrderDao.findAllCouriers().stream().forEach(System.out::println);
 
 	}
 

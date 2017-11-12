@@ -49,6 +49,9 @@ public class HomeController {
 
 	@RequestMapping(value = "/addOrder", method = RequestMethod.GET)
 	public String addOrderPage(Model model) {
+		model.addAttribute("couriersList", mySqlOrderDao.findAllCouriers());
+		model.addAttribute("addressesList", mySqlOrderDao.findAllAddresses());
+		model.addAttribute("clientsList", mySqlOrderDao.findAllClients());
 		return "addOrder";
 	}
 

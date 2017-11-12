@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,18 +11,35 @@
 <body>
 
 
+
 		<form name="order" action="./addOrder" method="post">
 		<p>Address</p>
-		<input title="Address" type="text" name="address">
+		<select class="selectpicker" >
+                <c:forEach items="${addressesList}" var="item">
+                 <option value ="${item}">id${item.id} ${item.city} ${item.street} ${item.houseNumber} ${item.apartmentNumber}</option>
+                </c:forEach>
+                 </select>
 		<p>Sender</p>
-		<input title="Sender" type="text" name="sender">
+		<select class="selectpicker" >
+                <c:forEach items="${clientsList}" var="item">
+                 <option value ="${item}">id${item.id} ${item.surname} ${item.name} ${item.patronymic}</option>
+                </c:forEach>
+                 </select>
 		<p>Recipient</p>
-		<input title="Recipient" type="text" name="recipient">
+		<select class="selectpicker" >
+                <c:forEach items="${clientsList}" var="item">
+                 <option value ="${item}">id${item.id} ${item.surname} ${item.name} ${item.patronymic}</option>
+                </c:forEach>
+                 </select>
 		<p>Courier</p>
-		<input title="Courier" type="text" name="courier">
-		<input type="submit" value="OK">	
+		<select class="selectpicker" >
+                <c:forEach items="${couriersList}" var="item">
+                 <option value ="${item}">id${item.id} ${item.surname} ${item.name} ${item.patronymic}</option>
+                </c:forEach>
+                 </select>
+	
 	</form>
-
+	<input type="submit" value="OK">	
 
 </body>
 </html>
