@@ -2,6 +2,7 @@ package com.optimalroute.app.interfaces;
 
 import java.util.List;
 
+import com.optimalroute.app.objects.Courier;
 import com.optimalroute.app.objects.Order;
 
 public interface OrderDao {
@@ -13,5 +14,7 @@ public interface OrderDao {
 
 	void delete(int id);
 
-	List<Order> findAll();
+	List<Order> findAllOrders();
+
+	List<Courier> findAllCouriers();
 }

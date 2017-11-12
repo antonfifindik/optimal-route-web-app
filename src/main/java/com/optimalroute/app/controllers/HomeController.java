@@ -24,6 +24,8 @@ import com.optimalroute.app.objects.Order;
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+	private static MySqlOrderDao mySqlOrderDao = (MySqlOrderDao) context.getBean("mySqlOrderDao");
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -32,9 +34,7 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-		MySqlOrderDao mySqlOrderDao = (MySqlOrderDao) context.getBean("mySqlOrderDao");
-		ArrayList<Order> ordersList = (ArrayList<Order>) mySqlOrderDao.findAll();
+		ArrayList<Order> ordersList = (ArrayList<Order>) mySqlOrderDao.findAllOrders();
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -45,6 +45,11 @@ public class HomeController {
 		model.addAttribute("ordersList", ordersList);
 
 		return "home";
+	}
+
+	@RequestMapping(value = "/addOrder", method = RequestMethod.GET)
+	public String addOrderPage(Model model) {
+		return "addOrder";
 	}
 
 }

@@ -55,9 +55,15 @@ public class MySqlOrderDao implements OrderDao {
 	}
 
 	@Override
-	public List<Order> findAll() {
+	public List<Order> findAllOrders() {
 		String sql = "select * from orders";
 		return jdbcTemplate.query(sql, new OrderMapper());
+	}
+
+	@Override
+	public List<Courier> findAllCouriers() {
+		String sql = "select * from couriers";
+		return jdbcTemplate.query(sql, new CourierMapper());
 	}
 
 	public JdbcTemplate getJdbcTemplate() {
