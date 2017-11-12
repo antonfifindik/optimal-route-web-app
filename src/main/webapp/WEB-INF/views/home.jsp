@@ -47,11 +47,7 @@
             </table>
         </div>
 
-    <select class="selectpicker" >
-                <c:forEach items="${ordersList}" var="item">
-                 <option value ="${item.sender}">${item.sender}</option>
-                </c:forEach>
-                 </select>
+   
 
 
 </body>

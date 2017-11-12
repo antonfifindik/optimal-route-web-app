@@ -13,31 +13,35 @@
 
 
 		<form name="order" action="./addOrder" method="post">
-		<p>Address</p>
+		<p>Адреса</p>
 		<select class="selectpicker" >
                 <c:forEach items="${addressesList}" var="item">
                  <option value ="${item}">id${item.id} ${item.city} ${item.street} ${item.houseNumber} ${item.apartmentNumber}</option>
                 </c:forEach>
                  </select>
-		<p>Sender</p>
+                 <input type="submit" value="Нова адреса">	
+		<p>Відправник</p>
 		<select class="selectpicker" >
                 <c:forEach items="${clientsList}" var="item">
                  <option value ="${item}">id${item.id} ${item.surname} ${item.name} ${item.patronymic}</option>
                 </c:forEach>
                  </select>
-		<p>Recipient</p>
+                 <input type="submit" value="Новий клієнт">
+		<p>Отримувач</p>
 		<select class="selectpicker" >
                 <c:forEach items="${clientsList}" var="item">
                  <option value ="${item}">id${item.id} ${item.surname} ${item.name} ${item.patronymic}</option>
                 </c:forEach>
                  </select>
-		<p>Courier</p>
+                 <input type="submit" value="Новий клієнт">
+		<p>Кур'єр</p>
 		<select class="selectpicker" >
                 <c:forEach items="${couriersList}" var="item">
                  <option value ="${item}">id${item.id} ${item.surname} ${item.name} ${item.patronymic}</option>
                 </c:forEach>
                  </select>
-	
+
+					<input type="submit" value="Новий кур'єр">
 	</form>
 	<input type="submit" value="OK">	
 
