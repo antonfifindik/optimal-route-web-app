@@ -19,7 +19,8 @@
                  <option value ="${item}">id${item.id} ${item.city} ${item.street} ${item.houseNumber} ${item.apartmentNumber}</option>
                 </c:forEach>
                  </select>
-                 <input type="submit" value="Нова адреса">	
+                 <input type="button" class="button" value="Новий заказ" onclick="location.href='./addAddress'" />
+                 	
 		<p>Відправник</p>
 		<select class="selectpicker" >
                 <c:forEach items="${clientsList}" var="item">
