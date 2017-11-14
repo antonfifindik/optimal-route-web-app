@@ -18,7 +18,8 @@
             <h3 align="left"><a href="./addOrder">Новий заказ</a></h3>
             <table border="1">
                 <th>Id</th>
-                <th>Адреса</th>
+                <th>Адреса відправника</th>
+                <th>Адреса отримувача</th>
                 <th>Відправник</th>
                 <th>Отримувач</th>
                 <th>Кур'єр id</th>
@@ -29,7 +30,8 @@
                 <c:forEach var="order" items="${ordersList}" varStatus="status">
                 <tr>
                     <td>${order.id}</td>
-                    <td>${order.address.city}, ${order.address.street}, ${order.address.houseNumber}/${order.address.apartmentNumber}</td>
+                    <td>${order.senderAddress.city}, ${order.senderAddress.street}, ${order.senderAddress.houseNumber}/${order.senderAddress.apartmentNumber}</td>
+                    <td>${order.recipientAddress.city}, ${order.recipientAddress.street}, ${order.recipientAddress.houseNumber}/${order.recipientAddress.apartmentNumber}</td>
                     <td>${order.sender.surname} ${order.sender.name} ${order.sender.patronymic}</td>
                      <td>${order.recipient.surname} ${order.recipient.name} ${order.recipient.patronymic}</td>
                     <td>${order.courier.id}</td>

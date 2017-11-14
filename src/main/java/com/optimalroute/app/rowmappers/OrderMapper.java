@@ -29,19 +29,21 @@ public class OrderMapper implements RowMapper<Order> {
 
 	@Override
 	public Order mapRow(ResultSet arg0, int arg1) throws SQLException {
-		int address_id = arg0.getInt(2);
-		int sender_id = arg0.getInt(3);
-		int recipient_id = arg0.getInt(4);
-		int courier_id = arg0.getInt(5);
+		int sender_address_id = arg0.getInt(2);
+		int recipient_address_id = arg0.getInt(3);
+		int sender_id = arg0.getInt(4);
+		int recipient_id = arg0.getInt(5);
+		int courier_id = arg0.getInt(6);
 
 		Order result = new Order();
 		result.setId(arg0.getInt(1));
-		result.setAddress(mySqlOrderDao.getJdbcTemplate().queryForObject(String.format(SELECT_FOR_ADDRESS, address_id), new AddressMapper()));
+		result.setSenderAddress(mySqlOrderDao.getJdbcTemplate().queryForObject(String.format(SELECT_FOR_ADDRESS, sender_address_id), new AddressMapper()));
+		result.setRecipientAddress(mySqlOrderDao.getJdbcTemplate().queryForObject(String.format(SELECT_FOR_ADDRESS, recipient_address_id), new AddressMapper()));
 		result.setSender(mySqlOrderDao.getJdbcTemplate().queryForObject(String.format(SELECT_FOR_CLIENT, sender_id), new ClientMapper()));
 		result.setRecipient(mySqlOrderDao.getJdbcTemplate().queryForObject(String.format(SELECT_FOR_CLIENT, recipient_id), new ClientMapper()));
 		result.setCourier(mySqlOrderDao.getJdbcTemplate().queryForObject(String.format(SELECT_FOR_COURIER, courier_id), new CourierMapper()));
-		result.setDate(LocalDate.parse(arg0.getString(6)));
-		result.setStatus(arg0.getInt(6) == 1 ? true : false);
+		result.setDate(LocalDate.parse(arg0.getString(7)));
+		result.setStatus(arg0.getInt(8) == 1 ? true : false);
 
 		return result;
 	}

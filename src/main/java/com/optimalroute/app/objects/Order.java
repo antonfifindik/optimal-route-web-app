@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 @Component("order")
 public class Order {
 	private int id;
-	private Address address;
+	private Address senderAddress;
+	private Address recipientAddress;
 	private Client sender;
 	private Client recipient;
 	private Courier courier;
@@ -22,12 +23,20 @@ public class Order {
 		this.id = id;
 	}
 
-	public Address getAddress() {
-		return address;
+	public Address getSenderAddress() {
+		return senderAddress;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setSenderAddress(Address senderAddress) {
+		this.senderAddress = senderAddress;
+	}
+
+	public Address getRecipientAddress() {
+		return recipientAddress;
+	}
+
+	public void setRecipientAddress(Address recipientAddress) {
+		this.recipientAddress = recipientAddress;
 	}
 
 	public Client getSender() {
@@ -72,7 +81,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", address=" + address + ", sender=" + sender + ", recipient=" + recipient + ", courier=" + courier + ", date=" + date + ", status=" + status + "]";
+		return "Order [id=" + id + ", senderAddress=" + senderAddress + ", recipientAddress=" + recipientAddress + ", sender=" + sender + ", recipient=" + recipient + ", courier=" + courier + ", date=" + date + ", status=" + status + "]";
 	}
 
 }
