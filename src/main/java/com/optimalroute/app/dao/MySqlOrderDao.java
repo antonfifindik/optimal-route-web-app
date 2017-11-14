@@ -44,13 +44,12 @@ public class MySqlOrderDao implements OrderDao {
 
 	@Override
 	public void delete(Order order) {
-		// TODO Auto-generated method stub
-
+		jdbcTemplate.update(String.format("delete from orders where id = %s", order.getId()));
 	}
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
+		jdbcTemplate.update(String.format("delete from orders where id = %s", id));
 
 	}
 

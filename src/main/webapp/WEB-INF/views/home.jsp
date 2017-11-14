@@ -7,11 +7,7 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	Привіт світ!!  
-</h1>
 
-<P>  The time on the server is ${serverTime}. </P>
 
   <div align="left">
             <h1>Замовлення</h1>
@@ -25,7 +21,7 @@
                 <th>Кур'єр id</th>
                 <th>Дата заказу</th>
                 <th>Статус</th>
-                <th>Оновити/Видалити</th>
+                <th>Редагувати/Видалити</th>
    
                 <c:forEach var="order" items="${ordersList}" varStatus="status">
                 <tr>
@@ -39,7 +35,7 @@
                     <td>${order.status}</td>
                     
                     <td>
-                        <a href="./updateOrder?id=${order.id}">Оновити</a>
+                        <a href="./updateOrder?id=${order.id}">Редагувати</a>
                         &nbsp;  &nbsp;  &nbsp;	 &nbsp;	
                         <a href="./deleteOrder?id=${order.id}">Видалити</a>
                     </td>
