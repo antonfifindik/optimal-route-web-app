@@ -96,9 +96,9 @@ public class MySqlOrderDao implements OrderDao {
 		System.out.println(courier);
 		Order order = mySqlOrderDao.jdbcTemplate.queryForObject("select * from orders where id = 2;", new OrderMapper());
 		System.err.println(order);
-
 		mySqlOrderDao.findAllCouriers().stream().forEach(System.out::println);
 
+		System.out.println(LocalDate.now());
 	}
 
 }

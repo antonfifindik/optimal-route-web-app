@@ -2,7 +2,9 @@ package com.optimalroute.app.controllers;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -10,11 +12,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.optimalroute.app.configs.SpringConfig;
 import com.optimalroute.app.dao.MySqlOrderDao;
+import com.optimalroute.app.objects.Address;
+import com.optimalroute.app.objects.Client;
+import com.optimalroute.app.objects.Courier;
 import com.optimalroute.app.objects.Order;
 
 /**
@@ -49,10 +55,25 @@ public class HomeController {
 
 	@RequestMapping(value = "/addOrder", method = RequestMethod.GET)
 	public String addOrderPage(Model model) {
-		model.addAttribute("couriersList", mySqlOrderDao.findAllCouriers());
-		model.addAttribute("addressesList", mySqlOrderDao.findAllAddresses());
-		model.addAttribute("clientsList", mySqlOrderDao.findAllClients());
+		List<Courier> couriersList = mySqlOrderDao.findAllCouriers();
+		List<Address> addressesList = mySqlOrderDao.findAllAddresses();
+		List<Client> clientsList = mySqlOrderDao.findAllClients();
+		Collections.sort(couriersList, ((c1, c2) -> c2.getId() - c1.getId()));
+		Collections.sort(addressesList, ((a1, a2) -> a2.getId() - a1.getId()));
+		Collections.sort(clientsList, ((c1, c2) -> c2.getId() - c1.getId()));
+
+		model.addAttribute("couriersList", couriersList);
+		model.addAttribute("addressesList", addressesList);
+		model.addAttribute("clientsList", clientsList);
 		return "addOrder";
+	}
+
+	@RequestMapping(value = "/addOrder", method = RequestMethod.POST)
+	public String addOrder(@ModelAttribute("order") Order order) {
+
+		System.out.println(order);
+
+		return "redirect:/";
 	}
 
 }
