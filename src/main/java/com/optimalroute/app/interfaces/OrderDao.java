@@ -16,6 +16,10 @@ public interface OrderDao {
 
 	void insert(Address address);
 
+	void insert(Client client);
+
+	void insert(Courier courier);
+
 	void delete(Order order);
 
 	void delete(int id);

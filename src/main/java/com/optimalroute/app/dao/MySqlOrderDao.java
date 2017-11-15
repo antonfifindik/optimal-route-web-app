@@ -53,6 +53,16 @@ public class MySqlOrderDao implements OrderDao {
 	}
 
 	@Override
+	public void insert(Client client) {
+		jdbcTemplate.update(String.format("insert into clients (surname, name, patronymic, phone_number) values ('%s','%s','%s','%s');", client.getSurname(), client.getName(), client.getPatronymic(), client.getPhoneNumber()));
+	}
+
+	@Override
+	public void insert(Courier courier) {
+		jdbcTemplate.update(String.format("insert into couriers (surname, name, patronymic, phone_number) values ('%s','%s','%s','%s');", courier.getSurname(), courier.getName(), courier.getPatronymic(), courier.getPhoneNumber()));
+	}
+
+	@Override
 	public void delete(Order order) {
 		jdbcTemplate.update(String.format("delete from orders where id = %s", order.getId()));
 	}

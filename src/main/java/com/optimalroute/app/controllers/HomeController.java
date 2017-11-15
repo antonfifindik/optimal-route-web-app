@@ -86,7 +86,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/addAddress", method = RequestMethod.POST)
-	public String addMp3(@ModelAttribute("address") Address address) {
+	public String addAddress(@ModelAttribute("address") Address address) {
 		mySqlOrderDao.insert(address);
 		return "redirect:/addOrder";
 	}
@@ -96,9 +96,21 @@ public class HomeController {
 		return "addClient";
 	}
 
+	@RequestMapping(value = "/addClient", method = RequestMethod.POST)
+	public String addClient(@ModelAttribute("client") Client client) {
+		mySqlOrderDao.insert(client);
+		return "redirect:/addOrder";
+	}
+
 	@RequestMapping(value = "/addCourier", method = RequestMethod.GET)
 	public String addCourierPage(Model model) {
 		return "addCourier";
+	}
+
+	@RequestMapping(value = "/addCourier", method = RequestMethod.POST)
+	public String addCourier(@ModelAttribute("courier") Courier courier) {
+		mySqlOrderDao.insert(courier);
+		return "redirect:/addOrder";
 	}
 
 }
