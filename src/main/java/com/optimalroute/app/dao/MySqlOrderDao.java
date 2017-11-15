@@ -43,6 +43,11 @@ public class MySqlOrderDao implements OrderDao {
 	}
 
 	@Override
+	public void insert(String sql) {
+		jdbcTemplate.update(sql);
+	}
+
+	@Override
 	public void delete(Order order) {
 		jdbcTemplate.update(String.format("delete from orders where id = %s", order.getId()));
 	}

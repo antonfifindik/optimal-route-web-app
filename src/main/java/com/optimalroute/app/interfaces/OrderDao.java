@@ -12,6 +12,8 @@ public interface OrderDao {
 
 	void insert(List<Order> list);
 
+	void insert(String sql);
+
 	void delete(Order order);
 
 	void delete(int id);
