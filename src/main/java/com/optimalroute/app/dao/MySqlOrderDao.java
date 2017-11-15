@@ -48,6 +48,11 @@ public class MySqlOrderDao implements OrderDao {
 	}
 
 	@Override
+	public void insert(Address address) {
+		jdbcTemplate.update(String.format("insert into addresses (city, street, house_number, apartment_number) values ('%s','%s','%s','%s');", address.getCity(), address.getStreet(), address.getHouseNumber(), address.getApartmentNumber()));
+	}
+
+	@Override
 	public void delete(Order order) {
 		jdbcTemplate.update(String.format("delete from orders where id = %s", order.getId()));
 	}

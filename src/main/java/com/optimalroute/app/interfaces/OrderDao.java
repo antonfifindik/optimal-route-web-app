@@ -14,6 +14,8 @@ public interface OrderDao {
 
 	void insert(String sql);
 
+	void insert(Address address);
+
 	void delete(Order order);
 
 	void delete(int id);

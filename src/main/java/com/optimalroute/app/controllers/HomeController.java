@@ -87,10 +87,8 @@ public class HomeController {
 
 	@RequestMapping(value = "/addAddress", method = RequestMethod.POST)
 	public String addMp3(@ModelAttribute("address") Address address) {
-
-		System.out.println(address);
-
-		return "redirect:/";
+		mySqlOrderDao.insert(address);
+		return "redirect:/addOrder";
 	}
 
 	@RequestMapping(value = "/addClient", method = RequestMethod.GET)
