@@ -79,4 +79,19 @@ public class HomeController {
 		return "redirect:/";
 	}
 
+	@RequestMapping(value = "/addAddress", method = RequestMethod.GET)
+	public String addAddressPage(Model model) {
+		return "addAddress";
+	}
+
+	@RequestMapping(value = "/addClient", method = RequestMethod.GET)
+	public String addClientPage(Model model) {
+		return "addClient";
+	}
+
+	@RequestMapping(value = "/addCourier", method = RequestMethod.GET)
+	public String addCourierPage(Model model) {
+		return "addCourier";
+	}
+
 }
