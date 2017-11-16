@@ -40,8 +40,7 @@ public class MySqlCourierDao implements ICourierDao {
 
 	@Override
 	public void delete(int id) {
-		// TODO Auto-generated method stub
-
+		jdbcTemplate.update(String.format("delete from couriers where id = %s", id));
 	}
 
 	@Override

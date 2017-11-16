@@ -37,6 +37,7 @@ public class OrderMapper implements RowMapper<Order> {
 
 		Order result = new Order();
 		result.setId(arg0.getInt(1));
+
 		result.setSenderAddress(mySqlOrderDao.getJdbcTemplate().queryForObject(String.format(SELECT_FOR_ADDRESS, sender_address_id), new AddressMapper()));
 		result.setRecipientAddress(mySqlOrderDao.getJdbcTemplate().queryForObject(String.format(SELECT_FOR_ADDRESS, recipient_address_id), new AddressMapper()));
 		result.setSender(mySqlOrderDao.getJdbcTemplate().queryForObject(String.format(SELECT_FOR_CLIENT, sender_id), new ClientMapper()));

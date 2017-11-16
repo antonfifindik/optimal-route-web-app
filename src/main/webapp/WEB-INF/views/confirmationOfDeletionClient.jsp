@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 <div id="navigation">
 			<ul>
 			    <li><a href="./" class="active"><span>Закази</span></a></li>
@@ -17,19 +16,18 @@
 			    <li><a href="#"><span>Побудова маршруту</span></a></li>
 			</ul>
 		</div>
-		
+
 		<div align="center">
 	<h1>Підтвердіть видалення</h1>
-	<form name="address" action="./deleteAddress" method="post">
-		<p>id: ${addressForDelete.id}</p>
-		<p>Місто: ${addressForDelete.city}</p>
-		<p>Вулиця: ${addressForDelete.street}</p></p>
-		<p>Номер будинку: ${addressForDelete.houseNumber}</p>
-		<p>Номер квартири: ${orderForDelete.apartmentNumber}</p>
+	<form name="client" action="./deleteClient" method="post">
+		<p>id: ${clientForDelete.id}</p>
+		<p>Призвище: ${clientForDelete.surname}</p>
+		<p>Им'я: ${clientForDelete.name}</p></p>
+		<p>По-батькові: ${clientForDelete.patronymic}</p>
+		<p>Номер телефону: ${clientForDelete.phoneNumber}</p>
 		
-		<input type="submit" value="Видалити"> <input type="button" class="button" value="Отмена" onclick="location.href='./addresses'" />	
+		<input type="submit" value="Видалити"> <input type="button" class="button" value="Отмена" onclick="location.href='./clients'" />	
 	</form></div>
-	
 
 </body>
 </html>

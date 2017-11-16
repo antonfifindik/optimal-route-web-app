@@ -21,7 +21,7 @@
 	<div align="center">
 	<form name="address" action="./addAddress" method="post">
 	<p>Місто:</p>
-		<input title="City" type="text" name="city">
+		<input title="City" type="text" name="city" value="Вінниця">
 		<p>Вулиця:</p>
 		<input title="Street" type="text" name="street">
 		<p>Номер будинку:</p>

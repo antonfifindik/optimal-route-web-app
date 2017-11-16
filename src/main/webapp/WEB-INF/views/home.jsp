@@ -35,10 +35,10 @@
                 <c:forEach var="order" items="${ordersList}" varStatus="status">
                 <tr>
                     <td>${order.id}</td>
-                    <td>${order.senderAddress.city}, ${order.senderAddress.street}, ${order.senderAddress.houseNumber}/${order.senderAddress.apartmentNumber}</td>
-                    <td>${order.recipientAddress.city}, ${order.recipientAddress.street}, ${order.recipientAddress.houseNumber}/${order.recipientAddress.apartmentNumber}</td>
-                    <td>${order.sender.surname} ${order.sender.name} ${order.sender.patronymic}</td>
-                     <td>${order.recipient.surname} ${order.recipient.name} ${order.recipient.patronymic}</td>
+                    <td>${order.senderAddress}</td>
+                    <td>${order.recipientAddress}</td>
+                    <td>${order.sender}</td>
+                     <td>${order.recipient}</td>
                     <td>${order.courier.id}</td>
                     <td>${order.date}</td>
                     <td>${order.status}</td>

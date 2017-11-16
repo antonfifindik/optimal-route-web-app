@@ -3,6 +3,8 @@ package com.optimalroute.app.controllers;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,8 @@ import com.optimalroute.app.objects.Courier;
 
 @Controller
 public class CRUDCourierController {
+	private static int idDelete;
+
 	@Autowired
 	private ICourierService courierService;
 
@@ -36,6 +40,27 @@ public class CRUDCourierController {
 	@RequestMapping(value = "/addCourier", method = RequestMethod.POST)
 	public String addCourier(@ModelAttribute("courier") Courier courier) {
 		courierService.insert(courier);
-		return "redirect:/addOrder";
+		return "redirect:/couriers";
+	}
+
+	@RequestMapping(value = "/deleteCourier", method = RequestMethod.GET)
+	public String deleteCourier(HttpServletRequest request, Model model) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		idDelete = id;
+		model.addAttribute("courierForDelete", courierService.selectCourierById(id));
+		return "confirmationOfDeletionCourier";
+	}
+
+	@RequestMapping(value = "/deleteCourier", method = RequestMethod.POST)
+	public String deleteCourier(HttpServletRequest request) {
+
+		try {
+			courierService.delete(idDelete);
+		} catch (Exception e) {
+			System.err.println("Неможливо видалити запис, так як є пов'язані записи!");
+			System.out.println(e.getMessage());
+		}
+
+		return "redirect:/couriers";
 	}
 }

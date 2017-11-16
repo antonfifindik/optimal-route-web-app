@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div id="navigation">
+	<div id="navigation">
 			<ul>
 			    <li><a href="./" class="active"><span>Закази</span></a></li>
 			    <li><a href="addresses"><span>Адреси</span></a></li>
@@ -17,19 +17,18 @@
 			    <li><a href="#"><span>Побудова маршруту</span></a></li>
 			</ul>
 		</div>
-		
+
 		<div align="center">
 	<h1>Підтвердіть видалення</h1>
-	<form name="address" action="./deleteAddress" method="post">
-		<p>id: ${addressForDelete.id}</p>
-		<p>Місто: ${addressForDelete.city}</p>
-		<p>Вулиця: ${addressForDelete.street}</p></p>
-		<p>Номер будинку: ${addressForDelete.houseNumber}</p>
-		<p>Номер квартири: ${orderForDelete.apartmentNumber}</p>
+	<form name="courier" action="./deleteCourier" method="post">
+		<p>id: ${courierForDelete.id}</p>
+		<p>Призвище: ${courierForDelete.surname}</p>
+		<p>Им'я: ${courierForDelete.name}</p></p>
+		<p>По-батькові: ${courierForDelete.patronymic}</p>
+		<p>Номер телефону: ${courierForDelete.phoneNumber}</p>
 		
-		<input type="submit" value="Видалити"> <input type="button" class="button" value="Отмена" onclick="location.href='./addresses'" />	
+		<input type="submit" value="Видалити"> <input type="button" class="button" value="Отмена" onclick="location.href='./couriers'" />	
 	</form></div>
-	
 
 </body>
 </html>
