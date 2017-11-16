@@ -10,13 +10,13 @@
 
 	<div align="center">
 	<form name="courier" action="./addCourier" method="post">
-	<p>Призвище</p>
+	<p>Призвище:</p>
 		<input title="Surname" type="text" name="surname">
 		<p>Ім'я</p>
 		<input title="Name" type="text" name="name">
-		<p>По батькові</p>
+		<p>По батькові:</p>
 		<input title="Patronymic" type="text" name="patronymic">
-		<p>Телефон</p>
+		<p>Телефон:</p>
 		<input title="PhoneNumber" type="text" name="phoneNumber">
 		<input type="submit" value="OK">	
 	</form>
