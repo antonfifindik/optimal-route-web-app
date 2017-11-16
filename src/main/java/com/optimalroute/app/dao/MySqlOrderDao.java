@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.optimalroute.app.configs.SpringConfig;
-import com.optimalroute.app.interfaces.OrderDao;
+import com.optimalroute.app.interfaces.IOrderDao;
 import com.optimalroute.app.objects.Address;
 import com.optimalroute.app.objects.Client;
 import com.optimalroute.app.objects.Courier;
@@ -22,7 +22,7 @@ import com.optimalroute.app.rowmappers.CourierMapper;
 import com.optimalroute.app.rowmappers.OrderMapper;
 
 @Component("mySqlOrderDao")
-public class MySqlOrderDao implements OrderDao {
+public class MySqlOrderDao implements IOrderDao {
 	private JdbcTemplate jdbcTemplate;
 
 	@Autowired

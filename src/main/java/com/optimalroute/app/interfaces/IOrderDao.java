@@ -7,7 +7,7 @@ import com.optimalroute.app.objects.Client;
 import com.optimalroute.app.objects.Courier;
 import com.optimalroute.app.objects.Order;
 
-public interface OrderDao {
+public interface IOrderDao {
 	void insert(Order order);
 
 	void insert(List<Order> list);

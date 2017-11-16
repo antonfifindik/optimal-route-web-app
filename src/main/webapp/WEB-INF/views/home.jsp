@@ -8,6 +8,15 @@
 </head>
 <body>
 
+<div id="navigation">
+			<ul>
+			    <li><a href="./" class="active"><span>Закази</span></a></li>
+			    <li><a href="addresses"><span>Адреси</span></a></li>
+			    <li><a href="clients"><span>Клієнти</span></a></li>
+			    <li><a href="couriers"><span>Кур'єри</span></a></li>
+			    <li><a href="#"><span>Побудова маршруту</span></a></li>
+			</ul>
+		</div>
 
   <div align="left">
             <h1>Замовлення</h1>
