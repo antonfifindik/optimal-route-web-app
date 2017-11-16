@@ -52,7 +52,7 @@ public class Courier {
 
 	@Override
 	public String toString() {
-		return "Courier [id=" + id + ", surname=" + surname + ", name=" + name + ", patronymic=" + patronymic + ", phoneNumber=" + phoneNumber + "]";
+		return surname + " " + name + " " + patronymic;
 	}
 
 }

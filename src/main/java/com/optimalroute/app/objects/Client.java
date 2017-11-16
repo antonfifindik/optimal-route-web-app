@@ -52,7 +52,7 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return "Client [id=" + id + ", surname=" + surname + ", name=" + name + ", patronymic=" + patronymic + ", phoneNumber=" + phoneNumber + "]";
+		return surname + " " + name + " " + patronymic;
 	}
 
 }

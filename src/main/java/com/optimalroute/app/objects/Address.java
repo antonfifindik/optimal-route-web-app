@@ -52,7 +52,7 @@ public class Address {
 
 	@Override
 	public String toString() {
-		return "Address [id=" + id + ", city=" + city + ", street=" + street + ", houseNumber=" + houseNumber + ", apartmentNumber=" + apartmentNumber + "]";
+		return city + " " + street + " " + houseNumber + "/" + apartmentNumber;
 	}
 
 }

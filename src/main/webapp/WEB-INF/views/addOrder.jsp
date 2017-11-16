@@ -12,42 +12,43 @@
 
 
 <div align="center">
+<h1>Новий заказ</h1>
 		<form name="order" action="./addOrder" method="post">
-		<p>Адреса відправника</p>
+		<p>Адреса відправника:</p>
 		<select id="senderAddress" name="senderAddress" >
                <c:forEach items="${addressesList}" var="item">
-                <option value ="${item.id}">id${item.id} ${item.city} ${item.street} ${item.houseNumber} ${item.apartmentNumber}</option>
+                <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
                  <input type="button" class="button" value="Нова адреса" onclick="location.href='./addAddress'" />
                  
                            
-                 <p>Адреса отримувача</p>
+                 <p>Адреса отримувача:</p>
 		<select id="recipientAddress" name="recipientAddress" >
                 <c:forEach items="${addressesList}" var="item">
-                 <option value ="${item.id}">id${item.id} ${item.city} ${item.street} ${item.houseNumber} ${item.apartmentNumber}</option>
+                 <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
                  <input type="button" class="button" value="Нова адреса" onclick="location.href='./addAddress'" />
                  	
-		<p>Відправник</p>
+		<p>Відправник:</p>
 		<select id="sender" name="sender" >
                 <c:forEach items="${clientsList}" var="item">
-                 <option value ="${item.id}">id${item.id} ${item.surname} ${item.name} ${item.patronymic}</option>
+                 <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
                  <input type="button" class="button" value="Новий клієнт" onclick="location.href='./addClient'" />
-		<p>Отримувач</p>
+		<p>Отримувач:</p>
 		<select id="recipient" name="recipient" >
                 <c:forEach items="${clientsList}" var="item">
-                 <option value ="${item.id}">id${item.id} ${item.surname} ${item.name} ${item.patronymic}</option>
+                 <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
                  <input type="button" class="button" value="Новий клієнт" onclick="location.href='./addClient'" />
-		<p>Кур'єр</p>
+		<p>Кур'єр:</p>
 		<select id="courier" name="courier" >
                 <c:forEach items="${couriersList}" var="item">
-                 <option value ="${item.id}">id${item.id} ${item.surname} ${item.name} ${item.patronymic}</option>
+                 <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
 

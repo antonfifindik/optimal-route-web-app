@@ -9,12 +9,17 @@
 <body>
 	
 	<div align="center">
+	<h1>Підтвердіть видалення</h1>
 	<form name="order" action="./deleteOrder" method="post">
 		<p>id: ${orderForDelete.id}</p>
-		<p>Адреса відправника: ${orderForDelete.senderAddress.city} ${orderForDelete.senderAddress.street} ${orderForDelete.senderAddress.houseNumber}/${orderForDelete.senderAddress.apartmentNumber}</p>
-		<p>Адреса отримувача: ${orderForDelete.recipientAddress.city} ${orderForDelete.recipientAddress.street} ${orderForDelete.recipientAddress.houseNumber}/${orderForDelete.recipientAddress.apartmentNumber}</p></p>
-		<p>Відправник: ${orderForDelete.id}</p>
-		<input type="submit" value="OK"> <input type="button" class="button" value="Отмена" onclick="location.href='./'" />	
+		<p>Адреса відправника: ${orderForDelete.senderAddress}</p>
+		<p>Адреса отримувача: ${orderForDelete.recipientAddress}</p></p>
+		<p>Відправник: ${orderForDelete.sender}</p>
+		<p>Отримувач: ${orderForDelete.recipient}</p>
+		<p>Кур'єр: ${orderForDelete.courier}</p>
+		<p>Дата заказу: ${orderForDelete.date}</p>
+		<p>Статус: ${orderForDelete.status}</p>
+		<input type="submit" value="Видалити"> <input type="button" class="button" value="Отмена" onclick="location.href='./'" />	
 	</form></div>
 	
 </body>
