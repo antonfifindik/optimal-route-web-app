@@ -1,24 +1,15 @@
 package com.optimalroute.app.dao;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import com.optimalroute.app.configs.SpringConfig;
 import com.optimalroute.app.interfaces.IOrderDao;
-import com.optimalroute.app.objects.Address;
-import com.optimalroute.app.objects.Client;
-import com.optimalroute.app.objects.Courier;
 import com.optimalroute.app.objects.Order;
-import com.optimalroute.app.rowmappers.AddressMapper;
-import com.optimalroute.app.rowmappers.ClientMapper;
-import com.optimalroute.app.rowmappers.CourierMapper;
 import com.optimalroute.app.rowmappers.OrderMapper;
 
 @Component("mySqlOrderDao")
@@ -48,21 +39,6 @@ public class MySqlOrderDao implements IOrderDao {
 	}
 
 	@Override
-	public void insert(Address address) {
-		jdbcTemplate.update(String.format("insert into addresses (city, street, house_number, apartment_number) values ('%s','%s','%s','%s');", address.getCity(), address.getStreet(), address.getHouseNumber(), address.getApartmentNumber()));
-	}
-
-	@Override
-	public void insert(Client client) {
-		jdbcTemplate.update(String.format("insert into clients (surname, name, patronymic, phone_number) values ('%s','%s','%s','%s');", client.getSurname(), client.getName(), client.getPatronymic(), client.getPhoneNumber()));
-	}
-
-	@Override
-	public void insert(Courier courier) {
-		jdbcTemplate.update(String.format("insert into couriers (surname, name, patronymic, phone_number) values ('%s','%s','%s','%s');", courier.getSurname(), courier.getName(), courier.getPatronymic(), courier.getPhoneNumber()));
-	}
-
-	@Override
 	public Order selectOrderById(int id) {
 		String sql = String.format("select * from orders where id = %d;", id);
 		return jdbcTemplate.query(sql, new OrderMapper()).get(0);
@@ -84,47 +60,39 @@ public class MySqlOrderDao implements IOrderDao {
 		return jdbcTemplate.query("select * from orders", new OrderMapper());
 	}
 
-	@Override
-	public List<Courier> findAllCouriers() {
-		return jdbcTemplate.query("select * from couriers", new CourierMapper());
-	}
-
-	@Override
-	public List<Address> findAllAddresses() {
-		return jdbcTemplate.query("select * from addresses", new AddressMapper());
-	}
-
-	@Override
-	public List<Client> findAllClients() {
-		return jdbcTemplate.query("select * from clients", new ClientMapper());
-	}
-
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
 	}
-
-	public static void main(String[] args) { // test
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
-		MySqlOrderDao mySqlOrderDao = (MySqlOrderDao) context.getBean("mySqlOrderDao");
-		String surname = mySqlOrderDao.jdbcTemplate.queryForObject("select order_date from orders where id = 2;", String.class);
-		System.err.println(surname);
-		LocalDate date = LocalDate.parse(surname);
-		System.err.println(date);
-		System.err.println(date.getYear());
-		System.err.println(date.getMonthValue());
-		System.err.println(date.getDayOfMonth());
-
-		Address address = mySqlOrderDao.jdbcTemplate.queryForObject("select * from addresses where id = 2;", new AddressMapper());
-		System.out.println(address);
-		Client client = mySqlOrderDao.jdbcTemplate.queryForObject("select * from clients where id = 2;", new ClientMapper());
-		System.out.println(client);
-		Courier courier = mySqlOrderDao.jdbcTemplate.queryForObject("select * from couriers where id = 2;", new CourierMapper());
-		System.out.println(courier);
-		Order order = mySqlOrderDao.jdbcTemplate.queryForObject("select * from orders where id = 2;", new OrderMapper());
-		System.err.println(order);
-		mySqlOrderDao.findAllCouriers().stream().forEach(System.out::println);
-
-		System.out.println(LocalDate.now());
-	}
+	//
+	// public static void main(String[] args) { // test
+	// AnnotationConfigApplicationContext context = new
+	// AnnotationConfigApplicationContext(SpringConfig.class);
+	// MySqlOrderDao mySqlOrderDao = (MySqlOrderDao)
+	// context.getBean("mySqlOrderDao");
+	// String surname = mySqlOrderDao.jdbcTemplate.queryForObject("select order_date
+	// from orders where id = 2;", String.class);
+	// System.err.println(surname);
+	// LocalDate date = LocalDate.parse(surname);
+	// System.err.println(date);
+	// System.err.println(date.getYear());
+	// System.err.println(date.getMonthValue());
+	// System.err.println(date.getDayOfMonth());
+	//
+	// Address address = mySqlOrderDao.jdbcTemplate.queryForObject("select * from
+	// addresses where id = 2;", new AddressMapper());
+	// System.out.println(address);
+	// Client client = mySqlOrderDao.jdbcTemplate.queryForObject("select * from
+	// clients where id = 2;", new ClientMapper());
+	// System.out.println(client);
+	// Courier courier = mySqlOrderDao.jdbcTemplate.queryForObject("select * from
+	// couriers where id = 2;", new CourierMapper());
+	// System.out.println(courier);
+	// Order order = mySqlOrderDao.jdbcTemplate.queryForObject("select * from orders
+	// where id = 2;", new OrderMapper());
+	// System.err.println(order);
+	// mySqlOrderDao.findAllCouriers().stream().forEach(System.out::println);
+	//
+	// System.out.println(LocalDate.now());
+	// }
 
 }

@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.optimalroute.app.interfaces.IOrderService;
+import com.optimalroute.app.interfaces.ICourierService;
 import com.optimalroute.app.objects.Courier;
 
 @Controller
 public class CRUDCourierController {
 	@Autowired
-	private IOrderService orderService;
+	private ICourierService courierService;
 
 	@RequestMapping(value = "/couriers", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-		ArrayList<Courier> couriersList = (ArrayList<Courier>) orderService.findAllCouriers();
+		ArrayList<Courier> couriersList = (ArrayList<Courier>) courierService.findAllCouriers();
 
 		model.addAttribute("couriersList", couriersList);
 
@@ -35,7 +35,7 @@ public class CRUDCourierController {
 
 	@RequestMapping(value = "/addCourier", method = RequestMethod.POST)
 	public String addCourier(@ModelAttribute("courier") Courier courier) {
-		orderService.insert(courier);
+		courierService.insert(courier);
 		return "redirect:/addOrder";
 	}
 }

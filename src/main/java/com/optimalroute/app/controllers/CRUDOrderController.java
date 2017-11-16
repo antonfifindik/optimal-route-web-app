@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.optimalroute.app.interfaces.IAddressService;
+import com.optimalroute.app.interfaces.IClientService;
+import com.optimalroute.app.interfaces.ICourierService;
 import com.optimalroute.app.interfaces.IOrderService;
 import com.optimalroute.app.objects.Address;
 import com.optimalroute.app.objects.Client;
@@ -21,13 +24,20 @@ public class CRUDOrderController {
 
 	@Autowired
 	private IOrderService orderService;
+	@Autowired
+	private IAddressService addressService;
+	@Autowired
+	private IClientService clientService;
+	@Autowired
+	private ICourierService courierService;
+
 	private static int idDelete;
 
 	@RequestMapping(value = "/addOrder", method = RequestMethod.GET)
 	public String addOrderPage(Model model) {
-		List<Courier> couriersList = orderService.findAllCouriers();
-		List<Address> addressesList = orderService.findAllAddresses();
-		List<Client> clientsList = orderService.findAllClients();
+		List<Courier> couriersList = courierService.findAllCouriers();
+		List<Address> addressesList = addressService.findAllAddresses();
+		List<Client> clientsList = clientService.findAllClients();
 		Collections.sort(couriersList, ((c1, c2) -> c2.getId() - c1.getId()));
 		Collections.sort(addressesList, ((a1, a2) -> a2.getId() - a1.getId()));
 		Collections.sort(clientsList, ((c1, c2) -> c2.getId() - c1.getId()));

@@ -2,9 +2,6 @@ package com.optimalroute.app.interfaces;
 
 import java.util.List;
 
-import com.optimalroute.app.objects.Address;
-import com.optimalroute.app.objects.Client;
-import com.optimalroute.app.objects.Courier;
 import com.optimalroute.app.objects.Order;
 
 public interface IOrderDao {
@@ -14,12 +11,6 @@ public interface IOrderDao {
 
 	void insert(String sql);
 
-	void insert(Address address);
-
-	void insert(Client client);
-
-	void insert(Courier courier);
-
 	Order selectOrderById(int id);
 
 	void delete(Order order);
@@ -28,9 +19,4 @@ public interface IOrderDao {
 
 	List<Order> findAllOrders();
 
-	List<Courier> findAllCouriers();
-
-	List<Address> findAllAddresses();
-
-	List<Client> findAllClients();
 }

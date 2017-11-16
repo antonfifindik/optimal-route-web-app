@@ -10,18 +10,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.optimalroute.app.interfaces.IOrderService;
+import com.optimalroute.app.interfaces.IClientService;
 import com.optimalroute.app.objects.Client;
 
 @Controller
 public class CRUDClientController {
 	@Autowired
-	private IOrderService orderService;
+	private IClientService clientService;
 
 	@RequestMapping(value = "/clients", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-		ArrayList<Client> clientsList = (ArrayList<Client>) orderService.findAllClients();
+		ArrayList<Client> clientsList = (ArrayList<Client>) clientService.findAllClients();
 
 		model.addAttribute("clientsList", clientsList);
 
@@ -35,7 +35,7 @@ public class CRUDClientController {
 
 	@RequestMapping(value = "/addClient", method = RequestMethod.POST)
 	public String addClient(@ModelAttribute("client") Client client) {
-		orderService.insert(client);
+		clientService.insert(client);
 		return "redirect:/addOrder";
 	}
 }
