@@ -113,4 +113,11 @@ public class HomeController {
 		return "redirect:/addOrder";
 	}
 
+	@RequestMapping(value = "/deleteOrder", method = RequestMethod.GET)
+	public String deleteOrder(HttpServletRequest request, Model model) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		model.addAttribute("orderForDelete", mySqlOrderDao.selectOrderById(id));
+		return "confirmationOfDeletion";
+	}
+
 }

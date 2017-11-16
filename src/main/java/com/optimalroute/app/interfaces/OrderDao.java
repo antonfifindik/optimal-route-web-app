@@ -20,6 +20,8 @@ public interface OrderDao {
 
 	void insert(Courier courier);
 
+	Order selectOrderById(int id);
+
 	void delete(Order order);
 
 	void delete(int id);
