@@ -1,8 +1,6 @@
 package com.optimalroute.app.controllers;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -37,12 +35,6 @@ public class HomeController {
 
 		ArrayList<Order> ordersList = (ArrayList<Order>) orderService.findAllOrders();
 
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("ordersList", ordersList);
 
 		return "home";

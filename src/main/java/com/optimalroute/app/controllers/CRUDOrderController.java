@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -47,39 +46,6 @@ public class CRUDOrderController {
 		orderService.insert(sql);
 
 		return "redirect:/";
-	}
-
-	@RequestMapping(value = "/addAddress", method = RequestMethod.GET)
-	public String addAddressPage(Model model) {
-		return "addAddress";
-	}
-
-	@RequestMapping(value = "/addAddress", method = RequestMethod.POST)
-	public String addAddress(@ModelAttribute("address") Address address) {
-		orderService.insert(address);
-		return "redirect:/addOrder";
-	}
-
-	@RequestMapping(value = "/addClient", method = RequestMethod.GET)
-	public String addClientPage(Model model) {
-		return "addClient";
-	}
-
-	@RequestMapping(value = "/addClient", method = RequestMethod.POST)
-	public String addClient(@ModelAttribute("client") Client client) {
-		orderService.insert(client);
-		return "redirect:/addOrder";
-	}
-
-	@RequestMapping(value = "/addCourier", method = RequestMethod.GET)
-	public String addCourierPage(Model model) {
-		return "addCourier";
-	}
-
-	@RequestMapping(value = "/addCourier", method = RequestMethod.POST)
-	public String addCourier(@ModelAttribute("courier") Courier courier) {
-		orderService.insert(courier);
-		return "redirect:/addOrder";
 	}
 
 	@RequestMapping(value = "/deleteOrder", method = RequestMethod.GET)

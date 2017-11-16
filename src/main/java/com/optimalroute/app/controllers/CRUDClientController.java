@@ -11,32 +11,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.optimalroute.app.interfaces.IOrderService;
-import com.optimalroute.app.objects.Address;
+import com.optimalroute.app.objects.Client;
 
 @Controller
-public class CRUDAddressController {
-
+public class CRUDClientController {
 	@Autowired
 	private IOrderService orderService;
 
-	@RequestMapping(value = "/addresses", method = RequestMethod.GET)
+	@RequestMapping(value = "/clients", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-		ArrayList<Address> addressesList = (ArrayList<Address>) orderService.findAllAddresses();
+		ArrayList<Client> clientsList = (ArrayList<Client>) orderService.findAllClients();
 
-		model.addAttribute("addressesList", addressesList);
+		model.addAttribute("clientsList", clientsList);
 
-		return "addresses";
+		return "clients";
 	}
 
-	@RequestMapping(value = "/addAddress", method = RequestMethod.GET)
-	public String addAddressPage(Model model) {
-		return "addAddress";
+	@RequestMapping(value = "/addClient", method = RequestMethod.GET)
+	public String addClientPage(Model model) {
+		return "addClient";
 	}
 
-	@RequestMapping(value = "/addAddress", method = RequestMethod.POST)
-	public String addAddress(@ModelAttribute("address") Address address) {
-		orderService.insert(address);
+	@RequestMapping(value = "/addClient", method = RequestMethod.POST)
+	public String addClient(@ModelAttribute("client") Client client) {
+		orderService.insert(client);
 		return "redirect:/addOrder";
 	}
 }

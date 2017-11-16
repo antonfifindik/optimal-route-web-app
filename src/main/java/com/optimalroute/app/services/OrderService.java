@@ -1,4 +1,4 @@
-package com.optimalroute.app.daoservices;
+package com.optimalroute.app.services;
 
 import java.util.List;
 
