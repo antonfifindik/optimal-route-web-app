@@ -34,13 +34,19 @@ public class MySqlAddressDao implements IAddressDao {
 
 	@Override
 	public void delete(Address address) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void delete(int id) {
 		jdbcTemplate.update(String.format("delete from addresses where id = %s", id));
+	}
+
+	@Override
+	public void update(Address address) {
+		String sql = String.format("update addresses set city='%s', street='%s', house_number='%s', apartment_number='%s'  where id = %d", address.getCity(), address.getStreet(), address.getHouseNumber(), address.getApartmentNumber(),
+				address.getId());
+		jdbcTemplate.update(sql);
 	}
 
 	@Override

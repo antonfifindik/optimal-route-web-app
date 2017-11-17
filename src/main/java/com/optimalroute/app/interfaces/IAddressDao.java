@@ -14,5 +14,7 @@ public interface IAddressDao {
 
 	void delete(int id);
 
+	void update(Address address);
+
 	List<Address> findAllAddresses();
 }

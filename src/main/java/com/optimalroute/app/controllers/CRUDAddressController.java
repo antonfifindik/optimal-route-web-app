@@ -21,6 +21,7 @@ public class CRUDAddressController {
 	@Autowired
 	private IAddressService addressService;
 	private static int idDelete;
+	private static int idUpdate;
 
 	@RequestMapping(value = "/addresses", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -63,4 +64,20 @@ public class CRUDAddressController {
 
 		return "redirect:/addresses";
 	}
+
+	@RequestMapping(value = "/updateAddress", method = RequestMethod.GET)
+	public String updateAddress(HttpServletRequest request, Model model) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		idUpdate = id;
+		model.addAttribute("updateAddress", addressService.selectAddressById(id));
+		return "updateAddress";
+	}
+
+	@RequestMapping(value = "/updateAddress", method = RequestMethod.POST)
+	public String updateAddress(@ModelAttribute("address") Address address) {
+		address.setId(idUpdate);
+		addressService.update(address);
+		return "redirect:/addresses";
+	}
+
 }

@@ -41,6 +41,11 @@ public class AddressService implements IAddressService {
 	}
 
 	@Override
+	public void update(Address address) {
+		addressDao.update(address);
+	}
+
+	@Override
 	@Transactional(readOnly = true)
 	public List<Address> findAllAddresses() {
 		return addressDao.findAllAddresses();
