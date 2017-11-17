@@ -42,6 +42,12 @@ public class ClientService implements IClientService {
 	}
 
 	@Override
+	@Transactional
+	public void update(Client client) {
+		clientDao.update(client);
+	}
+
+	@Override
 	@Transactional(readOnly = true)
 	public List<Client> findAllClients() {
 		return clientDao.findAllClients();

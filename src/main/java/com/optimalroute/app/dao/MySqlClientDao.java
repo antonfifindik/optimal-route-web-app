@@ -34,13 +34,18 @@ public class MySqlClientDao implements IClientDao {
 
 	@Override
 	public void delete(Client client) {
-		// TODO Auto-generated method stub
-
+		jdbcTemplate.update(String.format("delete from clients where id = %s", client.getId()));
 	}
 
 	@Override
 	public void delete(int id) {
 		jdbcTemplate.update(String.format("delete from clients where id = %s", id));
+	}
+
+	@Override
+	public void update(Client client) {
+		String sql = String.format("update clients set surname='%s', name='%s', patronymic='%s', phone_number='%s'  where id = %d", client.getSurname(), client.getName(), client.getPatronymic(), client.getPhoneNumber(), client.getId());
+		jdbcTemplate.update(sql);
 	}
 
 	@Override

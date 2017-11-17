@@ -14,6 +14,8 @@ public interface IClientService {
 
 	void delete(int id);
 
+	void update(Client client);
+
 	List<Client> findAllClients();
 
 }

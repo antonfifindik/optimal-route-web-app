@@ -41,6 +41,7 @@ public class AddressService implements IAddressService {
 	}
 
 	@Override
+	@Transactional
 	public void update(Address address) {
 		addressDao.update(address);
 	}

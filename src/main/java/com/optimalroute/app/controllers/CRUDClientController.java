@@ -18,7 +18,8 @@ import com.optimalroute.app.objects.Client;
 @Controller
 public class CRUDClientController {
 
-	private static int idDelete;
+	private static Client deleteClient;
+	private static Client updateClient;
 
 	@Autowired
 	private IClientService clientService;
@@ -47,8 +48,8 @@ public class CRUDClientController {
 	@RequestMapping(value = "/deleteClient", method = RequestMethod.GET)
 	public String deleteClient(HttpServletRequest request, Model model) {
 		int id = Integer.parseInt(request.getParameter("id"));
-		idDelete = id;
-		model.addAttribute("clientForDelete", clientService.selectClientById(id));
+		deleteClient = clientService.selectClientById(id);
+		model.addAttribute("clientForDelete", deleteClient);
 		return "confirmationOfDeletionClient";
 	}
 
@@ -56,12 +57,28 @@ public class CRUDClientController {
 	public String delete(HttpServletRequest request, Model model) {
 
 		try {
-			clientService.delete(idDelete);
+			clientService.delete(deleteClient);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "errorDelete";
 		}
 
+		return "redirect:/clients";
+	}
+
+	@RequestMapping(value = "/updateClient", method = RequestMethod.GET)
+	public String updateClient(HttpServletRequest request, Model model) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		updateClient = clientService.selectClientById(id);
+
+		model.addAttribute("updateClient", updateClient);
+		return "updateClient";
+	}
+
+	@RequestMapping(value = "/updateClient", method = RequestMethod.POST)
+	public String updateClient(@ModelAttribute("client") Client client) {
+		client.setId(updateClient.getId());
+		clientService.update(client);
 		return "redirect:/clients";
 	}
 }
