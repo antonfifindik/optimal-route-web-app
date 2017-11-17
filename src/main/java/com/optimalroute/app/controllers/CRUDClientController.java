@@ -53,13 +53,13 @@ public class CRUDClientController {
 	}
 
 	@RequestMapping(value = "/deleteClient", method = RequestMethod.POST)
-	public String deleteClient(HttpServletRequest request) {
+	public String delete(HttpServletRequest request, Model model) {
 
 		try {
 			clientService.delete(idDelete);
 		} catch (Exception e) {
-			System.err.println("Неможливо видалити запис, так як є пов'язані записи!");
-			System.out.println(e.getMessage());
+			model.addAttribute("errorMessage", e.getMessage());
+			return "errorDelete";
 		}
 
 		return "redirect:/clients";

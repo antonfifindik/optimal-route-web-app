@@ -52,13 +52,13 @@ public class CRUDAddressController {
 	}
 
 	@RequestMapping(value = "/deleteAddress", method = RequestMethod.POST)
-	public String deleteAddress(HttpServletRequest request) {
+	public String delete(HttpServletRequest request, Model model) {
 
 		try {
 			addressService.delete(idDelete);
 		} catch (Exception e) {
-			System.err.println("Неможливо видалити запис, так як є пов'язані записи!");
-			System.out.println(e.getMessage());
+			model.addAttribute("errorMessage", e.getMessage());
+			return "errorDelete";
 		}
 
 		return "redirect:/addresses";

@@ -44,7 +44,7 @@ public class CRUDCourierController {
 	}
 
 	@RequestMapping(value = "/deleteCourier", method = RequestMethod.GET)
-	public String deleteCourier(HttpServletRequest request, Model model) {
+	public String delete(HttpServletRequest request, Model model) {
 		int id = Integer.parseInt(request.getParameter("id"));
 		idDelete = id;
 		model.addAttribute("courierForDelete", courierService.selectCourierById(id));
@@ -52,13 +52,13 @@ public class CRUDCourierController {
 	}
 
 	@RequestMapping(value = "/deleteCourier", method = RequestMethod.POST)
-	public String deleteCourier(HttpServletRequest request) {
+	public String deleteCourier(HttpServletRequest request, Model model) {
 
 		try {
 			courierService.delete(idDelete);
 		} catch (Exception e) {
-			System.err.println("Неможливо видалити запис, так як є пов'язані записи!");
-			System.out.println(e.getMessage());
+			model.addAttribute("errorMessage", e.getMessage());
+			return "errorDelete";
 		}
 
 		return "redirect:/couriers";

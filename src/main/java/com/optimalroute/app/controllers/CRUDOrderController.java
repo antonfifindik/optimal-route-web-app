@@ -38,9 +38,9 @@ public class CRUDOrderController {
 		List<Courier> couriersList = courierService.findAllCouriers();
 		List<Address> addressesList = addressService.findAllAddresses();
 		List<Client> clientsList = clientService.findAllClients();
-		Collections.sort(couriersList, ((c1, c2) -> c2.getId() - c1.getId()));
-		Collections.sort(addressesList, ((a1, a2) -> a2.getId() - a1.getId()));
-		Collections.sort(clientsList, ((c1, c2) -> c2.getId() - c1.getId()));
+		Collections.sort(couriersList, ((c1, c2) -> c1.getSurname().compareTo(c2.getSurname())));
+		Collections.sort(addressesList, ((a1, a2) -> a1.getStreet().compareTo(a2.getStreet())));
+		Collections.sort(clientsList, ((c1, c2) -> c1.getSurname().compareTo(c2.getSurname())));
 
 		model.addAttribute("couriersList", couriersList);
 		model.addAttribute("addressesList", addressesList);
