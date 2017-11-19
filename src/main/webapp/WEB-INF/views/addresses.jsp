@@ -5,7 +5,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Адреси</title>
+
+	<style>	
+	.out {
+    margin: 10px;
+}
+
+</style>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -36,10 +44,14 @@
 </div>
 </nav>
 
-  <div align="left">
-            <h1>Адреси</h1>
-            <h3 align="left"><a href="./addAddress">Нова адреса</a></h3>
-            <table border="1">
+  <div class="out" align="left">
+            <div class="page-header">
+  <h1>Адреси</h1>
+</div>
+            <a href="./addAddress" class="btn btn-success"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-plus"></span>Нова адреса</a>
+            
+            
+            <table class="table table-striped table-hover table-condensed table-responsive">
                 <th>Id</th>
                 <th>Місто</th>
                 <th>Вулиця</th>
@@ -49,16 +61,16 @@
    
                 <c:forEach var="address" items="${addressesList}" varStatus="status">
                 <tr>
-                    <td>${address.id}</td>
+                    <td class="info">${address.id}</td>
                     <td>${address.city}</td>
                     <td>${address.street}</td>
                     <td>${address.houseNumber}</td>
                      <td>${address.apartmentNumber}</td>
                     
-                    <td>
-                        <a href="./updateAddress?id=${address.id}">Редагувати</a>
-                        &nbsp;  &nbsp;  &nbsp;	 &nbsp;	
-                        <a href="./deleteAddress?id=${address.id}">Видалити</a>
+                    <td class="warning">
+                        <a href="./updateAddress?id=${address.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-pencil"></span>Редагувати</a>
+                       
+                        <a href="./deleteAddress?id=${address.id}" class="btn btn-xs btn-danger"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-trash"></span>Видалити</a>
                     </td>
                             
                 </tr>

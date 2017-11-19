@@ -5,7 +5,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Клієнти</title>
+
+	<style>
+	
+	.out {
+    margin: 10px;
+}
+	
+	</style>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -36,30 +45,34 @@
 </div>
 </nav>
 
-  <div align="left">
-            <h1>Клієнти</h1>
-            <h3 align="left"><a href="./addClient">Новий Клієнт</a></h3>
-            <table border="1">
+   <div class="out" align="left">
+            <div class="page-header">
+  <h1>Клієнти</h1>
+</div>
+  <a href="./addClient" class="btn btn-success"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-plus"></span>Новий Клієнт</a>
+  
+  
+            <table class="table table-striped table-hover table-condensed table-responsive">
                 <th>Id</th>
                 <th>Призвище</th>
                 <th>Ім'я</th>
-                <th>По батькові</th>
+                <th>По-батькові</th>
                 <th>Номер телефону</th>
                 <th>Редагувати/Видалити</th>
    
                 <c:forEach var="client" items="${clientsList}" varStatus="status">
                 <tr>
-                    <td>${client.id}</td>
+                    <td class="info">${client.id}</td>
                     <td>${client.surname}</td>
                     <td>${client.name}</td>
                     <td>${client.patronymic}</td>
                      <td>${client.phoneNumber}</td>
                     
                     
-                    <td>
-                        <a href="./updateClient?id=${client.id}">Редагувати</a>
-                        &nbsp;  &nbsp;  &nbsp;	 &nbsp;	
-                        <a href="./deleteClient?id=${client.id}">Видалити</a>
+                    <td class="warning">
+                        <a href="./updateClient?id=${client.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-pencil"></span>Редагувати</a>
+                       
+                        <a href="./deleteClient?id=${client.id}" class="btn btn-xs btn-danger"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-trash"></span>Видалити</a>
                     </td>
                             
                 </tr>

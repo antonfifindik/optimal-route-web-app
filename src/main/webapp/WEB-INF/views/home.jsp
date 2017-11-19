@@ -6,6 +6,14 @@
 <head>
 	<title>Закази</title>
 	
+	<style>
+	
+	.out {
+    margin: 10px;
+}
+	
+	</style>
+	
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -36,14 +44,16 @@
 </div>
 </nav>
 
-  <div align="left">
-            <h1>Замовлення</h1>
+  <div class="out" align="left">
+            <div class="page-header">
+  <h1>Замовлення</h1>
+</div>
             
              <a href="./addOrder" class="btn btn-success"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-plus"></span>Новий Заказ</a>
            
 
            
-            <table class="table table-striped table-hover table-condensed">
+            <table class="table table-striped table-hover table-condensed table-responsive">
                 <th>Id</th>
                 <th>Адреса відправника</th>
                 <th>Адреса отримувача</th>
@@ -78,7 +88,6 @@
             
             
         </div>
-
 
 
 
