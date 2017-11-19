@@ -56,6 +56,13 @@ public class MySqlOrderDao implements IOrderDao {
 	}
 
 	@Override
+	public void update(Order order) {
+		String sql = String.format("update from orders set sender_address_id = %d, recipient_address_id = %d, client_sender_id = %d, client_recipient_id = %d, courier_id = %d, status = %d where id = %d", order.getSenderAddress().getId(),
+				order.getRecipientAddress().getId(), order.getSender().getId(), order.getRecipient().getId(), order.getCourier().getId(), order.isStatus() == true ? 1 : 0, order.getId());
+		jdbcTemplate.update(sql);
+	}
+
+	@Override
 	public List<Order> findAllOrders() {
 		return jdbcTemplate.query("select * from orders", new OrderMapper());
 	}

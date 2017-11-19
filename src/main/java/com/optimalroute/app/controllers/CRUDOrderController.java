@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,6 +19,7 @@ import com.optimalroute.app.interfaces.IOrderService;
 import com.optimalroute.app.objects.Address;
 import com.optimalroute.app.objects.Client;
 import com.optimalroute.app.objects.Courier;
+import com.optimalroute.app.objects.Order;
 
 @Controller
 public class CRUDOrderController {
@@ -31,7 +33,8 @@ public class CRUDOrderController {
 	@Autowired
 	private ICourierService courierService;
 
-	private static int idDelete;
+	private static Order deleteOrder;
+	private static Order updateOrder;
 
 	@RequestMapping(value = "/addOrder", method = RequestMethod.GET)
 	public String addOrderPage(Model model) {
@@ -61,14 +64,44 @@ public class CRUDOrderController {
 	@RequestMapping(value = "/deleteOrder", method = RequestMethod.GET)
 	public String deleteOrder(HttpServletRequest request, Model model) {
 		int id = Integer.parseInt(request.getParameter("id"));
-		idDelete = id;
-		model.addAttribute("orderForDelete", orderService.selectOrderById(id));
+		deleteOrder = orderService.selectOrderById(id);
+		model.addAttribute("orderForDelete", deleteOrder);
 		return "confirmationOfDeletion";
 	}
 
 	@RequestMapping(value = "/deleteOrder", method = RequestMethod.POST)
 	public String deleteOrder(HttpServletRequest request) {
-		orderService.delete(idDelete);
+		orderService.delete(deleteOrder);
+		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/updateOrder", method = RequestMethod.GET)
+	public String updateOrder(HttpServletRequest request, Model model) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		updateOrder = orderService.selectOrderById(id);
+
+		List<Courier> couriersList = courierService.findAllCouriers();
+		List<Address> addressesList = addressService.findAllAddresses();
+		List<Client> clientsList = clientService.findAllClients();
+		Collections.sort(couriersList, ((c1, c2) -> c1.getSurname().compareTo(c2.getSurname())));
+		Collections.sort(addressesList, ((a1, a2) -> a1.getStreet().compareTo(a2.getStreet())));
+		Collections.sort(clientsList, ((c1, c2) -> c1.getSurname().compareTo(c2.getSurname())));
+
+		model.addAttribute("couriersList", couriersList);
+		model.addAttribute("addressesList", addressesList);
+		model.addAttribute("clientsList", clientsList);
+
+		model.addAttribute("updateOrder", updateOrder);
+		return "updateOrder";
+	}
+
+	@RequestMapping(value = "/updateOrder", method = RequestMethod.POST)
+	public String updateOrder(@ModelAttribute("order") Order order) {
+		if (!updateOrder.equals(order)) {
+			order.setId(updateOrder.getId());
+			// orderService.update(order);
+			System.out.println(order);
+		}
 		return "redirect:/";
 	}
 }

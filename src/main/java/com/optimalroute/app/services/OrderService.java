@@ -53,6 +53,11 @@ public class OrderService implements IOrderService {
 	}
 
 	@Override
+	public void update(Order order) {
+		orderDao.update(order);
+	}
+
+	@Override
 	@Transactional(readOnly = true)
 	public List<Order> findAllOrders() {
 		return orderDao.findAllOrders();
