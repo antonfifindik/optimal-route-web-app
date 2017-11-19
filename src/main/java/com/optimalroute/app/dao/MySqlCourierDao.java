@@ -44,6 +44,12 @@ public class MySqlCourierDao implements ICourierDao {
 	}
 
 	@Override
+	public void update(Courier courier) {
+		String sql = String.format("update couriers set surname='%s', name='%s', patronymic='%s', phone_number='%s'  where id = %d", courier.getSurname(), courier.getName(), courier.getPatronymic(), courier.getPhoneNumber(), courier.getId());
+		jdbcTemplate.update(sql);
+	}
+
+	@Override
 	public List<Courier> findAllCouriers() {
 		return jdbcTemplate.query("select * from couriers", new CourierMapper());
 	}

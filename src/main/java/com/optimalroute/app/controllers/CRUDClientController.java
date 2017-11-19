@@ -77,8 +77,10 @@ public class CRUDClientController {
 
 	@RequestMapping(value = "/updateClient", method = RequestMethod.POST)
 	public String updateClient(@ModelAttribute("client") Client client) {
-		client.setId(updateClient.getId());
-		clientService.update(client);
+		if (!updateClient.equals(client)) {
+			client.setId(updateClient.getId());
+			clientService.update(client);
+		}
 		return "redirect:/clients";
 	}
 }

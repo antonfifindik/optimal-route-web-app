@@ -8,5 +8,29 @@
 </head>
 <body>
 
+	<div id="navigation">
+			<ul>
+			    <li><a href="./" class="active"><span>Закази</span></a></li>
+			    <li><a href="addresses"><span>Адреси</span></a></li>
+			    <li><a href="clients"><span>Клієнти</span></a></li>
+			    <li><a href="couriers"><span>Кур'єри</span></a></li>
+			    <li><a href="#"><span>Побудова маршруту</span></a></li>
+			</ul>
+		</div>
+
+	<div align="center">
+	<form name="courier" action="./updateCourier" method="post">
+	<p>Призвище:</p>
+		<input title="Surname" type="text" name="surname" value="${updateCourier.surname}">
+		<p>Ім'я:</p>
+		<input title="Name" type="text" name="name" value="${updateCourier.name}">
+		<p>По-батькові:</p>
+		<input title="Patronymic" type="text" name="patronymic" value="${updateCourier.patronymic}">
+		<p>Номер телефону:</p>
+		<input title="PhoneNumber" type="text" name="phoneNumber" value="${updateCourier.phoneNumber}">
+		<input type="submit" value="OK">	
+	</form>
+	</div>
+
 </body>
 </html>

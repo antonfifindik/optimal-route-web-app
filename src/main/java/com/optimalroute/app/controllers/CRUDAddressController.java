@@ -20,8 +20,8 @@ public class CRUDAddressController {
 
 	@Autowired
 	private IAddressService addressService;
-	private static int idDelete;
-	private static int idUpdate;
+	private static Address deleteAddress;
+	private static Address updateAddress;
 
 	@RequestMapping(value = "/addresses", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -47,8 +47,8 @@ public class CRUDAddressController {
 	@RequestMapping(value = "/deleteAddress", method = RequestMethod.GET)
 	public String deleteAddress(HttpServletRequest request, Model model) {
 		int id = Integer.parseInt(request.getParameter("id"));
-		idDelete = id;
-		model.addAttribute("addressForDelete", addressService.selectAddressById(id));
+		deleteAddress = addressService.selectAddressById(id);
+		model.addAttribute("addressForDelete", deleteAddress);
 		return "confirmationOfDeletionAddress";
 	}
 
@@ -56,7 +56,7 @@ public class CRUDAddressController {
 	public String delete(HttpServletRequest request, Model model) {
 
 		try {
-			addressService.delete(idDelete);
+			addressService.delete(deleteAddress);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "errorDelete";
@@ -68,15 +68,17 @@ public class CRUDAddressController {
 	@RequestMapping(value = "/updateAddress", method = RequestMethod.GET)
 	public String updateAddress(HttpServletRequest request, Model model) {
 		int id = Integer.parseInt(request.getParameter("id"));
-		idUpdate = id;
-		model.addAttribute("updateAddress", addressService.selectAddressById(id));
+		updateAddress = addressService.selectAddressById(id);
+		model.addAttribute("updateAddress", updateAddress);
 		return "updateAddress";
 	}
 
 	@RequestMapping(value = "/updateAddress", method = RequestMethod.POST)
 	public String updateAddress(@ModelAttribute("address") Address address) {
-		address.setId(idUpdate);
-		addressService.update(address);
+		if (!updateAddress.equals(address)) {
+			address.setId(updateAddress.getId());
+			addressService.update(address);
+		}
 		return "redirect:/addresses";
 	}
 

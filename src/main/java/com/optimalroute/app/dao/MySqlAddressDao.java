@@ -34,7 +34,7 @@ public class MySqlAddressDao implements IAddressDao {
 
 	@Override
 	public void delete(Address address) {
-
+		jdbcTemplate.update(String.format("delete from addresses where id = %s", address.getId()));
 	}
 
 	@Override

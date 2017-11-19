@@ -14,6 +14,8 @@ public interface ICourierDao {
 
 	void delete(int id);
 
+	void update(Courier courier);
+
 	List<Courier> findAllCouriers();
 
 }

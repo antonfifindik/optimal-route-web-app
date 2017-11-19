@@ -14,6 +14,8 @@ public interface ICourierService {
 
 	void delete(int id);
 
+	void update(Courier courier);
+
 	List<Courier> findAllCouriers();
 
 }

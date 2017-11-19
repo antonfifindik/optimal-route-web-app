@@ -17,7 +17,8 @@ import com.optimalroute.app.objects.Courier;
 
 @Controller
 public class CRUDCourierController {
-	private static int idDelete;
+	private static Courier deleteCourier;
+	private static Courier updateCourier;
 
 	@Autowired
 	private ICourierService courierService;
@@ -46,8 +47,8 @@ public class CRUDCourierController {
 	@RequestMapping(value = "/deleteCourier", method = RequestMethod.GET)
 	public String delete(HttpServletRequest request, Model model) {
 		int id = Integer.parseInt(request.getParameter("id"));
-		idDelete = id;
-		model.addAttribute("courierForDelete", courierService.selectCourierById(id));
+		deleteCourier = courierService.selectCourierById(id);
+		model.addAttribute("courierForDelete", deleteCourier);
 		return "confirmationOfDeletionCourier";
 	}
 
@@ -55,12 +56,30 @@ public class CRUDCourierController {
 	public String deleteCourier(HttpServletRequest request, Model model) {
 
 		try {
-			courierService.delete(idDelete);
+			courierService.delete(deleteCourier);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", e.getMessage());
 			return "errorDelete";
 		}
 
+		return "redirect:/couriers";
+	}
+
+	@RequestMapping(value = "/updateCourier", method = RequestMethod.GET)
+	public String updateCourier(HttpServletRequest request, Model model) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		updateCourier = courierService.selectCourierById(id);
+
+		model.addAttribute("updateCourier", updateCourier);
+		return "updateCourier";
+	}
+
+	@RequestMapping(value = "/updateCourier", method = RequestMethod.POST)
+	public String updateCourier(@ModelAttribute("courier") Courier courier) {
+		if (!updateCourier.equals(courier)) {
+			courier.setId(updateCourier.getId());
+			courierService.update(courier);
+		}
 		return "redirect:/couriers";
 	}
 }

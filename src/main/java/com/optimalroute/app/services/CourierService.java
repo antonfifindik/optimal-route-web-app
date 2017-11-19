@@ -40,6 +40,12 @@ public class CourierService implements ICourierService {
 	}
 
 	@Override
+	@Transactional
+	public void update(Courier courier) {
+		courierDao.update(courier);
+	}
+
+	@Override
 	@Transactional(readOnly = true)
 	public List<Courier> findAllCouriers() {
 		return courierDao.findAllCouriers();
