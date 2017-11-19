@@ -9,7 +9,7 @@
 
 	<style>	
 	.out {
-    margin: 10px;
+    margin: 30px;
 }
 
 </style>
@@ -52,12 +52,13 @@
             
             
             <table class="table table-striped table-hover table-condensed table-responsive">
-                <th>Id</th>
+                <th width="30px">Id</th>
                 <th>Місто</th>
                 <th>Вулиця</th>
                 <th>Номер будинку</th>
                 <th>Квартира</th>
-                <th>Редагувати/Видалити</th>
+                <th width="190px"></th>
+         
    
                 <c:forEach var="address" items="${addressesList}" varStatus="status">
                 <tr>
@@ -67,11 +68,13 @@
                     <td>${address.houseNumber}</td>
                      <td>${address.apartmentNumber}</td>
                     
-                    <td class="warning">
+                    <td align="right" class="warning">
                         <a href="./updateAddress?id=${address.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-pencil"></span>Редагувати</a>
                        
                         <a href="./deleteAddress?id=${address.id}" class="btn btn-xs btn-danger"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-trash"></span>Видалити</a>
                     </td>
+                    
+                  
                             
                 </tr>
                 </c:forEach>             

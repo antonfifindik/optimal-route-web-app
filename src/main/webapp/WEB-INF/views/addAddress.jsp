@@ -35,7 +35,7 @@
 </div>
 </nav>
 
-	<div align="center">
+	<div class="container" align="center">
 	<form name="address" action="./addAddress" method="post">
 	<p>Місто:</p>
 		<input title="City" type="text" name="city" value="Вінниця">

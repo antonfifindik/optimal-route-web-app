@@ -38,7 +38,9 @@
 </div>
 </nav>
 
-<div align="center">
+
+
+<div class="container" align="center">
 <h1>Новий заказ</h1>
 		<form name="order" action="./addOrder" method="post">
 		<p>Адреса відправника:</p>

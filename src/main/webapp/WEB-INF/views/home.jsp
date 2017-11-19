@@ -9,7 +9,7 @@
 	<style>
 	
 	.out {
-    margin: 10px;
+    margin: 30px;
 }
 	
 	</style>
@@ -44,7 +44,7 @@
 </div>
 </nav>
 
-  <div class="out" align="left">
+   <div class="out" align="left">
             <div class="page-header">
   <h1>Замовлення</h1>
 </div>
@@ -54,14 +54,14 @@
 
            
             <table class="table table-striped table-hover table-condensed table-responsive">
-                <th>Id</th>
+                <th width="30px">Id</th>
                 <th>Адреса відправника</th>
                 <th>Адреса отримувача</th>
                 <th>Відправник</th>
                 <th>Отримувач</th>
                 <th>Дата заказу</th>
                 <th>Статус</th>
-                <th>Редагувати/Видалити</th>
+                <th></th>
    
                 <c:forEach var="order" items="${ordersList}" varStatus="status">
                 <tr>
@@ -73,12 +73,12 @@
                     <td>${order.date}</td>
                     <td class="warning">${order.status}</td>
                     
-                    <td class="warning">
+                    <td align="right" class="warning">
                         <a href="./updateOrder?id=${order.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-pencil"></span>Редагувати</a>
-                       
                         <a href="./deleteOrder?id=${order.id}" class="btn btn-xs btn-danger"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-trash"></span>Видалити</a>
+                      
                     </td>
-                            
+                     
                 </tr>
                 </c:forEach>             
             </table>
@@ -88,7 +88,6 @@
             
             
         </div>
-
 
 
 </body>

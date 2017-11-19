@@ -35,7 +35,7 @@
 </div>
 </nav>
 	
-	<div align="center">
+	<div class="container" align="center">
 	<form name="client" action="./addClient" method="post">
 	<p>Призвище:</p>
 		<input title="Surname" type="text" name="surname">

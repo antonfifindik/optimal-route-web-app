@@ -9,7 +9,7 @@
 	<style>
 	
 	.out {
-    margin: 10px;
+    margin: 30px;
 }
 	
 	</style>
@@ -53,12 +53,12 @@
 
             
              <table class="table table-striped table-hover table-condensed table-responsive">
-                <th>Id</th>
+                <th width="30px">Id</th>
                 <th>Призвище</th>
                 <th>Ім'я</th>
                 <th>По батькові</th>
                 <th>Номер телефону</th>
-                <th>Редагувати/Видалити</th>
+                <th width="190px"></th>
    
                 <c:forEach var="courier" items="${couriersList}" varStatus="status">
                 <tr>
@@ -69,7 +69,7 @@
                      <td>${courier.phoneNumber}</td>
                     
                     
-                     <td class="warning">
+                     <td align="right" class="warning">
                         <a href="./updateCourier?id=${courier.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-pencil"></span>Редагувати</a>
                        
                         <a href="./deleteCourier?id=${courier.id}" class="btn btn-xs btn-danger"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-trash"></span>Видалити</a>
