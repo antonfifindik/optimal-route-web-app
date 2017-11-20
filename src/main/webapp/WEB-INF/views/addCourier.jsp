@@ -4,7 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Новий кур'єр</title>
+
+<style>
+
+.aligntop {
+		margin-top: 20px;
+	}
+
+</style>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -36,6 +45,9 @@
 </nav>
 
 	<div class="container" align="center">
+	<div class="page-header">
+  <h1>Новий клієнт</h1>
+</div>
 	<form name="courier" action="./addCourier" method="post">
 	<p>Призвище:</p>
 		<input title="Surname" type="text" name="surname">
@@ -44,8 +56,8 @@
 		<p>По батькові:</p>
 		<input title="Patronymic" type="text" name="patronymic">
 		<p>Телефон:</p>
-		<input title="PhoneNumber" type="text" name="phoneNumber">
-		<input type="submit" value="OK">	
+		<input title="PhoneNumber" type="text" name="phoneNumber"> <br>
+		<input type="submit" value="Прийняти" class="btn btn-sm btn-warning aligntop"> 
 	</form>
 	</div>
 

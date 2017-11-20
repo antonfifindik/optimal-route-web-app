@@ -4,7 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Нова адреса</title>
+
+<style>
+
+.aligntop {
+		margin-top: 20px;
+	}
+
+</style>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -36,6 +45,10 @@
 </nav>
 
 	<div class="container" align="center">
+	 <div class="page-header">
+  <h1>Нова адреса</h1>
+</div>
+	
 	<form name="address" action="./addAddress" method="post">
 	<p>Місто:</p>
 		<input title="City" type="text" name="city" value="Вінниця">
@@ -44,8 +57,8 @@
 		<p>Номер будинку:</p>
 		<input title="HouseNumber" type="text" name="houseNumber">
 		<p>Номер квартири:</p>
-		<input title="ApartmentNumber" type="text" name="apartmentNumber">
-		<input type="submit" value="OK">	
+		<input title="ApartmentNumber" type="text" name="apartmentNumber"> <br>
+		<input type="submit" value="Прийняти" class="btn btn-sm btn-warning aligntop"> 
 	</form>
 	</div>
 	

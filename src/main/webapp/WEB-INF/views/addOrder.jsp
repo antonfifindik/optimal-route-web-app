@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Новий заказ</title>
 
 	<style>
 	
@@ -21,8 +21,10 @@
     }
 
 	.aligntop {
-		margin-top: 10px;
+		margin-top: 20px;
 	}
+	
+	
 		
 	</style>
 
@@ -60,9 +62,11 @@
 
 
 <div class="container" align="center">
-<h1>Новий заказ</h1>
+   <div class="page-header">
+  <h1>Новий заказ</h1>
+</div>
 		<form name="order" action="./addOrder" method="post">
-		<p>Адреса відправника:</p>
+		<p class="palign">Адреса відправника:</p>
 		<select id="senderAddress" name="senderAddress">
                <c:forEach items="${addressesList}" var="item">
                 <option value ="${item.id}">${item}</option>
