@@ -67,57 +67,63 @@
 </div>
 		<form name="order" action="./addOrder" method="post">
 		<div style="display: flex; justify-content:center;" class="aligntop">
-		<select class="form-control" id="senderAddress" name="senderAddress">
+		<select class="form-control" id="senderAddress" name="senderAddress" required>
+		<option  selected disabled value=''>Адреса відправника</option>
                <c:forEach items="${addressesList}" var="item">
                 <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
              
-                   <a   href="./addAddress" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Нова адреса</a>
+                   <a   href="./addAddress" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-home"></span>Нова адреса</a>
              </div>              
                
                <div style="display: flex; justify-content:center;" class="aligntop">
                
-		<select class="form-control" id="recipientAddress" name="recipientAddress" >
+		<select class="form-control" id="recipientAddress" name="recipientAddress" required>
+		<option  selected disabled value=''>Адреса отримувача</option>
                 <c:forEach items="${addressesList}" var="item">
                  <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
-                 <a href="./addAddress" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Нова адреса</a>
+                 <a href="./addAddress" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-home"></span>Нова адреса</a>
                  	</div>
 		
 		 <div style="display: flex; justify-content:center;" class="aligntop">
 		
-		<select  class="form-control"  id="sender" name="sender" >
+		<select  class="form-control"  id="sender" name="sender" required>
+		
+		<option  selected disabled value=''>Відправник</option>
                 <c:forEach items="${clientsList}" var="item">
-                 <option value ="${item.id}">${item}</option>
+                 <option  value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
-                 <a href="./addClient" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий клієнт</a>
+                 <a href="./addClient" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-user"></span>Новий клієнт</a>
                  
                  </div>
                  
 		<div style="display: flex; justify-content:center;" class="aligntop">
-		<select  class="form-control"  id="recipient" name="recipient" >
+		<select  class="form-control"  id="recipient" name="recipient" required>
+		<option  selected disabled value=''>Отримувач</option>
                 <c:forEach items="${clientsList}" var="item">
                  <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
-                 <a href="./addClient" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий клієнт</a>
+                 <a href="./addClient" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-user"></span>Новий клієнт</a>
 		</div>
 		
 		<div style="display: flex; justify-content:center;" class="aligntop">
 		
-		<select  class="form-control"  id="courier" name="courier" >
+		<select  class="form-control"  id="courier" name="courier" required>
+		<option selected disabled value=''>Кур'єри</option>
                 <c:forEach items="${couriersList}" var="item">
                  <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
 
-					<a href="./addCourier" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий кур'єр</a><br>
+					<a href="./addCourier" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-send"></span>Новий кур'єр</a><br>
 					</div>
 					
-					<input type="submit" value="Прийняти" class="btn btn-success aligntop"> 
+					<input type="submit" value="Прийняти" class="btn btn-success aligntop " > 
 					
 					
 	</form> 

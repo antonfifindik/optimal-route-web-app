@@ -51,23 +51,23 @@
 	
 	<form name="address" action="./addAddress" method="post">
 			<div class="input-group">
-  <input type="text" name="city" class="form-control" placeholder="Місто" value="Вінниця">
+  <input type="text" name="city" class="form-control" placeholder="Місто" value="Вінниця" required>
 </div>
 		
 		
 			<form name="address" action="./addAddress" method="post">
 			<div class="input-group aligntop">
-  <input type="text" name="street" class="form-control" placeholder="Вулиця">
+  <input type="text" name="street" class="form-control" placeholder="Вулиця" required>
 </div>
 
 			<form name="address" action="./addAddress" method="post">
 			<div class="input-group aligntop">
-  <input type="text" name="houseNumber" class="form-control" placeholder="Будинок">
+  <input type="text" name="houseNumber" class="form-control" placeholder="Будинок" required>
 </div>
 		
 				<form name="address" action="./addAddress" method="post">
 			<div class="input-group aligntop">
-  <input type="text" name="apartmentNumber" class="form-control" placeholder="Квартира">
+  <input type="text" name="apartmentNumber" class="form-control" placeholder="Квартира" required>
 </div>
 		<input type="submit" value="Прийняти" class="btn btn-success aligntop"> 
 	</form>

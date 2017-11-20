@@ -42,7 +42,7 @@
 		<p>Місто: ${addressForDelete.city}</p>
 		<p>Вулиця: ${addressForDelete.street}</p></p>
 		<p>Номер будинку: ${addressForDelete.houseNumber}</p>
-		<p>Номер квартири: ${orderForDelete.apartmentNumber}</p>
+		<p>Номер квартири: ${addressForDelete.apartmentNumber}</p>
 		
 		<input type="submit" value="Видалити"> <input type="button" class="button" value="Отмена" onclick="location.href='./addresses'" />	
 	</form></div>

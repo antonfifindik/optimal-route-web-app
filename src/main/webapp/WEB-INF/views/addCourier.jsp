@@ -46,18 +46,27 @@
 
 	<div class="container" align="center">
 	<div class="page-header">
-  <h1>Новий клієнт</h1>
+  <h1>Новий кур'єр</h1>
 </div>
 	<form name="courier" action="./addCourier" method="post">
-	<p>Призвище:</p>
-		<input title="Surname" type="text" name="surname">
-		<p>Ім'я</p>
-		<input title="Name" type="text" name="name">
-		<p>По батькові:</p>
-		<input title="Patronymic" type="text" name="patronymic">
-		<p>Телефон:</p>
-		<input title="PhoneNumber" type="text" name="phoneNumber"> <br>
-		<input type="submit" value="Прийняти" class="btn btn-sm btn-warning aligntop"> 
+	
+		<div class="input-group aligntop" >
+  <input type="text" name="surname" class="form-control" placeholder="Прізвище" required>
+</div>
+		
+		<div class="input-group aligntop">
+  <input type="text" name="name" class="form-control" placeholder="Ім'я" required>
+</div>
+		
+		<div class="input-group aligntop">
+  <input type="text" name="patronymic" class="form-control" placeholder="По-батькові" required>
+</div>
+		
+		<div style="width:195px;'" class="input-group aligntop">
+		<span class="input-group-addon">+380</span>
+  <input type="text" name="phoneNumber" class="form-control" placeholder="Номер телефону" required>
+</div>
+		<input type="submit" value="Прийняти" class="btn btn-success aligntop">
 	</form>
 	</div>
 

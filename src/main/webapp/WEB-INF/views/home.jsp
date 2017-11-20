@@ -71,7 +71,7 @@
                     <td>${order.sender}</td>
                      <td>${order.recipient}</td>
                     <td>${order.date}</td>
-                    <td class="warning">${order.status}</td>
+                    <td class="warning">${order.status == false ? 'false':'true'}</td>
                     
                     <td align="right" class="warning">
                         <a href="./updateOrder?id=${order.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-pencil"></span>Редагувати</a>
@@ -80,10 +80,12 @@
                     </td>
                      
                 </tr>
-                </c:forEach>             
+                </c:forEach>      
+                
+                       
             </table>
             
-            
+
 
             
             
