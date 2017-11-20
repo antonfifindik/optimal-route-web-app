@@ -50,15 +50,26 @@
 </div>
 	
 	<form name="address" action="./addAddress" method="post">
-	<p>Місто:</p>
-		<input title="City" type="text" name="city" value="Вінниця">
-		<p>Вулиця:</p>
-		<input title="Street" type="text" name="street">
-		<p>Номер будинку:</p>
-		<input title="HouseNumber" type="text" name="houseNumber">
-		<p>Номер квартири:</p>
-		<input title="ApartmentNumber" type="text" name="apartmentNumber"> <br>
-		<input type="submit" value="Прийняти" class="btn btn-sm btn-warning aligntop"> 
+			<div class="input-group">
+  <input type="text" name="city" class="form-control" placeholder="Місто" value="Вінниця">
+</div>
+		
+		
+			<form name="address" action="./addAddress" method="post">
+			<div class="input-group aligntop">
+  <input type="text" name="street" class="form-control" placeholder="Вулиця">
+</div>
+
+			<form name="address" action="./addAddress" method="post">
+			<div class="input-group aligntop">
+  <input type="text" name="houseNumber" class="form-control" placeholder="Будинок">
+</div>
+		
+				<form name="address" action="./addAddress" method="post">
+			<div class="input-group aligntop">
+  <input type="text" name="apartmentNumber" class="form-control" placeholder="Квартира">
+</div>
+		<input type="submit" value="Прийняти" class="btn btn-success aligntop"> 
 	</form>
 	</div>
 	

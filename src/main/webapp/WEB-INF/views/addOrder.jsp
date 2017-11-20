@@ -66,48 +66,58 @@
   <h1>Новий заказ</h1>
 </div>
 		<form name="order" action="./addOrder" method="post">
-		<p class="palign">Адреса відправника:</p>
-		<select id="senderAddress" name="senderAddress">
+		<div style="display: flex; justify-content:center;" class="aligntop">
+		<select class="form-control" id="senderAddress" name="senderAddress">
                <c:forEach items="${addressesList}" var="item">
                 <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
              
-                   <a href="./addAddress" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Нова адреса</a>
-                           
-                 <p>Адреса отримувача:</p>
-		<select id="recipientAddress" name="recipientAddress" >
+                   <a   href="./addAddress" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Нова адреса</a>
+             </div>              
+               
+               <div style="display: flex; justify-content:center;" class="aligntop">
+               
+		<select class="form-control" id="recipientAddress" name="recipientAddress" >
                 <c:forEach items="${addressesList}" var="item">
                  <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
-                 <a href="./addAddress" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Нова адреса</a>
-                 	
-		<p>Відправник:</p>
-		<select id="sender" name="sender" >
+                 <a href="./addAddress" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Нова адреса</a>
+                 	</div>
+		
+		 <div style="display: flex; justify-content:center;" class="aligntop">
+		
+		<select  class="form-control"  id="sender" name="sender" >
                 <c:forEach items="${clientsList}" var="item">
                  <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
-                 <a href="./addClient" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий клієнт</a>
-		<p>Отримувач:</p>
-		<select id="recipient" name="recipient" >
+                 <a href="./addClient" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий клієнт</a>
+                 
+                 </div>
+                 
+		<div style="display: flex; justify-content:center;" class="aligntop">
+		<select  class="form-control"  id="recipient" name="recipient" >
                 <c:forEach items="${clientsList}" var="item">
                  <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
-                 <a href="./addClient" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий клієнт</a>
-		<p>Кур'єр:</p>
-		<select id="courier" name="courier" >
+                 <a href="./addClient" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий клієнт</a>
+		</div>
+		
+		<div style="display: flex; justify-content:center;" class="aligntop">
+		
+		<select  class="form-control"  id="courier" name="courier" >
                 <c:forEach items="${couriersList}" var="item">
                  <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
 
-					<a href="./addCourier" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий кур'єр</a><br>
+					<a href="./addCourier" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий кур'єр</a><br>
+					</div>
 					
-					
-					<input type="submit" value="Прийняти" class="btn btn-sm btn-warning aligntop"> 
+					<input type="submit" value="Прийняти" class="btn btn-success aligntop"> 
 					
 					
 	</form> 
