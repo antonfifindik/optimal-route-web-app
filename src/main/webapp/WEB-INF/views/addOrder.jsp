@@ -8,6 +8,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
+	<style>
+	
+	.out {
+    margin: 30px;
+    
+}
+
+ .container select {
+    width: 300px;
+    margin-right: 5px;
+    }
+
+	.aligntop {
+		margin-top: 10px;
+	}
+		
+	</style>
+
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -44,13 +63,13 @@
 <h1>Новий заказ</h1>
 		<form name="order" action="./addOrder" method="post">
 		<p>Адреса відправника:</p>
-		<select id="senderAddress" name="senderAddress" >
+		<select id="senderAddress" name="senderAddress">
                <c:forEach items="${addressesList}" var="item">
                 <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
-                 <input type="button" class="button" value="Нова адреса" onclick="location.href='./addAddress'" />
-                 
+             
+                   <a href="./addAddress" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Нова адреса</a>
                            
                  <p>Адреса отримувача:</p>
 		<select id="recipientAddress" name="recipientAddress" >
@@ -58,7 +77,7 @@
                  <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
-                 <input type="button" class="button" value="Нова адреса" onclick="location.href='./addAddress'" />
+                 <a href="./addAddress" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Нова адреса</a>
                  	
 		<p>Відправник:</p>
 		<select id="sender" name="sender" >
@@ -66,14 +85,14 @@
                  <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
-                 <input type="button" class="button" value="Новий клієнт" onclick="location.href='./addClient'" />
+                 <a href="./addClient" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий клієнт</a>
 		<p>Отримувач:</p>
 		<select id="recipient" name="recipient" >
                 <c:forEach items="${clientsList}" var="item">
                  <option value ="${item.id}">${item}</option>
                 </c:forEach>
                  </select>
-                 <input type="button" class="button" value="Новий клієнт" onclick="location.href='./addClient'" />
+                 <a href="./addClient" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий клієнт</a>
 		<p>Кур'єр:</p>
 		<select id="courier" name="courier" >
                 <c:forEach items="${couriersList}" var="item">
@@ -81,10 +100,14 @@
                 </c:forEach>
                  </select>
 
-					<input type="button" class="button" value="Новий кур'єр" onclick="location.href='./addCourier'" />
-					<input type="submit" value="OK"> </div>
+					<a href="./addCourier" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий кур'єр</a><br>
+					
+					
+					<input type="submit" value="Прийняти" class="btn btn-sm btn-warning aligntop"> 
+					
+					
 	</form> 
 		
-
+</div>
 </body>
 </html>
