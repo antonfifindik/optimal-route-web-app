@@ -4,8 +4,20 @@
 <%@ page session="false" %>
 <html>
 <head>
+
+
+
+
+
 	<title>Закази</title>
 	
+	
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+           <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
+           <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
+           <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />  
+			<script  src="https://cdn.datatables.net/plug-ins/1.10.16/i18n/Ukrainian.json"></script>
 	<style>
 	
 	.out {
@@ -53,16 +65,17 @@
            
 
            
-            <table class="table table-striped table-hover table-condensed table-responsive">
+            <table id="examples" class="table table-striped table-hover table-condensed table-responsive table-bordered">
+            <thead> 
                 <th width="30px">Id</th>
                 <th>Адреса відправника</th>
                 <th>Адреса отримувача</th>
                 <th>Відправник</th>
                 <th>Отримувач</th>
                 <th>Дата заказу</th>
-                <th>Статус</th>
+        <!--     <th>Статус</th> -->    
                 <th></th>
-   
+   			</thead>
                 <c:forEach var="order" items="${ordersList}" varStatus="status">
                 <tr>
                     <td class="info">${order.id}</td>
@@ -71,7 +84,7 @@
                     <td>${order.sender}</td>
                      <td>${order.recipient}</td>
                     <td>${order.date}</td>
-                    <td class="warning">${order.status == false ? 'false':'true'}</td>
+      <!--  <td class="warning">${order.status == false ? 'false':'true'}</td> -->             
                     
                     <td align="right" class="warning">
                         <a href="./updateOrder?id=${order.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-pencil"></span>Редагувати</a>
@@ -94,3 +107,34 @@
 
 </body>
 </html>
+<script type="text/javascript" src="jquery.dataTables.js"></script>
+ <script>  
+ $(document).ready(function(){  
+      $('#examples').DataTable( {
+          "language": {
+          "sProcessing":   "Зачекайте...",
+          "sLengthMenu":   "Показати _MENU_ записів",
+          "sZeroRecords":  "Записи відсутні.",
+          "sInfo":         "Записи з _START_ по _END_ із _TOTAL_ записів",
+          "sInfoEmpty":    "Записи з 0 по 0 із 0 записів",
+          "sInfoFiltered": "(відфільтровано з _MAX_ записів)",
+          "sInfoPostFix":  "",
+          "sSearch":       "Пошук:",
+          "sUrl":          "",
+          "oPaginate": {
+              "sFirst": "Перша",
+              "sPrevious": "Попередня",
+              "sNext": "Наступна",
+              "sLast": "Остання"
+          },
+          "oAria": {
+              "sSortAscending":  ": активувати для сортування стовпців за зростанням",
+              "sSortDescending": ": активувати для сортування стовпців за спаданням"
+          }
+      }
+    	  
+      });  
+ });  
+ </script>
+
+

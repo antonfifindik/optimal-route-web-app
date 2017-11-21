@@ -67,6 +67,8 @@
 		<span class="input-group-addon">+380</span>
   <input type="text" name="phoneNumber" class="form-control" placeholder="Номер телефону" required>
 </div>
+
+
 		<input type="submit" value="Прийняти" class="btn btn-success aligntop">
 	</form>
 	</div>
