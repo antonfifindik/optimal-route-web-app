@@ -21,8 +21,12 @@
 	<style>
 	
 	.out {
-    margin: 30px;
+    margin: 20px;
 }
+	
+	.bottom {
+	margin-bottom: 10px;
+	}
 	
 	</style>
 	
@@ -58,23 +62,23 @@
 
    <div class="out" align="left">
             <div class="page-header">
-  <h1>Замовлення</h1>
+  <h1>Замовлення</h1>    
 </div>
             
-             <a href="./addOrder" class="btn btn-success"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-plus"></span>Новий Заказ</a>
-           
+         
+     	 <div class="bottom"> <a href="./addOrder" class="btn btn-success"   role="button"><span style="margin-right: 5px;" class="glyphicon glyphicon-plus"></span>Новий запис</a></div>     
 
            
-            <table id="examples" class="table table-striped table-hover table-condensed table-responsive table-bordered">
+            <table style="font-size:15px;" id="examples" class="table table-striped table-hover table-condensed table-responsive table-bordered">
             <thead> 
-                <th width="30px">Id</th>
+                <th width="1%">Id</th>
                 <th>Адреса відправника</th>
                 <th>Адреса отримувача</th>
                 <th>Відправник</th>
                 <th>Отримувач</th>
-                <th>Дата заказу</th>
-        <!--     <th>Статус</th> -->    
-                <th></th>
+                <th width="7%">Дата</th>
+             <th>Статус</th>     
+                <th width="15%"></th>
    			</thead>
                 <c:forEach var="order" items="${ordersList}" varStatus="status">
                 <tr>
@@ -84,7 +88,7 @@
                     <td>${order.sender}</td>
                      <td>${order.recipient}</td>
                     <td>${order.date}</td>
-      <!--  <td class="warning">${order.status == false ? 'false':'true'}</td> -->             
+        <td class="warning">${order.status == false ? 'Не виконано':'Виконано'}</td>            
                     
                     <td align="right" class="warning">
                         <a href="./updateOrder?id=${order.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-pencil"></span>Редагувати</a>
@@ -110,7 +114,7 @@
 <script type="text/javascript" src="jquery.dataTables.js"></script>
  <script>  
  $(document).ready(function(){  
-      $('#examples').DataTable( {
+      $('#examples').DataTable( { "lengthMenu": [ 9, 15, 25, 50, 100],
           "language": {
           "sProcessing":   "Зачекайте...",
           "sLengthMenu":   "Показати _MENU_ записів",
