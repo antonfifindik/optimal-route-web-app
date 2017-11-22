@@ -10,6 +10,11 @@
 
 .aligntop {
 		margin-top: 20px;
+		margin-right: 7px;
+	}
+	
+	.marginleft {
+		margin-left: 43%;
 	}
 
 </style>
@@ -47,17 +52,31 @@
 	
 	<div align="center">
 	 <div class="page-header">
-  <h1>Підтвердження видалення</h1>
+  <h1 class="text-danger">Підтвердження видалення</h1>
 </div>
 	<form name="order" action="./deleteOrder" method="post">
-		<p>id: ${orderForDelete.id}</p>
-		<p>Адреса відправника: ${orderForDelete.senderAddress}</p>
-		<p>Адреса отримувача: ${orderForDelete.recipientAddress}</p></p>
-		<p>Відправник: ${orderForDelete.sender}</p>
-		<p>Отримувач: ${orderForDelete.recipient}</p>
-		<p>Кур'єр: ${orderForDelete.courier}</p>
-		<p>Дата заказу: ${orderForDelete.date}</p>
-		<p>Статус: ${orderForDelete.status}</p>
+	
+		<dl class="text-justify marginleft">
+<dt class="text-danger">ID:</dt>
+<dd>${orderForDelete.id}</dd>
+<dt class="text-info">Адреса відправника:</dt>
+<dd>${orderForDelete.senderAddress}</dd>
+<dt class="text-info">Адреса отримувача:</dt>
+<dd>${orderForDelete.recipientAddress}</dd>
+<dt class="text-primary">Відправник:</dt>
+<dd>${orderForDelete.sender}</dd>
+<dt class="text-primary">Отримувач:</dt>
+<dd>${orderForDelete.recipient}</dd>
+<dt  class="text-primary">Кур'єр:</dt>
+<dd>${orderForDelete.courier}</dd>
+<dt  class="text-success">Дата замовлення:</dt>
+<dd>${orderForDelete.date}</dd>
+<dt  class="text-success">Статус замовлення:</dt>
+<dd>${orderForDelete.status == false ? 'Не виконано':'Виконано'}</dd>
+</dl>
+		
+
+		
 		<input type="submit" value="Видалити" class="btn btn-danger aligntop">  <input type="button" class="btn btn-default aligntop" value="Отмена" onclick="location.href='./'" />	
 	</form></div>
 	
