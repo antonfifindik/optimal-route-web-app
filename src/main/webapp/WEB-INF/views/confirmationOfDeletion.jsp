@@ -4,7 +4,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Підтвердження видалення</title>
+
+<style>
+
+.aligntop {
+		margin-top: 20px;
+	}
+
+</style>
+
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -36,7 +46,9 @@
 </nav>
 	
 	<div align="center">
-	<h1>Підтвердіть видалення</h1>
+	 <div class="page-header">
+  <h1>Підтвердження видалення</h1>
+</div>
 	<form name="order" action="./deleteOrder" method="post">
 		<p>id: ${orderForDelete.id}</p>
 		<p>Адреса відправника: ${orderForDelete.senderAddress}</p>
@@ -46,7 +58,7 @@
 		<p>Кур'єр: ${orderForDelete.courier}</p>
 		<p>Дата заказу: ${orderForDelete.date}</p>
 		<p>Статус: ${orderForDelete.status}</p>
-		<input type="submit" value="Видалити"> <input type="button" class="button" value="Отмена" onclick="location.href='./'" />	
+		<input type="submit" value="Видалити" class="btn btn-danger aligntop">  <input type="button" class="btn btn-default aligntop" value="Отмена" onclick="location.href='./'" />	
 	</form></div>
 	
 </body>

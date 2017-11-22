@@ -18,6 +18,39 @@
            <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
            <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />  
 			<script  src="https://cdn.datatables.net/plug-ins/1.10.16/i18n/Ukrainian.json"></script>
+			
+			
+			<script type="text/javascript" src="jquery.dataTables.js"></script>
+ <script>  
+ $(document).ready(function(){  
+      $('#examples').DataTable( { "lengthMenu": [ 9, 15, 25, 50, 100],
+          "language": {
+          "sProcessing":   "Зачекайте...",
+          "sLengthMenu":   "Показати _MENU_ записів",
+          "sZeroRecords":  "Записи відсутні.",
+          "sInfo":         "Записи з _START_ по _END_ із _TOTAL_ записів",
+          "sInfoEmpty":    "Записи з 0 по 0 із 0 записів",
+          "sInfoFiltered": "(відфільтровано з _MAX_ записів)",
+          "sInfoPostFix":  "",
+          "sSearch":       "Пошук:",
+          "sUrl":          "",
+          "oPaginate": {
+              "sFirst": "Перша",
+              "sPrevious": "Попередня",
+              "sNext": "Наступна",
+              "sLast": "Остання"
+          },
+          "oAria": {
+              "sSortAscending":  ": активувати для сортування стовпців за зростанням",
+              "sSortDescending": ": активувати для сортування стовпців за спаданням"
+          }
+      }
+    	  
+      });  
+ });  
+ </script>
+			
+			
 	<style>
 	
 	.out {
@@ -111,34 +144,6 @@
 
 </body>
 </html>
-<script type="text/javascript" src="jquery.dataTables.js"></script>
- <script>  
- $(document).ready(function(){  
-      $('#examples').DataTable( { "lengthMenu": [ 9, 15, 25, 50, 100],
-          "language": {
-          "sProcessing":   "Зачекайте...",
-          "sLengthMenu":   "Показати _MENU_ записів",
-          "sZeroRecords":  "Записи відсутні.",
-          "sInfo":         "Записи з _START_ по _END_ із _TOTAL_ записів",
-          "sInfoEmpty":    "Записи з 0 по 0 із 0 записів",
-          "sInfoFiltered": "(відфільтровано з _MAX_ записів)",
-          "sInfoPostFix":  "",
-          "sSearch":       "Пошук:",
-          "sUrl":          "",
-          "oPaginate": {
-              "sFirst": "Перша",
-              "sPrevious": "Попередня",
-              "sNext": "Наступна",
-              "sLast": "Остання"
-          },
-          "oAria": {
-              "sSortAscending":  ": активувати для сортування стовпців за зростанням",
-              "sSortDescending": ": активувати для сортування стовпців за спаданням"
-          }
-      }
-    	  
-      });  
- });  
- </script>
+
 
 
