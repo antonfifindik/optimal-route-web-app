@@ -6,11 +6,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Кур'єри</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+           <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
+           <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
+           <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />  
+			<script  src="https://cdn.datatables.net/plug-ins/1.10.16/i18n/Ukrainian.json"></script>
+
+
 	<style>
 	
 	.out {
-    margin: 30px;
+    margin: 20px;
 }
+
+.bottom {
+	margin-bottom: 10px;
+	}
 	
 	</style>
 
@@ -49,17 +62,18 @@
   <h1>Кур'єри</h1>
 </div>
             
-             <a href="./addCourier" class="btn btn-success"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-plus"></span>Новий Кур'єр</a>
+          <div class="bottom">   <a href="./addCourier" class="btn btn-success"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-plus"></span>Новий Кур'єр</a></div>
 
             
-             <table class="table table-striped table-hover table-condensed table-responsive">
-                <th width="30px">Id</th>
+             <table style="font-size:15px;" id="examples" class="table table-striped table-hover table-condensed table-responsive table-bordered">
+             <thead>
+                <th width="1%">Id</th>
                 <th>Призвище</th>
                 <th>Ім'я</th>
                 <th>По батькові</th>
                 <th>Номер телефону</th>
-                <th width="190px"></th>
-   
+                <th width="15%"></th>
+   </thead>
                 <c:forEach var="courier" items="${couriersList}" varStatus="status">
                 <tr>
                     <td class="info">${courier.id}</td>
@@ -82,3 +96,33 @@
 
 </body>
 </html>
+
+<script type="text/javascript" src="jquery.dataTables.js"></script>
+ <script>  
+ $(document).ready(function(){  
+      $('#examples').DataTable( { "lengthMenu": [ 9, 15, 25, 50, 100],
+          "language": {
+          "sProcessing":   "Зачекайте...",
+          "sLengthMenu":   "Показати _MENU_ записів",
+          "sZeroRecords":  "Записи відсутні.",
+          "sInfo":         "Записи з _START_ по _END_ із _TOTAL_ записів",
+          "sInfoEmpty":    "Записи з 0 по 0 із 0 записів",
+          "sInfoFiltered": "(відфільтровано з _MAX_ записів)",
+          "sInfoPostFix":  "",
+          "sSearch":       "Пошук:",
+          "sUrl":          "",
+          "oPaginate": {
+              "sFirst": "Перша",
+              "sPrevious": "Попередня",
+              "sNext": "Наступна",
+              "sLast": "Остання"
+          },
+          "oAria": {
+              "sSortAscending":  ": активувати для сортування стовпців за зростанням",
+              "sSortDescending": ": активувати для сортування стовпців за спаданням"
+          }
+      }
+    	  
+      });  
+ });  
+ </script>
