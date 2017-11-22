@@ -1,11 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Draggable directions</title>
+    
+    
+    
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
+           <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
+           <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
+           <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />  
+			<script  src="https://cdn.datatables.net/plug-ins/1.10.16/i18n/Ukrainian.json"></script>
+    
+    
     <style>
         html, body {
         height: 100%;
@@ -49,6 +62,30 @@
     </style>
 </head>
 <body>
+
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+	<div class="navbar-header">
+		<a href="./" class="navbar-brand">OPTIMAL ROUTE</a>
+		</div>	
+	<div>
+		<ul class="nav navbar-nav">
+			<li><a href="./">Закази</a></li>
+			<li><a href="addresses">Адреси</a></li>
+			<li><a href="clients">Клієнти</a></li>
+			<li><a href="couriers">Кур'єри</a></li>
+			<li class="active"><a href="map">Побудова маршруту</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+            <li><a  href="login">Логін такой-то</a></li>
+            <li><a href="login">Вихід</a></li>
+          </ul>
+	</div>
+</div>
+</nav>
+
+
+
 <div id="map"></div>
 <div id="right-panel">
     <p>Загальна відстань: <span id="total"></span></p>

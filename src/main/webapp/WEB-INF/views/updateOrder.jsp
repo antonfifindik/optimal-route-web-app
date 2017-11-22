@@ -53,6 +53,10 @@
 			<li><a href="couriers">Кур'єри</a></li>
 			<li><a href="map">Побудова маршруту</a></li>
 		</ul>
+		<ul class="nav navbar-nav navbar-right">
+            <li><a  href="login">Логін такой-то</a></li>
+            <li><a href="login">Вихід</a></li>
+          </ul>
 	</div>
 </div>
 </nav>
