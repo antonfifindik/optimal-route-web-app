@@ -22,6 +22,7 @@ public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	private static int idDelete;
+	static String account;
 
 	@Autowired
 	private IOrderService orderService;
@@ -29,13 +30,14 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		ArrayList<Order> ordersList = (ArrayList<Order>) orderService.findAllOrders();
 
 		model.addAttribute("ordersList", ordersList);
+		model.addAttribute("account", account);
 
 		return "home";
 	}

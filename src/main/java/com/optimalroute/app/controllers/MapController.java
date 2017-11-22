@@ -12,7 +12,7 @@ public class MapController {
 
 	@RequestMapping(value = "/map", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-
+		model.addAttribute("account", HomeController.account);
 		return "map";
 	}
 

@@ -4,20 +4,18 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+ 
 
     <title>Signin Template for Bootstrap</title>
     
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
-           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
-           <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>  
-           <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>            
-           <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />  
-			<script  src="https://cdn.datatables.net/plug-ins/1.10.16/i18n/Ukrainian.json"></script>
+     <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
   </head>
@@ -26,9 +24,9 @@
 
     <div style="width:300px; margin-top:10%;" class="container">
  
-      <form class="form-signin" role="form" action="./login" method="post">
+      <form class="form-signin" role="form" name="account" action="./login" method="post">
         <h2 class="form-signin-heading">Авторизація</h2>
-        <input style="height: 43px; font-size: 16px; " name="login" type="login" class="form-control" placeholder="Логін" required autofocus>
+        <input style="height: 43px; font-size: 16px;" name="login" type="login" class="form-control" placeholder="Логін" required autofocus>
         <input style="height: 43px; font-size: 16px;" name="password" type="password" class="form-control" placeholder="Пароль" required>
         <label style="margin-left: 9%;" class="checkbox">
           <input type="checkbox" value="remember-me"> Запам'ятати мене

@@ -44,7 +44,7 @@ public class CRUDOrderController {
 		Collections.sort(couriersList, ((c1, c2) -> c1.getSurname().compareTo(c2.getSurname())));
 		Collections.sort(addressesList, ((a1, a2) -> a1.getStreet().compareTo(a2.getStreet())));
 		Collections.sort(clientsList, ((c1, c2) -> c1.getSurname().compareTo(c2.getSurname())));
-
+		model.addAttribute("account", HomeController.account);
 		model.addAttribute("couriersList", couriersList);
 		model.addAttribute("addressesList", addressesList);
 		model.addAttribute("clientsList", clientsList);
@@ -58,7 +58,7 @@ public class CRUDOrderController {
 
 		orderService.insert(sql);
 
-		return "redirect:/";
+		return "redirect:/home";
 	}
 
 	@RequestMapping(value = "/deleteOrder", method = RequestMethod.GET)
@@ -66,13 +66,14 @@ public class CRUDOrderController {
 		int id = Integer.parseInt(request.getParameter("id"));
 		deleteOrder = orderService.selectOrderById(id);
 		model.addAttribute("orderForDelete", deleteOrder);
+		model.addAttribute("account", HomeController.account);
 		return "confirmationOfDeletion";
 	}
 
 	@RequestMapping(value = "/deleteOrder", method = RequestMethod.POST)
 	public String deleteOrder(HttpServletRequest request) {
 		orderService.delete(deleteOrder);
-		return "redirect:/";
+		return "redirect:/home";
 	}
 
 	@RequestMapping(value = "/updateOrder", method = RequestMethod.GET)
@@ -86,7 +87,7 @@ public class CRUDOrderController {
 		Collections.sort(couriersList, ((c1, c2) -> c1.getSurname().compareTo(c2.getSurname())));
 		Collections.sort(addressesList, ((a1, a2) -> a1.getStreet().compareTo(a2.getStreet())));
 		Collections.sort(clientsList, ((c1, c2) -> c1.getSurname().compareTo(c2.getSurname())));
-
+		model.addAttribute("account", HomeController.account);
 		model.addAttribute("couriersList", couriersList);
 		model.addAttribute("addressesList", addressesList);
 		model.addAttribute("clientsList", clientsList);
@@ -102,6 +103,6 @@ public class CRUDOrderController {
 			// orderService.update(order);
 			System.out.println(order);
 		}
-		return "redirect:/";
+		return "redirect:/home";
 	}
 }

@@ -35,18 +35,18 @@
 <nav class="navbar navbar-default">
 <div class="container-fluid">
 	<div class="navbar-header">
-		<a href="./" class="navbar-brand">OPTIMAL ROUTE</a>
+		<a href="./home" class="navbar-brand">OPTIMAL ROUTE</a>
 		</div>	
 	<div>
 		<ul class="nav navbar-nav">
-			<li><a href="./">Закази</a></li>
+			<li><a href="./home">Закази</a></li>
 			<li><a href="addresses">Адреси</a></li>
 			<li><a href="clients">Клієнти</a></li>
 			<li><a href="couriers">Кур'єри</a></li>
 			<li><a href="map">Побудова маршруту</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-            <li><a  href="login">Логін такой-то</a></li>
+            <li><a href="#">${account}</a></li>
             <li><a href="login">Вихід</a></li>
           </ul>
 	</div>
