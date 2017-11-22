@@ -41,6 +41,7 @@ public class CRUDClientController {
 
 	@RequestMapping(value = "/addClient", method = RequestMethod.POST)
 	public String addClient(@ModelAttribute("client") Client client) {
+		client.setPhoneNumber("+380" + client.getPhoneNumber());
 		clientService.insert(client);
 		return "redirect:/clients";
 	}
@@ -77,6 +78,7 @@ public class CRUDClientController {
 
 	@RequestMapping(value = "/updateClient", method = RequestMethod.POST)
 	public String updateClient(@ModelAttribute("client") Client client) {
+		client.setPhoneNumber("+380" + client.getPhoneNumber());
 		if (!updateClient.equals(client)) {
 			client.setId(updateClient.getId());
 			clientService.update(client);

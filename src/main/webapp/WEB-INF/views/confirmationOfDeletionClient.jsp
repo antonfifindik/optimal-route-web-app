@@ -4,7 +4,22 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Підтвердження видалення</title>
+
+<style>
+
+.aligntop {
+		margin-top: 20px;
+		margin-right: 7px;
+	}
+	
+	.marginleft {
+		margin-left: 43%;
+	}
+
+</style>
+
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -35,16 +50,29 @@
 </div>
 </nav>
 
-		<div align="center">
-	<h1>Підтвердіть видалення</h1>
+				<div align="center">
+	 <div class="page-header">
+  <h1 class="text-danger">Підтвердження видалення</h1>
+</div>
 	<form name="client" action="./deleteClient" method="post">
-		<p>id: ${clientForDelete.id}</p>
-		<p>Призвище: ${clientForDelete.surname}</p>
-		<p>Им'я: ${clientForDelete.name}</p></p>
-		<p>По-батькові: ${clientForDelete.patronymic}</p>
-		<p>Номер телефону: ${clientForDelete.phoneNumber}</p>
+	
+		<dl class="text-justify marginleft">
+<dt class="text-danger">ID:</dt>
+<dd>${clientForDelete.id}</dd>
+<dt class="text-info">Прізвище:</dt>
+<dd>${clientForDelete.surname}</dd>
+<dt class="text-info">Ім'я:</dt>
+<dd>${clientForDelete.name}</dd>
+<dt class="text-primary">По-батькові:</dt>
+<dd>${clientForDelete.patronymic}</dd>
+<dt class="text-primary">Номер телефону:</dt>
+<dd>${clientForDelete.phoneNumber}</dd>
+
+</dl>
 		
-		<input type="submit" value="Видалити"> <input type="button" class="button" value="Отмена" onclick="location.href='./clients'" />	
+
+		
+		<input type="submit" value="Видалити" class="btn btn-danger aligntop">  <input type="button" class="btn btn-default aligntop" value="Отмена" onclick="location.href='./'" />	
 	</form></div>
 
 </body>

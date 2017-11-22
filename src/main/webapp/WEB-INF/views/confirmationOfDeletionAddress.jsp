@@ -4,7 +4,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Підтвердження видалення</title>
+
+<style>
+
+.aligntop {
+		margin-top: 20px;
+		margin-right: 7px;
+	}
+	
+	.marginleft {
+		margin-left: 43%;
+	}
+
+</style>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -35,16 +49,29 @@
 </div>
 </nav>
 		
-		<div align="center">
-	<h1>Підтвердіть видалення</h1>
+			<div align="center">
+	 <div class="page-header">
+  <h1 class="text-danger">Підтвердження видалення</h1>
+</div>
 	<form name="address" action="./deleteAddress" method="post">
-		<p>id: ${addressForDelete.id}</p>
-		<p>Місто: ${addressForDelete.city}</p>
-		<p>Вулиця: ${addressForDelete.street}</p></p>
-		<p>Номер будинку: ${addressForDelete.houseNumber}</p>
-		<p>Номер квартири: ${addressForDelete.apartmentNumber}</p>
+	
+		<dl class="text-justify marginleft">
+<dt class="text-danger">ID:</dt>
+<dd>${addressForDelete.id}</dd>
+<dt class="text-info">Місто:</dt>
+<dd>${addressForDelete.city}</dd>
+<dt class="text-info">Вулиця:</dt>
+<dd>${addressForDelete.street}</dd>
+<dt class="text-primary">Номер будинку:</dt>
+<dd>${addressForDelete.houseNumber}</dd>
+<dt class="text-primary">Номер квартири:</dt>
+<dd>${addressForDelete.apartmentNumber}</dd>
+
+</dl>
 		
-		<input type="submit" value="Видалити"> <input type="button" class="button" value="Отмена" onclick="location.href='./addresses'" />	
+
+		
+		<input type="submit" value="Видалити" class="btn btn-danger aligntop">  <input type="button" class="btn btn-default aligntop" value="Отмена" onclick="location.href='./'" />	
 	</form></div>
 	
 

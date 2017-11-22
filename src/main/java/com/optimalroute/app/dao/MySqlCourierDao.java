@@ -23,7 +23,7 @@ public class MySqlCourierDao implements ICourierDao {
 
 	@Override
 	public void insert(Courier courier) {
-		jdbcTemplate.update(String.format("insert into couriers (surname, name, patronymic, phone_number) values ('%s','%s','%s','+380%s');", courier.getSurname(), courier.getName(), courier.getPatronymic(), courier.getPhoneNumber()));
+		jdbcTemplate.update(String.format("insert into couriers (surname, name, patronymic, phone_number) values ('%s','%s','%s','%s');", courier.getSurname(), courier.getName(), courier.getPatronymic(), courier.getPhoneNumber()));
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class MySqlCourierDao implements ICourierDao {
 
 	@Override
 	public void update(Courier courier) {
-		String sql = String.format("update couriers set surname='%s', name='%s', patronymic='%s', phone_number='+380%s'  where id = %d", courier.getSurname(), courier.getName(), courier.getPatronymic(), courier.getPhoneNumber(), courier.getId());
+		String sql = String.format("update couriers set surname='%s', name='%s', patronymic='%s', phone_number='%s'  where id = %d", courier.getSurname(), courier.getName(), courier.getPatronymic(), courier.getPhoneNumber(), courier.getId());
 		jdbcTemplate.update(sql);
 	}
 

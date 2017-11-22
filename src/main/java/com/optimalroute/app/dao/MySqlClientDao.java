@@ -23,7 +23,7 @@ public class MySqlClientDao implements IClientDao {
 
 	@Override
 	public void insert(Client client) {
-		jdbcTemplate.update(String.format("insert into clients (surname, name, patronymic, phone_number) values ('%s','%s','%s','+380%s');", client.getSurname(), client.getName(), client.getPatronymic(), client.getPhoneNumber()));
+		jdbcTemplate.update(String.format("insert into clients (surname, name, patronymic, phone_number) values ('%s','%s','%s','%s');", client.getSurname(), client.getName(), client.getPatronymic(), client.getPhoneNumber()));
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class MySqlClientDao implements IClientDao {
 
 	@Override
 	public void update(Client client) {
-		String sql = String.format("update clients set surname='%s', name='%s', patronymic='%s', phone_number='+380%s'  where id = %d", client.getSurname(), client.getName(), client.getPatronymic(), client.getPhoneNumber(), client.getId());
+		String sql = String.format("update clients set surname='%s', name='%s', patronymic='%s', phone_number='%s'  where id = %d", client.getSurname(), client.getName(), client.getPatronymic(), client.getPhoneNumber(), client.getId());
 		jdbcTemplate.update(sql);
 	}
 

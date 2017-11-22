@@ -40,6 +40,7 @@ public class CRUDCourierController {
 
 	@RequestMapping(value = "/addCourier", method = RequestMethod.POST)
 	public String addCourier(@ModelAttribute("courier") Courier courier) {
+		courier.setPhoneNumber("+380" + courier.getPhoneNumber());
 		courierService.insert(courier);
 		return "redirect:/couriers";
 	}
@@ -76,6 +77,7 @@ public class CRUDCourierController {
 
 	@RequestMapping(value = "/updateCourier", method = RequestMethod.POST)
 	public String updateCourier(@ModelAttribute("courier") Courier courier) {
+		courier.setPhoneNumber("+380" + courier.getPhoneNumber());
 		if (!updateCourier.equals(courier)) {
 			courier.setId(updateCourier.getId());
 			courierService.update(courier);
