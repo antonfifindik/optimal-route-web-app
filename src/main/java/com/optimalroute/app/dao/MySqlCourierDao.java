@@ -44,7 +44,7 @@ public class MySqlCourierDao implements ICourierDao {
 
 	@Override
 	public void update(Courier courier) {
-		String sql = String.format("update couriers set surname='%s', name='%s', patronymic='%s', phone_number='%s'  where id = %d", courier.getSurname(), courier.getName(), courier.getPatronymic(), courier.getPhoneNumber(), courier.getId());
+		String sql = String.format("update couriers set surname='%s', name='%s', patronymic='%s', phone_number='+380%s'  where id = %d", courier.getSurname(), courier.getName(), courier.getPatronymic(), courier.getPhoneNumber(), courier.getId());
 		jdbcTemplate.update(sql);
 	}
 

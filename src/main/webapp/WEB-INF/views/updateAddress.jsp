@@ -4,7 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Редагування адреси</title>
+
+<style>
+
+.aligntop {
+		margin-top: 20px;
+	}
+
+</style>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -35,19 +44,35 @@
 </div>
 </nav>
 
-	<div align="center">
-	<form name="address" action="./updateAddress" method="post">
-	<p>Місто:</p>
-		<input title="City" type="text" name="city" value="${updateAddress.city}">
-		<p>Вулиця:</p>
-		<input title="Street" type="text" name="street" value="${updateAddress.street}">
-		<p>Номер будинку:</p>
-		<input title="HouseNumber" type="text" name="houseNumber" value="${updateAddress.houseNumber}">
-		<p>Номер квартири:</p>
-		<input title="ApartmentNumber" type="text" name="apartmentNumber" value="${updateAddress.apartmentNumber}">
-		<input type="submit" value="OK">	
-	</form>
-	</div>
+	<div class="container" align="center">
+	 <div class="page-header">
+  <h1>Редагувати адресу</h1>
+</div>
+
+<form name="address" action="./updateAddress" method="post">
+			<div class="input-group">
+  <input type="text" name="city" class="form-control" placeholder="Місто" value="${updateAddress.city}" required>
+</div>
+		
+		
+			<form name="address" action="./updateAddress" method="post">
+			<div class="input-group aligntop">
+  <input type="text" name="street" class="form-control" placeholder="Вулиця" value="${updateAddress.street}" required>
+</div>
+
+			<form name="address" action="./updateAddress" method="post">
+			<div class="input-group aligntop">
+  <input type="text" name="houseNumber" class="form-control" placeholder="Будинок" value="${updateAddress.houseNumber}" required>
+</div>
+		
+				<form name="address" action="./updateAddress" method="post">
+			<div class="input-group aligntop">
+  <input type="text" name="apartmentNumber" class="form-control" placeholder="Квартира" value="${updateAddress.apartmentNumber}" required>
+</div>
+		<input type="submit" value="Прийняти" class="btn btn-success aligntop"> 
+	</form>	
+	
+</div>
 
 </body>
 </html>

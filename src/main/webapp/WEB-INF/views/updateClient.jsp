@@ -4,7 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Редагування клієнта</title>
+
+<style>
+
+.aligntop {
+		margin-top: 20px;
+	}
+
+</style>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -35,19 +44,36 @@
 </div>
 </nav>
 
-	<div align="center">
-	<form name="client" action="./updateClient" method="post">
-	<p>Призвище:</p>
-		<input title="Surname" type="text" name="surname" value="${updateClient.surname}">
-		<p>Ім'я:</p>
-		<input title="Name" type="text" name="name" value="${updateClient.name}">
-		<p>По-батькові:</p>
-		<input title="Patronymic" type="text" name="patronymic" value="${updateClient.patronymic}">
-		<p>Номер телефону:</p>
-		<input title="PhoneNumber" type="text" name="phoneNumber" value="${updateClient.phoneNumber}">
-		<input type="submit" value="OK">	
-	</form>
-	</div>
+		<div class="container" align="center">
+	 <div class="page-header">
+  <h1>Редагувати клієнта</h1>
+</div>
+
+<form name="client" action="./updateClient" method="post">
+			<div class="input-group">
+  <input type="text" name="surname" class="form-control" placeholder="Прізвище" value="${updateClient.surname}" required>
+</div>
+		
+		
+			<form name="client" action="./updateClient" method="post">
+			<div class="input-group aligntop">
+  <input type="text" name="name" class="form-control" placeholder="Ім'я" value="${updateClient.name}" required>
+</div>
+
+			<form name="client" action="./updateClient" method="post">
+			<div class="input-group aligntop">
+  <input type="text" name="patronymic" class="form-control" placeholder="По-батькові" value="${updateClient.patronymic}" required>
+</div>
+		
+				<form name="client" action="./updateClient" method="post">
+			<div style="width:195px;'" class="input-group aligntop">
+		<span class="input-group-addon">+380</span>
+  <input type="text" name="phoneNumber" class="form-control" placeholder="Номер телефону" value="${updateClient.phoneNumber.substring(4)}" required>
+</div>
+		<input type="submit" value="Прийняти" class="btn btn-success aligntop"> 
+	</form>	
+	
+</div>
 
 </body>
 </html>

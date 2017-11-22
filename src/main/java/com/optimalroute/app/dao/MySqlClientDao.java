@@ -44,7 +44,7 @@ public class MySqlClientDao implements IClientDao {
 
 	@Override
 	public void update(Client client) {
-		String sql = String.format("update clients set surname='%s', name='%s', patronymic='%s', phone_number='%s'  where id = %d", client.getSurname(), client.getName(), client.getPatronymic(), client.getPhoneNumber(), client.getId());
+		String sql = String.format("update clients set surname='%s', name='%s', patronymic='%s', phone_number='+380%s'  where id = %d", client.getSurname(), client.getName(), client.getPatronymic(), client.getPhoneNumber(), client.getId());
 		jdbcTemplate.update(sql);
 	}
 
