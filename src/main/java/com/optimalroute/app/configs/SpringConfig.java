@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import com.optimalroute.app.dao.MySqlAccountDao;
+import com.optimalroute.app.dao.MySqlCourierDao;
 import com.optimalroute.app.dao.MySqlOrderDao;
 
 @Configuration
@@ -30,5 +32,15 @@ public class SpringConfig {
 	@Bean
 	public MySqlOrderDao mySqlOrderDao() {
 		return new MySqlOrderDao();
+	}
+
+	@Bean
+	public MySqlAccountDao mySqlAccountDao() {
+		return new MySqlAccountDao();
+	}
+
+	@Bean
+	public MySqlCourierDao mySqlCourierDao() {
+		return new MySqlCourierDao();
 	}
 }

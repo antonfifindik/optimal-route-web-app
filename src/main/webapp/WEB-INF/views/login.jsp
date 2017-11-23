@@ -24,7 +24,7 @@
 
     <div style="width:300px; margin-top:10%;" class="container">
  
-      <form class="form-signin" role="form" name="account" action="./login" method="post">
+      	<form class="form-signin" role="form" name="account" action="./login" method="post">
         <h2 class="form-signin-heading">Авторизація</h2>
         <input style="height: 43px; font-size: 16px;" name="login" type="login" class="form-control" placeholder="Логін" required autofocus>
         <input style="height: 43px; font-size: 16px;" name="password" type="password" class="form-control" placeholder="Пароль" required>
