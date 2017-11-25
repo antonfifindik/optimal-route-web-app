@@ -52,7 +52,7 @@ public class Courier {
 
 	@Override
 	public String toString() {
-		return surname + " " + name + " " + patronymic;
+		return id + ". " + surname + " " + name + " " + patronymic;
 	}
 
 }

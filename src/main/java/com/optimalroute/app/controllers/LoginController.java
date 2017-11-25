@@ -28,7 +28,7 @@ public class LoginController {
 	public String login(@ModelAttribute("account") Account account) {
 
 		for (Account acc : accountService.findAllAccount()) {
-			if (acc.getLogin().equals(account.getLogin()) && acc.getPassword().equals(acc.getPassword())) {
+			if (acc.getLogin().equals(account.getLogin()) && acc.getPassword().equals(account.getPassword())) {
 				HomeController.account = account.getLogin();
 				return "redirect:/home";
 			}

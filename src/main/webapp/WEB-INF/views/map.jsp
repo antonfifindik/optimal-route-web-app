@@ -74,17 +74,179 @@
   <h1>Побудова маршруту</h1>  
   </div>
   </div>
-  
+ <button class="btn" type="button" onclick="addAddressAsyncFirst()">Добавить первый адрес</button>
+  <button class="btn" type="button" onclick="addAddressAsyncSecond()">Добавить второй адрес</button>
+   <button class="btn" type="button" onclick="addAddressAsyncThird()">Добавить третий адрес</button>
+   <button type="button" onclick="displayRouteAsync()">displayRouteAsync</button>
+   <button type="button" onclick="addArrayAdressesAsync()">addArrayAddresses</button>
     <div id="map"></div>
     <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-        	center: {lat:  49.234167, lng: 28.458371},
-          zoom: 12
+    var directionsService;
+    var directionsDisplay;
+
+    var map;
+
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 11,
+            center: {lat: 49.234167, lng: 28.458371}
         });
-        map.setMapTypeId (google.maps.MapTypeId.HYBRID);
+
+        map.setMapTypeId(google.maps.MapTypeId.HYBRID);
+
+        directionsService = new google.maps.DirectionsService;
+        directionsDisplay = new google.maps.DirectionsRenderer({
+            draggable: false,
+            map: map,
+         
+        });
+
+        directionsDisplay.addListener('directions_changed', function () {
+            computeTotalDistance(directionsDisplay.getDirections());
+        });
+
+    }
+      
+      
+      var waypts = [];
+
+      function addAdress(adress) {
+          waypts.push({
+              location: adress,
+              stopover: true
+          })
+
+        //  map.addAdress(adress);
+          initMap();
       }
+      
+      function displayRoute(origin, destination, service, display) {
+          service.route({
+              origin: origin,
+              destination: destination,
+              waypoints: waypts,
+              travelMode: google.maps.TravelMode.DRIVING,
+              optimizeWaypoints: true,
+              avoidTolls: true
+          }, function (response, status) {
+              if (status === google.maps.DirectionsStatus.OK) {
+                  display.setDirections(response);
+              } else {
+                  alert('Could not display directions due to: ' + status);
+              }
+          });
+      }
+    
+      function addAddressAsyncFirst(adress) {
+     	 $.ajax({
+              type: 'GET',
+              url: './getNewAddressFirst',
+              data: {
+                  nameOfVar: 'Address from request'
+              },
+              success: function (response) {
+            	  
+            	  addAdress(response);
+           			addAdress('Vinnitsa, Lesi Ukrainky, 20');
+           	
+           			displayRouteAsync();
+                 		
+                 		
+                 		
+                 
+						
+              },
+              error: function (err) {
+                  alert('ERROR ');
+              }
+          });
+      }
+      
+      function addAddressAsyncSecond(adress) {
+      	 $.ajax({
+               type: 'GET',
+               url: './getNewAddressSecond',
+               data: {
+                   nameOfVar: 'Address from request'
+               },
+               success: function (response) {
+                 
+                       
+                  		 addAdress(response)
+                  		displayRouteAsync();
+                 
+               },
+               error: function (err) {
+                   alert('ERROR ');
+               }
+           });
+       }
+      
+      
+      function addAddressAsyncThird(adress) {
+      	 $.ajax({
+               type: 'GET',
+               url: './getNewAddressThird',
+               data: {
+                   nameOfVar: 'Address from request'
+               },
+               success: function (response) {
+                
+                       
+                  		 addAdress(response)
+                  		
+                  		displayRouteAsync();
+                   
+               },
+               error: function (err) {
+                   alert('ERROR ');
+               }
+           });
+       }
+      
+      
+      function addArrayAdressesAsync() {
+
+          $.ajax({
+              type: 'GET',
+              url: './getArrayAddresses',
+              success: function (response) {
+
+            	  for (var i = 0; i < response.length; i++) {
+            		  addAdress(response[i]);
+            		}
+            	  displayRouteAsync();
+              },
+              error: function (err) {
+                  alert('ERROR displayRouteAsync function or in getAddresses controller');
+              }
+          });
+      }
+      
+      
+      
+      
+      function displayRouteAsync() {
+
+          $.ajax({
+              type: 'GET',
+              url: './getAddresses',
+              success: function (response) {
+
+                  displayRoute(
+                      response[0],
+                      response[1],
+                      directionsService,
+                      directionsDisplay
+                      
+                  )
+              },
+              error: function (err) {
+                  alert('ERROR displayRouteAsync function or in getAddresses controller');
+              }
+          });
+      }
+      
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2yYUDCCpAl1ZiP-pN5Xs6L4Ze2rekTIc&callback=initMap&language=uk">
     async defer></script>

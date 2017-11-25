@@ -118,7 +118,7 @@
 		<div style="display: flex; justify-content:center;" class="aligntop">
 		
 		<select  class="form-control"  id="courier" name="courier" required>
-		<option selected disabled value=''>Кур'єри</option>
+		<option selected disabled value=''>Кур'єр</option>
                 <c:forEach items="${couriersList}" var="item">
                  <option value ="${item.id}">${item}</option>
                 </c:forEach>
