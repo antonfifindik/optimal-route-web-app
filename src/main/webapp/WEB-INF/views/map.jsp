@@ -74,16 +74,19 @@
   <h1>Побудова маршруту</h1>  
   </div>
   </div>
- <button class="btn" type="button" onclick="addAddressAsyncFirst()">Добавить первый адрес</button>
+ <button class="btn btn-danger" type="button" onclick="addAddressAsyncAll()">Добавить все адреса</button>
   <button class="btn" type="button" onclick="addAddressAsyncSecond()">Добавить второй адрес</button>
    <button class="btn" type="button" onclick="addAddressAsyncThird()">Добавить третий адрес</button>
    <button type="button" onclick="displayRouteAsync()">displayRouteAsync</button>
    <button type="button" onclick="addArrayAdressesAsync()">addArrayAddresses</button>
+   <button class="btn btn-danger" type="button" onclick="distanceAsync()">Посчитать расстояние</button>
+   
     <div id="map"></div>
     <script>
     var directionsService;
     var directionsDisplay;
-
+    var distanceService;
+    
     var map;
 
     function initMap() {
@@ -100,6 +103,7 @@
             map: map,
          
         });
+        distanceService = new google.maps.DistanceMatrixService();
 
         directionsDisplay.addListener('directions_changed', function () {
             computeTotalDistance(directionsDisplay.getDirections());
@@ -137,21 +141,20 @@
           });
       }
     
-      function addAddressAsyncFirst(adress) {
+      function addAddressAsyncAll(adress) {
      	 $.ajax({
               type: 'GET',
-              url: './getNewAddressFirst',
+              url: './getNewAddressAll',
               data: {
                   nameOfVar: 'Address from request'
               },
               success: function (response) {
             	  
-            	  addAdress(response);
-           			addAdress('Vinnitsa, Lesi Ukrainky, 20');
-           	
-           			displayRouteAsync();
+            for(var i = 0; i < response.length; i++) {
+            	addAdress(response[i]);
+            }
                  		
-                 		
+            displayRouteAsync();	
                  		
                  
 						
@@ -246,6 +249,42 @@
               }
           });
       }
+      
+      
+      function distanceAsync(addresses) {
+    	  $.ajax({
+              type: 'GET',
+              url: './getTwoAddresses',
+              success: function (response) {
+
+            	 
+            	  
+            	  var origin = response[0];
+            	  var destination = response[1];
+    //        	  alert(origin);
+     //       	  alert(destination);
+            	  
+            	  distanceService.getDistanceMatrix(
+            			  {
+            			    origins: [origin],
+            			    destinations: [destination],
+            			    travelMode: 'DRIVING',
+            			    unitSystem: google.maps.UnitSystem.METRIC,
+            		        avoidHighways: false,
+            		        avoidTolls: false
+            			  }, callback);
+            	  
+            	  
+              },
+              error: function (err) {
+                  alert('ERROR displayRouteAsync function or in getAddresses controller');
+              }
+          });
+      }
+      
+      function callback(response, status) {
+    	  alert(response.rows[0].elements[0].distance.text);
+    	}
       
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2yYUDCCpAl1ZiP-pN5Xs6L4Ze2rekTIc&callback=initMap&language=uk">

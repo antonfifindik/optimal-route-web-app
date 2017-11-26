@@ -210,4 +210,14 @@ public class UkrainianTransliterationService {
 		return result.toString();
 	}
 
+	public static void main(String[] args) { // тест
+
+		System.err.println(UkrainianTransliterationService.transliteration("Шостка Кишеньки"));
+		System.err.println(UkrainianTransliterationService.transliteration("Гоща Гаращенко"));
+		System.err.println(UkrainianTransliterationService.transliteration("Згорани Розгон"));
+		System.err.println(UkrainianTransliterationService.transliteration("згорани розгон"));
+		System.err.println(UkrainianTransliterationService.transliteration("Вінниця, Рєпіна, 20"));
+		System.err.println(UkrainianTransliterationService.transliteration("Вінниця, вулиця Айвазовського, 51"));
+	}
+
 }
