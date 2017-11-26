@@ -80,7 +80,8 @@
    <button type="button" onclick="displayRouteAsync()">displayRouteAsync</button>
    <button type="button" onclick="addArrayAdressesAsync()">addArrayAddresses</button>
    <button class="btn btn-danger" type="button" onclick="distanceAsync()">Посчитать расстояние</button>
-   <button class="btn btn-success" type="button" onclick="distanceAllAsync()">Посчитать расстояние от одного адреса ко всем</button>
+   <button class="btn btn-success" type="button" onclick="distanceAllAsync()">Посчитать расстояние от одного адреса ко всем</button> <br>
+   <button class="btn btn-info" type="button" onclick="optimalRouteWithoutSenders()">Построить оптимальный маршрут без учёта отправителей</button>
    
     <div id="map"></div>
     <script>
@@ -307,17 +308,24 @@
     //        	  alert(origin);
      //       	  alert(destination);
             	  
-            	  distanceService.getDistanceMatrix(
-            			  {
-            			    origins: [origin],
-            			    destinations: response,
-            			    travelMode: 'DRIVING',
-            			    unitSystem: google.maps.UnitSystem.METRIC,
-            		        avoidHighways: false,
-            		        avoidTolls: false
-            			  }, callbackAll);
+  //          	  distanceService.getDistanceMatrix(
+   //         			  {
+    //        			    origins: [origin],
+     //       			    destinations: response,
+     //       			    travelMode: 'DRIVING',
+     //       			    unitSystem: google.maps.UnitSystem.METRIC,
+     //       		        avoidHighways: false,
+      //      		        avoidTolls: false
+       //     			  }, callbackAll);
             	  
+  			
+  				
+  				
+            	  getNearestAddress(origin, response);
             	  
+  				
+  				
+  				
               },
               error: function (err) {
                   alert('ERROR displayRouteAsync function or in getAddresses controller');
@@ -328,11 +336,97 @@
          function callbackAll(response, status) {
     	  
         	 alert(response.destinationAddresses);
-    	  	
+    	  
     	  	  for (var i = 0; i < response.rows[0].elements.length; i++) {
-        		  alert(response.rows[0].elements[i].distance.value);  //расстояние до адреса в метрах
+        		//  alert(response.rows[0].elements[i].distance.value);  //расстояние до адреса в метрах
+        		  alert('РАССТОЯНИЕ ДО ' + response.destinationAddresses[i] + ' РАВНО ' + response.rows[0].elements[i].distance.value + ' МЕТРОВ' );
         		}
     	}
+         
+         
+         
+         function optimalRouteWithoutSenders(origin) {
+        	 $.ajax({
+                 type: 'GET',
+                 url: './getNewAddressAll',
+                 success: function (response) {
+
+               	 
+          //     	  alert(response);
+               	  var origin = 'Вінниця, Юності 1';
+               	
+         //      	  var destination = response[1];
+         //      	  var destination2 = response[2];
+       //        	  alert(origin);
+        //       	  alert(destination);
+               	  
+               	  distanceService.getDistanceMatrix(
+               			  {
+               			    origins: [origin],
+               			    destinations: response,
+               			    travelMode: 'DRIVING',
+               			    unitSystem: google.maps.UnitSystem.METRIC,
+               		        avoidHighways: false,
+               		        avoidTolls: false
+               			  }, callbackOptimalRouteWithoutSenders);
+               	  
+               	  
+                 },
+                 error: function (err) {
+                     alert('ERROR displayRouteAsync function or in getAddresses controller');
+                 }
+             });
+         }
+         
+         
+         function callbackOptimalRouteWithoutSenders(response, status) {
+        	 
+        	 var array = response.rows[0].elements;
+        	 
+        	 array.sort(function(a, b) {
+        		  return a.distance.value - b.distance.value;
+        		});
+        	 
+        	 
+        	 alert(array[0].distance.value);
+        	 alert(array[array.length - 1].distance.value);
+        	 
+    	}
+         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~``
+         
+         
+         
+         
+         function getNearestAddress(origin, destinations) {                     //получить ближайший адресс
+        	 var nearestAddress;
+        	 
+        	 distanceService.getDistanceMatrix(
+          			  {
+          			    origins: [origin],
+          			    destinations: destinations,
+          			    travelMode: 'DRIVING',
+          			    unitSystem: google.maps.UnitSystem.METRIC,
+          		        avoidHighways: false,
+          		        avoidTolls: false
+          			  }, callbackNearestAddress);
+         		
+        	 function callbackNearestAddress(response, status) {
+        		 var array = response.rows[0].elements;
+            	 var nearestDistance = array[0].distance.value;
+            	 var nearestAddressId = 0;
+            	 
+            	 for(var i = 1; i < array.length; i++) {
+            		 if(nearestDistance > array[i].distance.value) {
+            			 nearestDistance = array[i].distance.value;
+            			 nearestAddressId = i;
+            		 }
+            	 }
+            	 alert(response.destinationAddresses[nearestAddressId]);
+                   		}
+         }
+         
+        	 
+         
       
       
     </script>

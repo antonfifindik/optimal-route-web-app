@@ -51,7 +51,7 @@ public class MapController {
 	@RequestMapping(value = "/getAddresses", method = RequestMethod.GET)
 	public @ResponseBody String[] addAddressToMap() {
 
-		return new String[] { "Vinnitsa, 600-letiya, 58", "Vinnitsa, 600-letiya, 21" };
+		return new String[] { "Vinnitsa, 600-letiya, 58", "Vinnitsa, 600-letiya, 58" };
 	}
 
 	@RequestMapping(value = "/getArrayAddresses", method = RequestMethod.GET)
