@@ -1,6 +1,5 @@
 package com.optimalroute.app.controllers;
 
-import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.optimalroute.app.interfaces.IAddressService;
-import com.optimalroute.app.objects.Address;
 
 @Controller
 public class MapController {
@@ -33,12 +31,15 @@ public class MapController {
 
 	@RequestMapping(value = "/getNewAddressAll", method = RequestMethod.GET)
 	public @ResponseBody String[] getAllAddresses() {
-		List<Address> addresses = addressService.findAllAddresses();
-		String[] result = new String[addresses.size()];
+		// List<Address> addresses = addressService.findAllAddresses();
+		// String[] result = new String[addresses.size()];
+		//
+		// for (int i = 0; i < result.length; i++) {
+		// result[i] = addresses.get(i).getCity() + ", " + addresses.get(i).getStreet()
+		// + ", " + addresses.get(i).getHouseNumber();
+		// }
 
-		for (int i = 0; i < result.length; i++) {
-			result[i] = addresses.get(i).getCity() + ", " + addresses.get(i).getStreet() + ", " + addresses.get(i).getHouseNumber();
-		}
+		String[] result = { "Вінниця, Батозька, 21", "Вінниця, Юності, 55", "Вінниця, Соборна, 10", "Вінниця, Стеценка, 10" };
 
 		return result;
 	}

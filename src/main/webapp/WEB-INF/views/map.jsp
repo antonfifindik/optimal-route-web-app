@@ -81,7 +81,7 @@
    <button type="button" onclick="addArrayAdressesAsync()">addArrayAddresses</button>
    <button class="btn btn-danger" type="button" onclick="distanceAsync()">Посчитать расстояние</button>
    <button class="btn btn-success" type="button" onclick="distanceAllAsync()">Посчитать расстояние от одного адреса ко всем</button> <br>
-   <button class="btn btn-info" type="button" onclick="optimalRouteWithoutSenders()">Построить оптимальный маршрут без учёта отправителей</button>
+   <button class="btn btn-info" type="button" onclick="calculationOfTheOptimalRouteDemo()">Построить оптимальный маршрут без учёта отправителей</button>
    
     <div id="map"></div>
     <script>
@@ -345,30 +345,28 @@
          
          
          
-         function optimalRouteWithoutSenders(origin) {
+         function calculationOfTheOptimalRouteDemo(origin) {
         	 $.ajax({
                  type: 'GET',
                  url: './getNewAddressAll',
                  success: function (response) {
 
-               	 
-          //     	  alert(response);
+                	 
+                	var addresses = response; 
                	  var origin = 'Вінниця, Юності 1';
-               	
-         //      	  var destination = response[1];
-         //      	  var destination2 = response[2];
-       //        	  alert(origin);
-        //       	  alert(destination);
+            	  addresses.unshift(origin);
+            	  
+            	  alert(addresses);
                	  
                	  distanceService.getDistanceMatrix(
                			  {
-               			    origins: [origin],
+               			    origins: addresses,
                			    destinations: response,
                			    travelMode: 'DRIVING',
                			    unitSystem: google.maps.UnitSystem.METRIC,
                		        avoidHighways: false,
                		        avoidTolls: false
-               			  }, callbackOptimalRouteWithoutSenders);
+               			  }, callbackcalculationOfTheOptimalRouteDemo);
                	  
                	  
                  },
@@ -379,17 +377,19 @@
          }
          
          
-         function callbackOptimalRouteWithoutSenders(response, status) {
-        	 
-        	 var array = response.rows[0].elements;
-        	 
-        	 array.sort(function(a, b) {
-        		  return a.distance.value - b.distance.value;
-        		});
+         function callbackcalculationOfTheOptimalRouteDemo(response, status) {
+        	 var originList = response.originAddresses;
+        	 var destinationList = response.destinationAddresses;
         	 
         	 
-        	 alert(array[0].distance.value);
-        	 alert(array[array.length - 1].distance.value);
+        	 for(var i = 0; i < originList.length; i++) {
+        	     for(var j = 0; j < destinationList.length; j++) {
+        	    	 if(originList[i] != destinationList[j]) {
+        	    		 alert('Расстояние от ' + originList[i] + ' до ' + destinationList[j] + ' = ' +  response.rows[i].elements[j].distance.value);
+        	    	 }
+        	    	 
+        	     }
+        	 }
         	 
     	}
          //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~``
