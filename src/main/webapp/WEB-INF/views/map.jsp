@@ -80,6 +80,7 @@
    <button type="button" onclick="displayRouteAsync()">displayRouteAsync</button>
    <button type="button" onclick="addArrayAdressesAsync()">addArrayAddresses</button>
    <button class="btn btn-danger" type="button" onclick="distanceAsync()">Посчитать расстояние</button>
+   <button class="btn btn-success" type="button" onclick="distanceAllAsync()">Посчитать расстояние от одного адреса ко всем</button>
    
     <div id="map"></div>
     <script>
@@ -261,13 +262,14 @@
             	  
             	  var origin = response[0];
             	  var destination = response[1];
+            	  var destination2 = response[2];
     //        	  alert(origin);
      //       	  alert(destination);
             	  
             	  distanceService.getDistanceMatrix(
             			  {
             			    origins: [origin],
-            			    destinations: [destination],
+            			    destinations: [destination, destination2],
             			    travelMode: 'DRIVING',
             			    unitSystem: google.maps.UnitSystem.METRIC,
             		        avoidHighways: false,
@@ -283,8 +285,55 @@
       }
       
       function callback(response, status) {
-    	  alert(response.rows[0].elements[0].distance.text);
+    	  alert('Расстояние до первого адреса: ' + response.rows[0].elements[0].distance.text);  //расстояние до первого адреса
+    	  alert('Расстояние до второго адреса: ' + response.rows[0].elements[1].distance.text);  //расстояние до второго адреса
+    	  alert('Второй адрес: ' + response.destinationAddresses[1]);            //второй адрес
     	}
+      
+      
+      
+      function distanceAllAsync(addresses) {
+    	  $.ajax({
+              type: 'GET',
+              url: './getNewAddressAll',
+              success: function (response) {
+
+            	 
+       //     	  alert(response);
+            	  var origin = 'Вінниця, Юності 1';
+            	
+      //      	  var destination = response[1];
+      //      	  var destination2 = response[2];
+    //        	  alert(origin);
+     //       	  alert(destination);
+            	  
+            	  distanceService.getDistanceMatrix(
+            			  {
+            			    origins: [origin],
+            			    destinations: response,
+            			    travelMode: 'DRIVING',
+            			    unitSystem: google.maps.UnitSystem.METRIC,
+            		        avoidHighways: false,
+            		        avoidTolls: false
+            			  }, callbackAll);
+            	  
+            	  
+              },
+              error: function (err) {
+                  alert('ERROR displayRouteAsync function or in getAddresses controller');
+              }
+          });
+      }
+        
+         function callbackAll(response, status) {
+    	  
+        	 alert(response.destinationAddresses);
+    	  	
+    	  	  for (var i = 0; i < response.rows[0].elements.length; i++) {
+        		  alert(response.rows[0].elements[i].distance.value);  //расстояние до адреса в метрах
+        		}
+    	}
+      
       
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2yYUDCCpAl1ZiP-pN5Xs6L4Ze2rekTIc&callback=initMap&language=uk">

@@ -63,7 +63,7 @@ public class MapController {
 	@RequestMapping(value = "/getTwoAddresses", method = RequestMethod.GET)
 	public @ResponseBody String[] getTwoAddresses() {
 
-		return new String[] { "Vinnitsa, 600-letiya, 1", "Vinnitsa, 600-letiya, 66" };
+		return new String[] { "Vinnitsa, 600-letiya, 1", "Vinnitsa, 600-letiya, 66", "Vinnytsia, vulytsia Aivazovskoho, 51" };
 	}
 
 }
