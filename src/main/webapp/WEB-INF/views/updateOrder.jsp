@@ -66,54 +66,88 @@
   <h1>Редагувати заказ</h1>
 </div>
 		<form name="order" action="./updateOrder" method="post">
-		<p>Адреса відправника:</p>
-		<select id="senderAddress" name="senderAddress" >
+		<div style="display: flex; justify-content:center;" class="aligntop">
+		<select class="form-control" id="senderAddress" name="senderAddress" required>
+		<option  selected value="${updateOrder.senderAddress.id}">${updateOrder.senderAddress}</option>
                <c:forEach items="${addressesList}" var="item">
-                <option value ="${item.id}">${item}</option>
+               
+               <c:if test="${item.id ne updateOrder.senderAddress.id}">
+ 				<option value ="${item.id}">${item}</option>
+				</c:if>
+           
                 </c:forEach>
                  </select>
-                  <a href="./addAddress" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Нова адреса</a>
-                 
+                  <a href="./addAddress" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-home"></span>Нова адреса</a>
+                 </div>
                            
-                 <p>Адреса отримувача:</p>
-		<select id="recipientAddress" name="recipientAddress" >
+		<div style="display: flex; justify-content:center;" class="aligntop">
+		<select class="form-control" id="recipientAddress" name="recipientAddress"  required>
+		<option  selected value="${updateOrder.recipientAddress.id}">${updateOrder.recipientAddress}</option>
                 <c:forEach items="${addressesList}" var="item">
-                 <option value ="${item.id}">${item}</option>
+                 
+               <c:if test="${item.id ne updateOrder.recipientAddress.id}">
+ 				<option value ="${item.id}">${item}</option>
+				</c:if>
+           
                 </c:forEach>
                  </select>
-                  <a href="./addAddress" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Нова адреса</a>
+                  <a href="./addAddress" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-home"></span>Нова адреса</a>
                  	
-		<p>Відправник:</p>
-		<select id="sender" name="sender" >
+                 	</div>
+                 	
+		<div style="display: flex; justify-content:center;" class="aligntop">
+		<select class="form-control" id="sender" name="sender" required>
+		<option  selected value="${updateOrder.sender.id}">${updateOrder.sender}</option>
                 <c:forEach items="${clientsList}" var="item">
-                 <option value ="${item.id}">${item}</option>
+                 
+               <c:if test="${item.id ne updateOrder.sender.id}">
+ 				<option value ="${item.id}">${item}</option>
+				</c:if>
+           
                 </c:forEach>
                  </select>
-                  <a href="./addClient" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий клієнт</a>
-		<p>Отримувач:</p>
-		<select id="recipient" name="recipient" >
+                  <a href="./addClient" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-user"></span>Новий клієнт</a>
+                  
+                  </div>
+                  
+		<div style="display: flex; justify-content:center;" class="aligntop">
+		<select class="form-control" id="recipient" name="recipient"  required>
+		<option  selected value="${updateOrder.recipient.id}">${updateOrder.recipient}</option>
                 <c:forEach items="${clientsList}" var="item">
-                 <option value ="${item.id}">${item}</option>
+                
+                 <c:if test="${item.id ne updateOrder.recipient.id}">
+ 				<option value ="${item.id}">${item}</option>
+				</c:if>
+				
                 </c:forEach>
                  </select>
-                  <a href="./addClient" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий клієнт</a>
-		<p>Кур'єр:</p>
-		<select id="courier" name="courier" >
+                  <a href="./addClient" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-user"></span>Новий клієнт</a>
+                  
+                  </div>
+                  
+		<div style="display: flex; justify-content:center;" class="aligntop">
+		<select class="form-control" id="courier" name="courier"  required>
+		<option  selected value="${updateOrder.courier.id}">${updateOrder.courier}</option>
                 <c:forEach items="${couriersList}" var="item">
-                 <option value ="${item.id}">${item}</option>
+                
+                 <c:if test="${item.id ne updateOrder.courier.id}">
+ 				<option value ="${item.id}">${item}</option>
+				</c:if>
+				
                 </c:forEach>
                  </select>
 
-					<a href="./addCourier" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-plus"></span>Новий кур'єр</a>
+					<a href="./addCourier" class="btn btn-sm btn-primary"  role="button"><span style="margin-right: 5px"  class="glyphicon glyphicon-send"></span>Новий кур'єр</a>
+				</div>	
 					
-					
-					<p>Статус</p>
-		<select>
+		<div style="display: flex; justify-content:center;" class="aligntop">
+		<select class="form-control" id="status" name="status"  required>
 			<option>Не виконан</option>
 			<option>Виконан</option>
 		</select> 
-		 <br>
-		<input type="submit" value="Прийняти" class="btn btn-sm btn-warning aligntop"> 
+		</div>
+		
+		<input type="submit" value="Прийняти" class="btn btn-success aligntop " >  
 		
 		
 	</form> 
