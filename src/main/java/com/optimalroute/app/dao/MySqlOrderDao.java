@@ -57,7 +57,7 @@ public class MySqlOrderDao implements IOrderDao {
 
 	@Override
 	public void update(Order order) {
-		String sql = String.format("update from orders set sender_address_id = %d, recipient_address_id = %d, client_sender_id = %d, client_recipient_id = %d, courier_id = %d, status = %d where id = %d", order.getSenderAddress().getId(),
+		String sql = String.format("update orders set sender_address_id = %d, recipient_address_id = %d, client_sender_id = %d, client_recipient_id = %d, courier_id = %d, status = %d where id = %d", order.getSenderAddress().getId(),
 				order.getRecipientAddress().getId(), order.getSender().getId(), order.getRecipient().getId(), order.getCourier().getId(), order.isStatus() == true ? 1 : 0, order.getId());
 		jdbcTemplate.update(sql);
 	}
@@ -70,36 +70,4 @@ public class MySqlOrderDao implements IOrderDao {
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
 	}
-	//
-	// public static void main(String[] args) { // test
-	// AnnotationConfigApplicationContext context = new
-	// AnnotationConfigApplicationContext(SpringConfig.class);
-	// MySqlOrderDao mySqlOrderDao = (MySqlOrderDao)
-	// context.getBean("mySqlOrderDao");
-	// String surname = mySqlOrderDao.jdbcTemplate.queryForObject("select order_date
-	// from orders where id = 2;", String.class);
-	// System.err.println(surname);
-	// LocalDate date = LocalDate.parse(surname);
-	// System.err.println(date);
-	// System.err.println(date.getYear());
-	// System.err.println(date.getMonthValue());
-	// System.err.println(date.getDayOfMonth());
-	//
-	// Address address = mySqlOrderDao.jdbcTemplate.queryForObject("select * from
-	// addresses where id = 2;", new AddressMapper());
-	// System.out.println(address);
-	// Client client = mySqlOrderDao.jdbcTemplate.queryForObject("select * from
-	// clients where id = 2;", new ClientMapper());
-	// System.out.println(client);
-	// Courier courier = mySqlOrderDao.jdbcTemplate.queryForObject("select * from
-	// couriers where id = 2;", new CourierMapper());
-	// System.out.println(courier);
-	// Order order = mySqlOrderDao.jdbcTemplate.queryForObject("select * from orders
-	// where id = 2;", new OrderMapper());
-	// System.err.println(order);
-	// mySqlOrderDao.findAllCouriers().stream().forEach(System.out::println);
-	//
-	// System.out.println(LocalDate.now());
-	// }
-
 }

@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -97,12 +96,21 @@ public class CRUDOrderController {
 	}
 
 	@RequestMapping(value = "/updateOrder", method = RequestMethod.POST)
-	public String updateOrder(@ModelAttribute("order") Order order) {
-		if (!updateOrder.equals(order)) {
-			order.setId(updateOrder.getId());
-			// orderService.update(order);
-			System.out.println(order);
-		}
+	public String updateOrder(HttpServletRequest request) {
+
+		Order result = new Order();
+		result.setId(updateOrder.getId());
+		result.setSenderAddress(addressService.selectAddressById(Integer.parseInt(request.getParameter("senderAddress"))));
+		result.setRecipientAddress(addressService.selectAddressById(Integer.parseInt(request.getParameter("recipientAddress"))));
+		result.setSender(clientService.selectClientById(Integer.parseInt(request.getParameter("sender"))));
+		result.setRecipient(clientService.selectClientById(Integer.parseInt(request.getParameter("recipient"))));
+		result.setCourier(courierService.selectCourierById(Integer.parseInt(request.getParameter("courier"))));
+		result.setStatus(request.getParameter("status").equals("Виконано") ? true : false);
+		result.setDate(updateOrder.getDate());
+
+		if (!result.equals(updateOrder))
+			orderService.update(result);
+
 		return "redirect:/home";
 	}
 }

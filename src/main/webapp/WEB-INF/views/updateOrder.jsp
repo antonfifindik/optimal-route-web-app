@@ -142,8 +142,8 @@
 					
 		<div style="display: flex; justify-content:center;" class="aligntop">
 		<select class="form-control" id="status" name="status"  required>
-			<option>Не виконан</option>
-			<option>Виконан</option>
+			<option>Не виконано</option>
+			<option>Виконано</option>
 		</select> 
 		</div>
 		
