@@ -45,10 +45,20 @@
         padding: 0;
       }
     </style>
+    
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
   </head>
   <body>
   
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-inverse">
 <div class="container-fluid">
 	<div class="navbar-header">
 		<a href="./home" class="navbar-brand">OPTIMAL ROUTE</a>
@@ -77,6 +87,26 @@
 
    <button class="btn btn-info" type="button" onclick="calculationOfTheOptimalRouteDemo()">Построить оптимальный маршрут без учёта отправителей</button>
    
+   
+   <div> 
+   
+   <table  style="width: 45%; margin-left: 20px; float: left;" class="table table-striped table-hover table-condensed table-responsive table-bordered">
+   <th>Адреса</th>
+   <th>Ім'я клієнта</th>
+   <th width="25%"></th>
+   <tr>
+   <td></td>
+   <td></td>
+   <td>
+   	<a href="./infoOrder?id=${order.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-map-marker"></span>Інфо</a>
+     <a href="./trueOrder?id=${order.id}" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-ok"></span>Виконано</a>
+   </td>
+   </tr>
+   </table>
+   
+   </div>
+   
+   
     <div id="map"></div>
     <script>
     var directionsService;
@@ -87,7 +117,7 @@
 
     function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 11,
+            zoom: 12,
             center: {lat: 49.234167, lng: 28.458371}
         });
 
@@ -194,16 +224,14 @@
         	 var destinationList = response.destinationAddresses;
         	 var dict = [];
         	 dict.push(originList[0]);
-    //    	 alert(destinationList);
         	 let mapDest = new Map();
         	 
         	 for(var i = 0; i < destinationList.length; i++) {
         		 mapDest.set(destinationList[i], false);
+        		 
         	 }
-       // 	 mapDest.set(dict[0], true);
         	 alert(mapDest.size);
-        	 
-        	 
+	 
         	 for(var i = 0; i < originList.length; i++) {
         		 
         		 if(dict.length == destinationList.length) {
@@ -216,7 +244,6 @@
         		 if(dict[dict.length - 1] == originList[i]) {                //если последний элемент в финальной цепочке равен
         			 for(var j = 0; j < destinationList.length; j++) {
             	    	 if(originList[i] != destinationList[j] && mapDest.get(destinationList[j]) == false) {
-            	    	//	 alert('Расстояние от ' + originList[i] + ' до ' + destinationList[j] + ' = ' +  response.rows[i].elements[j].distance.value);
             	    		if(response.rows[i].elements[j].distance.value < minDist) {
             	    			minDist = response.rows[i].elements[j].distance.value;
             	    			nearestId = j;
@@ -225,13 +252,11 @@
             	    	 }
             	    	 
             	     }
-        			 //	     alert('Ближайший адрес к ' + originList[i] + ' является ' + destinationList[nearestId] + ' = ' +  minDist);
             		 dict.push(destinationList[nearestId]);
             		 mapDest.set(destinationList[nearestId], true);
             		 mapDest.set(originList[i], true);
             			i = 0;
             			j = 0;
-            	//		alert(dict);
         		 }
   
        
@@ -241,7 +266,6 @@
         		 addAdress(dict[i]);
         	 }
         	 
-        //	 displayRouteDemo('Вінниця, Соборна, 2', 'Вінниця, Соборна, 5', directionsService, directionsDisplay, dict);
         	 displayRouteDemo(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);
     	}
 
