@@ -284,9 +284,17 @@
         	 displayRouteDemo(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);
     	}
          
+         'use strict';
          
-         
-         
+         class Order {
+
+        	  constructor(id, address, type) {
+        	    this.id = id;
+        	    this.address = address;
+        	    this.type = type;
+        	  }
+
+        	}
          
          
          
@@ -300,11 +308,19 @@
                  url: './getTenAddressesByCourier',
                  success: function (response) {
 
-                 for(var i = 0; i < response.length; i++) {
-                	 alert(response[i]);
+                 var orders = [];
+                	 
+                 for(var i = 0, j = 0; i < response.length; i+=3, j++) {
+//                	 alert(response[i]);
+                	 orders.push(new Order(response[i], response[i + 1], response[i + 2]));
                  }
                 	
-               	  
+               	 for(var i = 0; i < orders.length; i++) {
+               		 alert(orders[i].id + ' ' + orders[i].address + ' ' + orders[i].type);
+               	 }
+                 
+                 
+                 
                	  
                  },
                  error: function (err) {
