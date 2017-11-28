@@ -86,7 +86,7 @@
   </div>
 
    <button class="btn btn-info" type="button" onclick="calculationOfTheOptimalRouteDemo()">Построить оптимальный маршрут без учёта отправителей</button>
-   
+   <button class="btn btn-primary" type="button" onclick="calculationOfTheOptimalRoute()">Построить оптимальный маршрут</button>
    
    <div> 
    
@@ -282,6 +282,40 @@
         	 }
         	 
         	 displayRouteDemo(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);
+    	}
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         function calculationOfTheOptimalRoute(origin) {
+        	 $.ajax({
+                 type: 'GET',
+                 url: './getTenAddressesByCourier',
+                 success: function (response) {
+
+                 for(var i = 0; i < response.length; i++) {
+                	 alert(response[i]);
+                 }
+                	
+               	  
+               	  
+                 },
+                 error: function (err) {
+                     alert('Error..');
+                 }
+             });
+         }
+         
+         
+         function callbackcalculationOfTheOptimalRoute(response, status) {
+        	 
     	}
 
     </script>

@@ -22,14 +22,15 @@ public class MapController {
 	private IAddressService addressService;
 	@Autowired
 	private IOrderService orderService;
+	private ArrayList<OrderForCourier> ordersForCourierList;
 
 	@RequestMapping(value = "/map", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
 		if (HomeController.getCurrentAccount() != null) {
 
-			ArrayList<OrderForCourier> ordersForCourierList = new ArrayList<>();
-			orderService.findAllOrders().stream().filter(o -> o.getCourier().getId() == HomeController.getCurrentAccount().getCourier().getId()).forEach(o -> {
+			ordersForCourierList = new ArrayList<>();
+			orderService.findAllOrders().stream().filter(o -> o.getCourier().getId() == HomeController.getCurrentAccount().getCourier().getId() && !o.isStatus()).forEach(o -> {
 				OrderForCourier ofcSender = new OrderForCourier();
 				ofcSender.setIdOrder(o.getId());
 				ofcSender.setAddress(o.getSenderAddress());
@@ -52,20 +53,8 @@ public class MapController {
 		return "map";
 	}
 
-	@RequestMapping(value = "/getNewAddressFirst", method = RequestMethod.GET)
-	public @ResponseBody String getFirstAddress() {
-		return "VInnitsya, YunostI, 45";
-	}
-
 	@RequestMapping(value = "/getNewAddressAll", method = RequestMethod.GET)
 	public @ResponseBody String[] getAllAddresses() {
-		// List<Address> addresses = addressService.findAllAddresses();
-		// String[] result = new String[addresses.size()];
-		//
-		// for (int i = 0; i < result.length; i++) {
-		// result[i] = addresses.get(i).getCity() + ", " + addresses.get(i).getStreet()
-		// + ", " + addresses.get(i).getHouseNumber();
-		// }
 
 		String[] result = { "Вінниця, Батозька, 21", "Вінниця, Юності, 55", "Вінниця, Соборна, 10", "Вінниця, Ігоря Костецького, 12", "Вінниця, Воїнів-Інтернаціоналістів, 3", "Вінниця, Келецька, 105", "Вінниця, Зодчих, 28", "Вінниця, Бучми, 126",
 				"Вінниця, Блока, 3" };
@@ -73,27 +62,16 @@ public class MapController {
 		return result;
 	}
 
-	@RequestMapping(value = "/getNewAddressThird", method = RequestMethod.GET)
-	public @ResponseBody String getThirdSecond() {
-		return "Vinnytsia, vulytsia Aivazovskoho, 51";
-	}
+	@RequestMapping(value = "/getTenAddressesByCourier", method = RequestMethod.GET)
+	public @ResponseBody String[] getTenAddressesByCourier() {
 
-	@RequestMapping(value = "/getAddresses", method = RequestMethod.GET)
-	public @ResponseBody String[] addAddressToMap() {
+		String[] result = new String[(ordersForCourierList.size() > 10 ? 10 : ordersForCourierList.size())];
 
-		return new String[] { "Vinnitsa, 600-letiya, 58", "Vinnitsa, 600-letiya, 58" };
-	}
+		for (int i = 0; i < (ordersForCourierList.size() > 10 ? 10 : ordersForCourierList.size()); i++) {
+			result[i] = ordersForCourierList.get(i).getAddress().getCity() + ", " + ordersForCourierList.get(i).getAddress().getStreet() + ", " + ordersForCourierList.get(i).getAddress().getHouseNumber();
+		}
 
-	@RequestMapping(value = "/getArrayAddresses", method = RequestMethod.GET)
-	public @ResponseBody String[] getArrayAddresses() {
-
-		return new String[] { "Vinnitsa, Lesi Ukrainky, 20", "Vinnitsa, Soborna, 20", "Vinnitsa, Lesi Ukrainky, 10" };
-	}
-
-	@RequestMapping(value = "/getTwoAddresses", method = RequestMethod.GET)
-	public @ResponseBody String[] getTwoAddresses() {
-
-		return new String[] { "Vinnitsa, 600-letiya, 1", "Vinnitsa, 600-letiya, 66", "Vinnytsia, vulytsia Aivazovskoho, 51" };
+		return result;
 	}
 
 }
