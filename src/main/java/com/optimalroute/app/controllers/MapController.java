@@ -1,5 +1,6 @@
 package com.optimalroute.app.controllers;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +11,42 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.optimalroute.app.interfaces.IAddressService;
+import com.optimalroute.app.interfaces.IOrderService;
+import com.optimalroute.app.objects.OrderForCourier;
+import com.optimalroute.app.objects.OrderType;
 
 @Controller
 public class MapController {
 
 	@Autowired
 	private IAddressService addressService;
+	@Autowired
+	private IOrderService orderService;
 
 	@RequestMapping(value = "/map", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
+
+		if (HomeController.getCurrentAccount() != null) {
+
+			ArrayList<OrderForCourier> ordersForCourierList = new ArrayList<>();
+			orderService.findAllOrders().stream().filter(o -> o.getCourier().getId() == HomeController.getCurrentAccount().getCourier().getId()).forEach(o -> {
+				OrderForCourier ofcSender = new OrderForCourier();
+				ofcSender.setIdOrder(o.getId());
+				ofcSender.setAddress(o.getSenderAddress());
+				ofcSender.setOrderType(OrderType.SENDER);
+
+				OrderForCourier ofcRecipient = new OrderForCourier();
+				ofcRecipient.setIdOrder(o.getId());
+				ofcRecipient.setAddress(o.getRecipientAddress());
+				ofcRecipient.setOrderType(OrderType.RECIPIENT);
+
+				ordersForCourierList.add(ofcSender);
+				ordersForCourierList.add(ofcRecipient);
+			});
+
+			model.addAttribute("ordersForCourierList", ordersForCourierList);
+		}
+
 		model.addAttribute("account", HomeController.getCurrentAccount());
 
 		return "map";

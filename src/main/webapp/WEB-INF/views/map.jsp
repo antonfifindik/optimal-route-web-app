@@ -93,17 +93,19 @@
    <table  style="width: 45%; margin-left: 20px; float: left;" class="table table-striped table-hover table-condensed table-responsive table-bordered">
    <th width="5%">id</th>
    <th>Адреса</th>
-   <th width="20%">Відпр/отрим</th>
-   <th width="25%"></th>
+   <th width="17%">Відпр/отрим</th>
+   <th width="27%"></th>
+   <c:forEach var="item" items="${ordersForCourierList}" varStatus="status">
    <tr>
-   <td></td>
-   <td></td>
-   <td></td>
+   <td>${item.idOrder}</td>
+   <td>${item.address}</td>
+   <td>${item.orderType == SENDER ? 'Відправник':'Отримувач'}</td>
    <td>
    	<a href="./infoOrder?id=${order.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-map-marker"></span>Інфо</a>
      <a href="./trueOrder?id=${order.id}" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-ok"></span>Виконано</a>
    </td>
    </tr>
+   </c:forEach>   
    </table>
    
    </div>
