@@ -81,7 +81,7 @@
 
 <div class="out" align="left">
 <div class="page-header">
-  <h1>Побудова маршруту</h1>  
+  <h1>Побудова маршруту <span class="label label-success">кур'єр: ${account}</span></h1>  
   </div>
   </div>
 
@@ -91,10 +91,12 @@
    <div> 
    
    <table  style="width: 45%; margin-left: 20px; float: left;" class="table table-striped table-hover table-condensed table-responsive table-bordered">
+   <th width="5%">id</th>
    <th>Адреса</th>
-   <th>Ім'я клієнта</th>
+   <th width="20%">Відпр/отрим</th>
    <th width="25%"></th>
    <tr>
+   <td></td>
    <td></td>
    <td></td>
    <td>
