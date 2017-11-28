@@ -29,14 +29,14 @@ public class CRUDAddressController {
 		ArrayList<Address> addressesList = (ArrayList<Address>) addressService.findAllAddresses();
 
 		model.addAttribute("addressesList", addressesList);
-		model.addAttribute("account", HomeController.account);
+		model.addAttribute("account", HomeController.getCurrentAccount());
 
 		return "addresses";
 	}
 
 	@RequestMapping(value = "/addAddress", method = RequestMethod.GET)
 	public String addAddressPage(Model model) {
-		model.addAttribute("account", HomeController.account);
+		model.addAttribute("account", HomeController.getCurrentAccount());
 		return "addAddress";
 	}
 
@@ -51,7 +51,7 @@ public class CRUDAddressController {
 		int id = Integer.parseInt(request.getParameter("id"));
 		deleteAddress = addressService.selectAddressById(id);
 		model.addAttribute("addressForDelete", deleteAddress);
-		model.addAttribute("account", HomeController.account);
+		model.addAttribute("account", HomeController.getCurrentAccount());
 		return "confirmationOfDeletionAddress";
 	}
 
@@ -73,7 +73,7 @@ public class CRUDAddressController {
 		int id = Integer.parseInt(request.getParameter("id"));
 		updateAddress = addressService.selectAddressById(id);
 		model.addAttribute("updateAddress", updateAddress);
-		model.addAttribute("account", HomeController.account);
+		model.addAttribute("account", HomeController.getCurrentAccount());
 		return "updateAddress";
 	}
 

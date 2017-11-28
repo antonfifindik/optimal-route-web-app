@@ -29,14 +29,14 @@ public class CRUDCourierController {
 		ArrayList<Courier> couriersList = (ArrayList<Courier>) courierService.findAllCouriers();
 
 		model.addAttribute("couriersList", couriersList);
-		model.addAttribute("account", HomeController.account);
+		model.addAttribute("account", HomeController.getCurrentAccount());
 
 		return "couriers";
 	}
 
 	@RequestMapping(value = "/addCourier", method = RequestMethod.GET)
 	public String addCourierPage(Model model) {
-		model.addAttribute("account", HomeController.account);
+		model.addAttribute("account", HomeController.getCurrentAccount());
 		return "addCourier";
 	}
 
@@ -52,7 +52,7 @@ public class CRUDCourierController {
 		int id = Integer.parseInt(request.getParameter("id"));
 		deleteCourier = courierService.selectCourierById(id);
 		model.addAttribute("courierForDelete", deleteCourier);
-		model.addAttribute("account", HomeController.account);
+		model.addAttribute("account", HomeController.getCurrentAccount());
 		return "confirmationOfDeletionCourier";
 	}
 
@@ -73,7 +73,7 @@ public class CRUDCourierController {
 	public String updateCourier(HttpServletRequest request, Model model) {
 		int id = Integer.parseInt(request.getParameter("id"));
 		updateCourier = courierService.selectCourierById(id);
-		model.addAttribute("account", HomeController.account);
+		model.addAttribute("account", HomeController.getCurrentAccount());
 		model.addAttribute("updateCourier", updateCourier);
 		return "updateCourier";
 	}

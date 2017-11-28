@@ -56,7 +56,7 @@
 			<li><a href="map">Побудова маршруту</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-            <li><a href="#">${account}</a></li>
+            <li><a href="#">${account.login}</a></li>
             <li><a href="login">Вихід</a></li>
           </ul>
 	</div>

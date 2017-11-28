@@ -29,7 +29,7 @@ public class LoginController {
 
 		for (Account acc : accountService.findAllAccount()) {
 			if (acc.getLogin().equals(account.getLogin()) && acc.getPassword().equals(account.getPassword())) {
-				HomeController.account = account.getLogin();
+				HomeController.setCurrentAccount(acc);
 				return "redirect:/home";
 			}
 		}

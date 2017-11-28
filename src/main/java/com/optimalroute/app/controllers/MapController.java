@@ -19,7 +19,7 @@ public class MapController {
 
 	@RequestMapping(value = "/map", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		model.addAttribute("account", HomeController.account);
+		model.addAttribute("account", HomeController.getCurrentAccount());
 
 		return "map";
 	}

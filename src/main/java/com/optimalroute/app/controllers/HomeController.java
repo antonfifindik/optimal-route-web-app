@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.optimalroute.app.interfaces.IOrderService;
+import com.optimalroute.app.objects.Account;
 import com.optimalroute.app.objects.Order;
 
 /**
@@ -22,7 +23,7 @@ public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	private static int idDelete;
-	static String account;
+	private static Account currentAccount;
 
 	@Autowired
 	private IOrderService orderService;
@@ -37,9 +38,17 @@ public class HomeController {
 		ArrayList<Order> ordersList = (ArrayList<Order>) orderService.findAllOrders();
 
 		model.addAttribute("ordersList", ordersList);
-		model.addAttribute("account", account);
+		model.addAttribute("account", currentAccount);
 
 		return "home";
+	}
+
+	public static Account getCurrentAccount() {
+		return currentAccount;
+	}
+
+	public static void setCurrentAccount(Account currentAccount) {
+		HomeController.currentAccount = currentAccount;
 	}
 
 }

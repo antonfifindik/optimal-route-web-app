@@ -30,14 +30,14 @@ public class CRUDClientController {
 		ArrayList<Client> clientsList = (ArrayList<Client>) clientService.findAllClients();
 
 		model.addAttribute("clientsList", clientsList);
-		model.addAttribute("account", HomeController.account);
+		model.addAttribute("account", HomeController.getCurrentAccount());
 
 		return "clients";
 	}
 
 	@RequestMapping(value = "/addClient", method = RequestMethod.GET)
 	public String addClientPage(Model model) {
-		model.addAttribute("account", HomeController.account);
+		model.addAttribute("account", HomeController.getCurrentAccount());
 		return "addClient";
 	}
 
@@ -53,7 +53,7 @@ public class CRUDClientController {
 		int id = Integer.parseInt(request.getParameter("id"));
 		deleteClient = clientService.selectClientById(id);
 		model.addAttribute("clientForDelete", deleteClient);
-		model.addAttribute("account", HomeController.account);
+		model.addAttribute("account", HomeController.getCurrentAccount());
 		return "confirmationOfDeletionClient";
 	}
 
@@ -74,7 +74,7 @@ public class CRUDClientController {
 	public String updateClient(HttpServletRequest request, Model model) {
 		int id = Integer.parseInt(request.getParameter("id"));
 		updateClient = clientService.selectClientById(id);
-		model.addAttribute("account", HomeController.account);
+		model.addAttribute("account", HomeController.getCurrentAccount());
 		model.addAttribute("updateClient", updateClient);
 		return "updateClient";
 	}

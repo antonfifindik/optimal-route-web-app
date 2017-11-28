@@ -72,7 +72,7 @@
 			<li class="active"><a href="map">Побудова маршруту</a></li>
 		</ul>
 		 <ul class="nav navbar-nav navbar-right">
-		 <li><a href="#">${account}</a></li>
+		 <li><a href="#">${account.login}</a></li>
             <li><a href="login">Вихід</a></li>
           </ul>
 	</div>
@@ -81,7 +81,7 @@
 
 <div class="out" align="left">
 <div class="page-header">
-  <h1>Побудова маршруту <span class="label label-success">кур'єр: ${account}</span></h1>  
+  <h1>Побудова маршруту <span class="label label-info">кур'єр: ${account.login}</span></h1>  
   </div>
   </div>
 
