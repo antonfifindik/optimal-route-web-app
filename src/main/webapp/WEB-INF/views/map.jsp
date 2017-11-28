@@ -81,7 +81,7 @@
 
 <div class="out" align="left">
 <div class="page-header">
-  <h1>Побудова маршруту <span class="label label-info">кур'єр: ${account.login}</span></h1>  
+  <h1>Побудова маршруту <span class="label label-primary">кур'єр: ${account.login}</span></h1>  
   </div>
   </div>
 
@@ -94,13 +94,24 @@
    <th width="5%">id</th>
    <th>Адреса</th>
    <th width="17%">Відпр/отрим</th>
-   <th width="27%"></th>
+   <th width="26%"></th>
    <c:forEach var="item" items="${ordersForCourierList}" varStatus="status">
    <tr>
+   
    <td>${item.idOrder}</td>
-   <td>${item.address}</td>
-   <td>${item.orderType == SENDER ? 'Відправник':'Отримувач'}</td>
-   <td>
+   <c:if test="${item.orderType == 'SENDER'}">
+   <td class='info'>${item.address}</td>
+   </c:if>
+   <c:if test="${item.orderType == 'RECIPIENT'}">
+   <td class='warning'>${item.address}</td>
+   </c:if>
+   <c:if test="${item.orderType == 'SENDER'}">
+   <td class='info'>${item.orderType == 'SENDER' ? 'Відправник':'Отримувач'}</td>
+   </c:if>
+   <c:if test="${item.orderType == 'RECIPIENT'}">
+   <td class='warning'>${item.orderType == 'SENDER' ? 'Відправник':'Отримувач'}</td>
+   </c:if>
+   <td class="active">
    	<a href="./infoOrder?id=${order.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-map-marker"></span>Інфо</a>
      <a href="./trueOrder?id=${order.id}" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-ok"></span>Виконано</a>
    </td>
