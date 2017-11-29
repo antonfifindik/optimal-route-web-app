@@ -296,9 +296,7 @@
         	  }
 
         	}
-         
-         
-         
+     
          
          var orders = []; // массив объектов типа Order
          
@@ -316,9 +314,7 @@
                 	 orders.push(new Order(response[i], response[i + 1], response[i + 2], false));
                 	 addresses.push(response[i + 1]);
                 	 destinations.push(response[i + 1]);
-                 }
-
-                 
+                 }            
                 
               var origin = 'Вінниця, Юності 1';     //начальная точка
           	  addresses.unshift(origin);
@@ -340,8 +336,7 @@
                      alert('Error..');
                  }
              });
-         }
-         
+         }        
          
          function callbackcalculationOfTheOptimalRoute(response, status) {
         	 
@@ -359,12 +354,8 @@
         	 for(var i = 0; i < orders.length; i++) {
         		 mapDest.set(orders[i].id, false); 
         	 }
-
-        		 alert(mapDest.size);
-				
-        	 
+				   	 
         	 dict.push(originList[0]);
-
 	 
         	 for(var i = 0; i < originList.length; i++) {
         		 
@@ -381,82 +372,51 @@
         			 for(var j = 0; j < destinationList.length; j++) {
         				 
         				 if(originList[i] != destinationList[j]) {
-        					 
-        						 
+        					 					 
         						 if(orders[j].status == false) {
         							 
         							 if(orders[j].type == 'SENDER') {  //если отправитель
-        							
-        					//			 alert(orders[j].id + ' ' + orders[j].type);
-        								 
-        								 
+						 
    								 if(response.rows[i].elements[j].distance.value < minDist) {
         		            	    			minDist = response.rows[i].elements[j].distance.value;
-        		            	    			nearestId = j;
-        		            	    		
-        		            	    		}
-        								 
+        		            	    			nearestId = j;          	    		
+        		            	    		}				 
         							 }
         							 
         							 if(orders[j].type == 'RECIPIENT' && mapDest.get(orders[j].id) == true) {  //если получатель и отправитель уже добавлен
-    
         								 
         								 if(response.rows[i].elements[j].distance.value < minDist) {
      		            	    			minDist = response.rows[i].elements[j].distance.value;
-     		            	    			nearestId = j;
-     		            	  
-     		            	    		}
-        							 
-        							 }
-        							 
+     		            	    			nearestId = j;  		            	  
+     		            	    		}     							 
+        							 }      							 
         						 }
-
-	 
         				 }
- 
         			 }
         			 
         			 if(orders[nearestId].type == 'SENDER') {
         				dict.push(destinationList[nearestId]);
-
                 		 orders[nearestId].status = true;
-     
                 		 mapDest.set(orders[nearestId].id, true);
                 		 
                 			i = 0;
                 			j = 0;
-
         			 }
         			 if(orders[nearestId].type == 'RECIPIENT') {
-        				 dict.push(destinationList[nearestId]);
-        				 alert('RECIPIENT');
-        				 
-        				 
+        				 dict.push(destinationList[nearestId]);			 
         				 orders[nearestId].status = true;
-                		 
-        				 
+ 				 
                 		 i = 0;
              			j = 0;
-
-        			 }
-        			 
+        			 } 
         		 }
-  
-       
         	 }
      
         	 for(var i = 1; i < dict.length - 1; i++) {
         		 addAdress(dict[i]);
-     	//		alert(dict[i]);
         	 }
         	 
-        	 
-        	 for(var i = 0; i < dict.length; i++) {
-        		 alert(dict[i]);
-        	 }
-        	 
-        	 displayRouteDemo(dict[0], dict[dict.length - 1], directionsService, directionsDisplay); 
-           	 
+        	 displayRouteDemo(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);           	 
     	}
 
     </script>
