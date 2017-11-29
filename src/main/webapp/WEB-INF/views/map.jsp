@@ -242,9 +242,9 @@
         	 let mapDest = new Map();
         	 
         	 for(var i = 0; i < destinationList.length; i++) {
-        		 mapDest.set(destinationList[i], false);
-        		 
+        		 mapDest.set(destinationList[i], false); 
         	 }
+        	 
         	 alert(mapDest.size);
 	 
         	 for(var i = 0; i < originList.length; i++) {
@@ -288,10 +288,11 @@
          
          class Order {
 
-        	  constructor(id, address, type) {
+        	  constructor(id, address, type, status) {
         	    this.id = id;
         	    this.address = address;
         	    this.type = type;
+        	    this.status = status;
         	  }
 
         	}
@@ -299,7 +300,7 @@
          
          
          
-         
+         var orders = []; // массив объектов типа Order
          
          
          function calculationOfTheOptimalRoute(origin) {
@@ -308,18 +309,30 @@
                  url: './getTenAddressesByCourier',
                  success: function (response) {
 
-                 var orders = [];
-                	 
+                 var addresses = [];
+                 var destinations = [];
+                 
                  for(var i = 0, j = 0; i < response.length; i+=3, j++) {
-//                	 alert(response[i]);
-                	 orders.push(new Order(response[i], response[i + 1], response[i + 2]));
+                	 orders.push(new Order(response[i], response[i + 1], response[i + 2], false));
+                	 addresses.push(response[i + 1]);
+                	 destinations.push(response[i + 1]);
                  }
-                	
-               	 for(var i = 0; i < orders.length; i++) {
-               		 alert(orders[i].id + ' ' + orders[i].address + ' ' + orders[i].type);
-               	 }
+
                  
-                 
+                
+              var origin = 'Вінниця, Юності 1';     //начальная точка
+          	  addresses.unshift(origin);
+              
+               	 
+               	distanceService.getDistanceMatrix(
+             			  {
+             			    origins: addresses,
+             			    destinations: destinations,
+             			    travelMode: 'DRIVING',
+             			    unitSystem: google.maps.UnitSystem.METRIC,
+             		        avoidHighways: false,
+             		        avoidTolls: false
+             			  }, callbackcalculationOfTheOptimalRoute);
                  
                	  
                  },
@@ -332,6 +345,118 @@
          
          function callbackcalculationOfTheOptimalRoute(response, status) {
         	 
+        	 var originList = response.originAddresses;
+        	 var destinationList = response.destinationAddresses;
+        	 var dict = [];                                         
+			 
+        	 for(var i = 0; i < orders.length; i++) {
+        		 orders[i].address = destinationList[i];
+        	 }
+        	 
+        	 
+			 let mapDest = new Map();
+        	 
+        	 for(var i = 0; i < orders.length; i++) {
+        		 mapDest.set(orders[i].id, false); 
+        	 }
+
+        		 alert(mapDest.size);
+				
+        	 
+        	 dict.push(originList[0]);
+
+	 
+        	 for(var i = 0; i < originList.length; i++) {
+        		 
+        		 if(dict.length == destinationList.length + 1) {
+        			 break;
+        		 }
+        		 
+        		 var minDist = 100000;
+        		 var nearestId = 0;
+        		 var nearestOrderId = 0;
+				
+        		 if(dict[dict.length - 1] == originList[i]) {                //если последний элемент в финальной цепочке равен
+ 
+        			 for(var j = 0; j < destinationList.length; j++) {
+        				 
+        				 if(originList[i] != destinationList[j]) {
+        					 
+        						 
+        						 if(orders[j].status == false) {
+        							 
+        							 if(orders[j].type == 'SENDER') {  //если отправитель
+        							
+        					//			 alert(orders[j].id + ' ' + orders[j].type);
+        								 
+        								 
+   								 if(response.rows[i].elements[j].distance.value < minDist) {
+        		            	    			minDist = response.rows[i].elements[j].distance.value;
+        		            	    			nearestId = j;
+        		            	    		
+        		            	    		}
+        								 
+        							 }
+        							 
+        							 if(orders[j].type == 'RECIPIENT' && mapDest.get(orders[j].id) == true) {  //если получатель и отправитель уже добавлен
+    
+        								 
+        								 if(response.rows[i].elements[j].distance.value < minDist) {
+     		            	    			minDist = response.rows[i].elements[j].distance.value;
+     		            	    			nearestId = j;
+     		            	  
+     		            	    		}
+        							 
+        							 }
+        							 
+        						 }
+
+	 
+        				 }
+ 
+        			 }
+        			 
+        			 if(orders[nearestId].type == 'SENDER') {
+        				dict.push(destinationList[nearestId]);
+
+                		 orders[nearestId].status = true;
+     
+                		 mapDest.set(orders[nearestId].id, true);
+                		 
+                			i = 0;
+                			j = 0;
+
+        			 }
+        			 if(orders[nearestId].type == 'RECIPIENT') {
+        				 dict.push(destinationList[nearestId]);
+        				 alert('RECIPIENT');
+        				 
+        				 
+        				 orders[nearestId].status = true;
+                		 
+        				 
+                		 i = 0;
+             			j = 0;
+
+        			 }
+        			 
+        		 }
+  
+       
+        	 }
+     
+        	 for(var i = 1; i < dict.length - 1; i++) {
+        		 addAdress(dict[i]);
+     	//		alert(dict[i]);
+        	 }
+        	 
+        	 
+        	 for(var i = 0; i < dict.length; i++) {
+        		 alert(dict[i]);
+        	 }
+        	 
+        	 displayRouteDemo(dict[0], dict[dict.length - 1], directionsService, directionsDisplay); 
+           	 
     	}
 
     </script>
