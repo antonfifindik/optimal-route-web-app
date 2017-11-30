@@ -87,33 +87,22 @@
 
 <!--   <button class="btn btn-info" type="button" onclick="calculationOfTheOptimalRouteDemo()">Построить оптимальный маршрут без учёта отправителей</button>  -->
    <button style="margin-bottom: 10px; margin-left: 20px;" class="btn btn-success" type="button" onclick="calculationOfTheOptimalRoute()"><span style="margin-right: 5px" class="glyphicon glyphicon-road"></span>Прокласти маршрут</button>
-   <button style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button" onclick="#"><span style="margin-right: 5px" class="glyphicon glyphicon-print"></span>Роздрук. маршрут</button>
+   <button style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button" onclick="replace()"><span style="margin-right: 5px" class="glyphicon glyphicon-print"></span>Роздрук. маршрут</button>
    <button style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button" onclick="cleanMap()"><span style="margin-right: 5px" class="glyphicon glyphicon-globe"></span>Очистити мапу</button>
     
    
    <div> 
    
-   <table  style="width: 45%; margin-left: 20px; float: left;" class="table table-striped table-hover table-condensed table-responsive table-bordered">
+   <table id='table'  style="width: 45%; margin-left: 20px; float: left;" class="table table-striped table-hover table-condensed table-responsive table-bordered">
    <th width="5%">id</th>
    <th>Адреса</th>
    <th width="17%">Відпр/отрим</th>
    <th width="26%"></th>
    <c:forEach var="item" items="${ordersForCourierList}" varStatus="status">
    <tr>
-   
    <td>${item.idOrder}</td>
-   <c:if test="${item.orderType == 'SENDER'}">
-   <td class='info'>${item.address}</td>
-   </c:if>
-   <c:if test="${item.orderType == 'RECIPIENT'}">
-   <td class='warning'>${item.address}</td>
-   </c:if>
-   <c:if test="${item.orderType == 'SENDER'}">
-   <td class='info'>${item.orderType == 'SENDER' ? 'Відправник':'Отримувач'}</td>
-   </c:if>
-   <c:if test="${item.orderType == 'RECIPIENT'}">
-   <td class='warning'>${item.orderType == 'SENDER' ? 'Відправник':'Отримувач'}</td>
-   </c:if>
+   <td>${item.address}</td>
+   <td>${item.orderType == 'SENDER' ? 'Відправник':'Отримувач'}</td>
    <td class="active">
    	<a href="./infoOrder?id=${order.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-comment"></span>Інфо</a>
      <a href="./trueOrder?id=${order.id}" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-ok"></span>Виконано</a>
@@ -307,24 +296,30 @@
          
          class Order {
 
-        	  constructor(id, address, type, status) {
+        	  constructor(id, address, type, status, shortAddress) {
         	    this.id = id;
         	    this.address = address;
         	    this.type = type;
         	    this.status = status;
+        	    this.shortAddress = shortAddress
         	  }
 
         	}
      
          
          var orders = []; // массив объектов типа Order
-         
+         var ttable = document.getElementById("table");
+         var idRows = 1;
          
          function cleanMap() {
        	  waypts = [];
        	  orders = [];
+       	  idRows = 1;
        	  initMap();
          }
+         
+        
+
          
          function calculationOfTheOptimalRoute(origin) {
         	 $.ajax({
@@ -335,12 +330,13 @@
                  var addresses = [];
                  var destinations = [];
                  
-                 for(var i = 0, j = 0; i < response.length; i+=3, j++) {
-                	 orders.push(new Order(response[i], response[i + 1], response[i + 2], false));
+                 for(var i = 0, j = 0; i < response.length; i+=4, j++) {
+                	 orders.push(new Order(response[i], response[i + 1], response[i + 2], false, response[i + 3]));
                 	 addresses.push(response[i + 1]);
                 	 destinations.push(response[i + 1]);
                  }            
-                
+
+                 
           	  var origin = 'Вінниця, Юності 1';     //начальная точка
          	  addresses.unshift(origin);
               
@@ -426,6 +422,11 @@
                 		 
                 			i = 0;
                 			j = 0;
+                			
+                			ttable.rows[idRows].cells[0].innerHTML = orders[nearestId].id;
+                			ttable.rows[idRows].cells[1].innerHTML = orders[nearestId].shortAddress;
+                			ttable.rows[idRows].cells[2].innerHTML = 'Відправник';
+                			idRows++;
         			 }
         			 if(orders[nearestId].type == 'RECIPIENT') {
         				 dict.push(destinationList[nearestId]);			 
@@ -433,6 +434,11 @@
  				 
                 		 i = 0;
              			j = 0;
+             			
+             			ttable.rows[idRows].cells[0].innerHTML = orders[nearestId].id;
+            			ttable.rows[idRows].cells[1].innerHTML = orders[nearestId].shortAddress;
+            			ttable.rows[idRows].cells[2].innerHTML = 'Отримувач';
+            			idRows++;
         			 } 
         		 }
         	 }

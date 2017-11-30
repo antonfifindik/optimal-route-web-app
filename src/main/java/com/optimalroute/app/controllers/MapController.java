@@ -65,12 +65,13 @@ public class MapController {
 	@RequestMapping(value = "/getTenAddressesByCourier", method = RequestMethod.GET)
 	public @ResponseBody String[] getTenAddressesByCourier() {
 
-		String[] result = new String[(ordersForCourierList.size() > 10 ? 30 : ordersForCourierList.size() * 3)];
+		String[] result = new String[(ordersForCourierList.size() > 10 ? 40 : ordersForCourierList.size() * 4)];
 
-		for (int i = 0, j = 0; i < (ordersForCourierList.size() > 10 ? 30 : ordersForCourierList.size() * 3); i += 3, j++) {
+		for (int i = 0, j = 0; i < (ordersForCourierList.size() > 10 ? 40 : ordersForCourierList.size() * 4); i += 4, j++) {
 			result[i] = String.valueOf(ordersForCourierList.get(j).getIdOrder());
 			result[i + 1] = ordersForCourierList.get(j).getAddress().getCity() + ", " + ordersForCourierList.get(j).getAddress().getStreet() + ", " + ordersForCourierList.get(j).getAddress().getHouseNumber();
 			result[i + 2] = String.valueOf(ordersForCourierList.get(j).getOrderType());
+			result[i + 3] = ordersForCourierList.get(j).getAddress().toString();
 		}
 
 		return result;
