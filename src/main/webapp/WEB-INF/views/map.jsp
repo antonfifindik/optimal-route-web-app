@@ -85,8 +85,11 @@
   </div>
   </div>
 
-   <button class="btn btn-info" type="button" onclick="calculationOfTheOptimalRouteDemo()">Построить оптимальный маршрут без учёта отправителей</button>
-   <button class="btn btn-primary" type="button" onclick="calculationOfTheOptimalRoute()">Построить оптимальный маршрут</button>
+<!--   <button class="btn btn-info" type="button" onclick="calculationOfTheOptimalRouteDemo()">Построить оптимальный маршрут без учёта отправителей</button>  -->
+   <button style="margin-bottom: 10px; margin-left: 20px;" class="btn btn-success" type="button" onclick="calculationOfTheOptimalRoute()"><span style="margin-right: 5px" class="glyphicon glyphicon-road"></span>Прокласти маршрут</button>
+   <button style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button" onclick="#"><span style="margin-right: 5px" class="glyphicon glyphicon-print"></span>Роздрук. маршрут</button>
+   <button style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button" onclick="cleanMap()"><span style="margin-right: 5px" class="glyphicon glyphicon-globe"></span>Очистити мапу</button>
+    
    
    <div> 
    
@@ -112,7 +115,7 @@
    <td class='warning'>${item.orderType == 'SENDER' ? 'Відправник':'Отримувач'}</td>
    </c:if>
    <td class="active">
-   	<a href="./infoOrder?id=${order.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-map-marker"></span>Інфо</a>
+   	<a href="./infoOrder?id=${order.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-comment"></span>Інфо</a>
      <a href="./trueOrder?id=${order.id}" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-ok"></span>Виконано</a>
    </td>
    </tr>
@@ -149,7 +152,18 @@
         directionsDisplay.addListener('directions_changed', function () {
             computeTotalDistance(directionsDisplay.getDirections());
         });
+  
 
+        var labels = '123456789'
+        var uluru = {lat: -25.363, lng: 131.044};
+        var marker = new google.maps.Marker({
+    	    position: uluru,
+    	    map: map,
+    	    label: {text: labels[3], color: "white"},
+    	});	
+        
+       
+        
     }
       
       
@@ -164,6 +178,11 @@
         //  map.addAdress(adress);
           initMap();
       }
+      
+     
+      
+      
+
       
       function displayRoute(origin, destination, service, display) {
           service.route({
@@ -301,6 +320,12 @@
          var orders = []; // массив объектов типа Order
          
          
+         function cleanMap() {
+       	  waypts = [];
+       	  orders = [];
+       	  initMap();
+         }
+         
          function calculationOfTheOptimalRoute(origin) {
         	 $.ajax({
                  type: 'GET',
@@ -316,8 +341,8 @@
                 	 destinations.push(response[i + 1]);
                  }            
                 
-              var origin = 'Вінниця, Юності 1';     //начальная точка
-          	  addresses.unshift(origin);
+          	  var origin = 'Вінниця, Юності 1';     //начальная точка
+         	  addresses.unshift(origin);
               
                	 
                	distanceService.getDistanceMatrix(
