@@ -87,11 +87,11 @@
 
 <!--   <button class="btn btn-info" type="button" onclick="calculationOfTheOptimalRouteDemo()">Построить оптимальный маршрут без учёта отправителей</button>  -->
    <button style="margin-bottom: 10px; margin-left: 20px;" class="btn btn-success" type="button" onclick="calculationOfTheOptimalRoute()"><span style="margin-right: 5px" class="glyphicon glyphicon-road"></span>Прокласти маршрут</button>
-   <button style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button" onclick="replace()"><span style="margin-right: 5px" class="glyphicon glyphicon-print"></span>Роздрук. маршрут</button>
+   <button style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button" onclick="window.print()"><span style="margin-right: 5px" class="glyphicon glyphicon-print"></span>Роздрук. маршрут</button>
    <button style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button" onclick="cleanMap()"><span style="margin-right: 5px" class="glyphicon glyphicon-globe"></span>Очистити мапу</button>
     
    
-   <div> 
+   <div id="canvas"> 
    
    <table id='table'  style="width: 45%; margin-left: 20px; float: left;" class="table table-striped table-hover table-condensed table-responsive table-bordered">
    <th width="5%">id</th>
@@ -104,8 +104,8 @@
    <td>${item.address}</td>
    <td>${item.orderType == 'SENDER' ? 'Відправник':'Отримувач'}</td>
    <td class="active">
-   	<a href="./infoOrder?id=${order.id}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-comment"></span>Інфо</a>
-     <a href="./trueOrder?id=${order.id}" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-ok"></span>Виконано</a>
+   	<a href="./infoOrder?id=${item.idOrder}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-comment"></span>Інфо</a>
+     <a href="./trueOrder?id=${item.idOrder}" class="btn btn-xs btn-success"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-ok"></span>Виконано</a>
    </td>
    </tr>
    </c:forEach>   
@@ -113,18 +113,27 @@
    
    </div>
    
+  
    
     <div id="map"></div>
+
+
+    
     <script>
+    
     var directionsService;
     var directionsDisplay;
     var distanceService;
-    
+    var geocoder;
     var map;
-
+    var address = "new york city";
+    
+    
     function initMap() {
+    	
+    	
         var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 12,
+            zoom: 13,
             center: {lat: 49.234167, lng: 28.458371}
         });
 
@@ -142,19 +151,35 @@
             computeTotalDistance(directionsDisplay.getDirections());
         });
   
-
-        var labels = '123456789'
-        var uluru = {lat: -25.363, lng: 131.044};
-        var marker = new google.maps.Marker({
-    	    position: uluru,
-    	    map: map,
-    	    label: {text: labels[3], color: "white"},
-    	});	
         
-       
+   //     var labels = '123456789'
+     //   var uluru = {lat: -25.363, lng: 131.044};
+   //     var marker = new google.maps.Marker({
+    //	    position: uluru,
+  //  	    map: map,
+ //   	    label: {text: labels[3], color: "white"},
+//    	});	
         
+        geocoder = new google.maps.Geocoder();
+        addMarkerByAddress(geocoder, map);
     }
       
+    
+    function addMarkerByAddress(geocoder, map) {
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+     //       map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    
+    
       
       var waypts = [];
 
@@ -310,6 +335,7 @@
          var orders = []; // массив объектов типа Order
          var ttable = document.getElementById("table");
          var idRows = 1;
+         var idid = [];
          
          function cleanMap() {
        	  waypts = [];
@@ -318,8 +344,20 @@
        	  initMap();
          }
          
-        
+         function replace(arrayId) {
+        	 
+        	 	var content = window.document.getElementById("map"); // get you map details
+        	 	
+        	    var newWindow = window.open(); // open a new window
+        	    newWindow.document.write(content.innerHTML); // write the map into the new window
+        	    newWindow.print(); // print the new window
+	     		newWindow.close();
 
+            }
+
+         
+         
+         
          
          function calculationOfTheOptimalRoute(origin) {
         	 $.ajax({
@@ -422,23 +460,27 @@
                 		 
                 			i = 0;
                 			j = 0;
+
+                			 ttable.rows[idRows].cells[0].innerHTML = orders[nearestId].id;
+                			 ttable.rows[idRows].cells[1].innerHTML = orders[nearestId].shortAddress;
+                			 ttable.rows[idRows].cells[2].innerHTML = 'Відправник';
+                	//		 ttable.rows[idRows].cells[3].innerHTML =  ttable.rows[orders[nearestId].id].cells[3].innerHTML;
+                			 idRows++;
                 			
-                			ttable.rows[idRows].cells[0].innerHTML = orders[nearestId].id;
-                			ttable.rows[idRows].cells[1].innerHTML = orders[nearestId].shortAddress;
-                			ttable.rows[idRows].cells[2].innerHTML = 'Відправник';
-                			idRows++;
         			 }
         			 if(orders[nearestId].type == 'RECIPIENT') {
         				 dict.push(destinationList[nearestId]);			 
         				 orders[nearestId].status = true;
  				 
                 		 i = 0;
-             			j = 0;
+             			 j = 0;
+
              			
-             			ttable.rows[idRows].cells[0].innerHTML = orders[nearestId].id;
-            			ttable.rows[idRows].cells[1].innerHTML = orders[nearestId].shortAddress;
-            			ttable.rows[idRows].cells[2].innerHTML = 'Отримувач';
-            			idRows++;
+             			 ttable.rows[idRows].cells[0].innerHTML = orders[nearestId].id;
+             			 ttable.rows[idRows].cells[1].innerHTML = orders[nearestId].shortAddress;
+             			 ttable.rows[idRows].cells[2].innerHTML = 'Отримувач';
+             		//	 ttable.rows[idRows].cells[3].innerHTML =  ttable.rows[orders[nearestId].id].cells[3].innerHTML;
+             			 idRows++;
         			 } 
         		 }
         	 }
@@ -447,8 +489,57 @@
         		 addAdress(dict[i]);
         	 }
         	 
-        	 displayRouteDemo(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);           	 
+        	 displayRouteDemo(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);
     	}
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         $('.map-print').on('click',
+
+        		    // printAnyMaps ::
+        		    function printAnyMaps() {
+        		      const $body = $('body');
+        		      const $mapContainer = $('.map');
+        		      const $mapContainerParent = $mapContainer.parent();
+        		      const $printContainer = $('<div style="position:relative;">');
+
+        		      $printContainer
+        		        .height($mapContainer.height())
+        		        .append($mapContainer)
+        		        .prependTo($body);
+
+        		      const $content = $body
+        		        .children()
+        		        .not($printContainer)
+        		        .not('script')
+        		        .detach();
+
+        		      /**
+        		       * Needed for those who use Bootstrap 3.x, because some of
+        		       * its `@media print` styles ain't play nicely when printing.
+        		       */
+        		      const $patchedStyle = $('<style media="print">')
+        		        .text(`
+        		          img { max-width: none !important; }
+        		          a[href]:after { content: ""; }
+        		        `)
+        		        .appendTo('head');
+
+        		      window.print();
+
+        		      $body.prepend($content);
+        		      $mapContainerParent.prepend($mapContainer);
+
+        		      $printContainer.remove();
+        		      $patchedStyle.remove();
+        		    });
+
 
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2yYUDCCpAl1ZiP-pN5Xs6L4Ze2rekTIc&callback=initMap&language=uk">
