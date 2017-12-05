@@ -125,7 +125,7 @@
     var markers = [];
 
     
-    function initMap() {
+    function initMap(array) {
     	
     	
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -144,7 +144,7 @@
             },
             draggable: false,
             map: map,
-      //      suppressMarkers: true
+            suppressMarkers: true
         });
         distanceService = new google.maps.DistanceMatrixService();
 
@@ -152,35 +152,30 @@
             computeTotalDistance(directionsDisplay.getDirections());
         });
   
-        
-   //     var labels = '123456789'
-     //   var uluru = {lat: -25.363, lng: 131.044};
-   //     var marker = new google.maps.Marker({
-    //	    position: uluru,
-  //  	    map: map,
- //   	    label: {text: labels[3], color: "white"},
-//    	});	
-        
         geocoder = new google.maps.Geocoder();
-       
+       	var labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'];
 
-  //      	 addMarkerByAddress(geocoder, map, 'Вінниця, Соборна, 1');
+       	 if(array.length > 0) {
+       		 for(var i = 0; i < array.length; i++) {
+       			addMarkerByAddress(geocoder, map, array[i], labels[i]);	 
+       		 }
+       		
+       	 }
 
-        
-    //    addDirectionMarkers(geocoder, map);
-        
     }
       
     
-    function addMarkerByAddress(geocoder, map, address) {
+    function addMarkerByAddress(geocoder, map, address, newLabel) {
         geocoder.geocode({'address': address}, function(results, status) {
           if (status === 'OK') {
      //       map.setCenter(results[0].geometry.location);
             var marker = new google.maps.Marker({
               map: map,
               position: results[0].geometry.location,
-              label: {text: '88', color: "white"}
+              label: {text: newLabel, color: "white"}
             });
+
+            
           } else {
             alert('Geocode was not successful for the following reason: ' + status);
           }
@@ -208,7 +203,7 @@
           });
 		
         
-          initMap();
+  //        initMap();
       }
       
       
@@ -274,8 +269,12 @@
                  }            
                  
           	  var origin = 'Вінниця, Юності 1';     //начальная точка
+          	  
+        
+          	  
          	  addresses.unshift(origin);
-         	 addMarkerByAddress(geocoder, map, addresses[0]);
+         	 
+          	  
                	 
                	distanceService.getDistanceMatrix(
              			  {
@@ -386,7 +385,7 @@
         	 for(var i = 1; i < dict.length - 1; i++) {
         		 addAdress(dict[i]);
         	 }
-        	 
+        	 initMap(dict);
         	 displayRoute(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);
     	}
 
