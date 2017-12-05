@@ -89,7 +89,6 @@
    <button style="margin-bottom: 10px; margin-left: 20px;" class="btn btn-success" type="button" onclick="calculationOfTheOptimalRoute()"><span style="margin-right: 5px" class="glyphicon glyphicon-road"></span>Прокласти маршрут</button>
    <button style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button" onclick="window.print()"><span style="margin-right: 5px" class="glyphicon glyphicon-print"></span>Роздрук. маршрут</button>
    <button style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button" onclick="cleanMap()"><span style="margin-right: 5px" class="glyphicon glyphicon-globe"></span>Очистити мапу</button>
-    
    
    <div id="canvas"> 
    
@@ -112,13 +111,9 @@
    </table>
    
    </div>
-   
-  
-   
+
     <div id="map"></div>
 
-
-    
     <script>
     
     var directionsService;
@@ -126,8 +121,9 @@
     var distanceService;
     var geocoder;
     var map;
-    var address = "new york city";
-    
+    var waypts = [];
+    var markers = [];
+
     
     function initMap() {
     	
@@ -141,9 +137,14 @@
 
         directionsService = new google.maps.DirectionsService;
         directionsDisplay = new google.maps.DirectionsRenderer({
+        	polylineOptions: {
+                strokeWeight: 8,
+                strokeOpacity: 0.7,
+                strokeColor:  '#00468c' 
+            },
             draggable: false,
             map: map,
-         
+      //      suppressMarkers: true
         });
         distanceService = new google.maps.DistanceMatrixService();
 
@@ -161,63 +162,57 @@
 //    	});	
         
         geocoder = new google.maps.Geocoder();
-        addMarkerByAddress(geocoder, map);
+       
+
+  //      	 addMarkerByAddress(geocoder, map, 'Вінниця, Соборна, 1');
+
+        
+    //    addDirectionMarkers(geocoder, map);
+        
     }
       
     
-    function addMarkerByAddress(geocoder, map) {
+    function addMarkerByAddress(geocoder, map, address) {
         geocoder.geocode({'address': address}, function(results, status) {
           if (status === 'OK') {
      //       map.setCenter(results[0].geometry.location);
             var marker = new google.maps.Marker({
               map: map,
-              position: results[0].geometry.location
+              position: results[0].geometry.location,
+              label: {text: '88', color: "white"}
             });
           } else {
             alert('Geocode was not successful for the following reason: ' + status);
           }
-        });
+        });	
+        
       }
     
     
+    function addDirectionMarkers(geocoder, map) {
+    		
+    		var blabla = ['Вінниця, Соборна, 20', 'Вінниця, Соборна, 50', 'Вінниця, Соборна, 30'];
+    	
+    		for(var i = 0; i < blabla.length; i++) {
+    			addMarkerByAddress(geocoder, map, blabla[i]);
+    		}
+    		
+    		
+      }
       
-      var waypts = [];
 
       function addAdress(adress) {
           waypts.push({
               location: adress,
               stopover: true
-          })
-
-        //  map.addAdress(adress);
+          });
+		
+        
           initMap();
       }
       
-     
-      
-      
-
       
       function displayRoute(origin, destination, service, display) {
-          service.route({
-              origin: origin,
-              destination: destination,
-              waypoints: waypts,
-              travelMode: google.maps.TravelMode.DRIVING,
-              optimizeWaypoints: true,
-              avoidTolls: true
-          }, function (response, status) {
-              if (status === google.maps.DirectionsStatus.OK) {
-                  display.setDirections(response);
-              } else {
-                  alert('Could not display directions due to: ' + status);
-              }
-          });
-      }
-      
-      
-      
-      function displayRouteDemo(origin, destination, service, display) {
           service.route({
               origin: origin,
               destination: destination,
@@ -227,95 +222,13 @@
               avoidTolls: true
           }, function (response, status) {
               if (status === google.maps.DirectionsStatus.OK) {
-                  display.setDirections(response);
+                  display.setDirections(response);  
               } else {
                   alert('Could not display directions due to: ' + status);
               }
           });
       }
     
-         
-         function calculationOfTheOptimalRouteDemo(origin) {
-        	 $.ajax({
-                 type: 'GET',
-                 url: './getNewAddressAll',
-                 success: function (response) {
-
-                	 
-                	var addresses = response; 
-               	  var origin = 'Вінниця, Юності 1';
-            	  addresses.unshift(origin);
-            	  
-            	  alert(addresses);
-               	  
-               	  distanceService.getDistanceMatrix(
-               			  {
-               			    origins: addresses,
-               			    destinations: response,
-               			    travelMode: 'DRIVING',
-               			    unitSystem: google.maps.UnitSystem.METRIC,
-               		        avoidHighways: false,
-               		        avoidTolls: false
-               			  }, callbackcalculationOfTheOptimalRouteDemo);
-               	  
-               	  
-                 },
-                 error: function (err) {
-                     alert('Error..');
-                 }
-             });
-         }
-         
-         
-         function callbackcalculationOfTheOptimalRouteDemo(response, status) {
-        	 var originList = response.originAddresses;
-        	 var destinationList = response.destinationAddresses;
-        	 var dict = [];
-        	 dict.push(originList[0]);
-        	 let mapDest = new Map();
-        	 
-        	 for(var i = 0; i < destinationList.length; i++) {
-        		 mapDest.set(destinationList[i], false); 
-        	 }
-        	 
-        	 alert(mapDest.size);
-	 
-        	 for(var i = 0; i < originList.length; i++) {
-        		 
-        		 if(dict.length == destinationList.length) {
-        			 break;
-        		 }
-        		 
-        		 var minDist = 10000;
-        		 var nearestId = 0;
-				
-        		 if(dict[dict.length - 1] == originList[i]) {                //если последний элемент в финальной цепочке равен
-        			 for(var j = 0; j < destinationList.length; j++) {
-            	    	 if(originList[i] != destinationList[j] && mapDest.get(destinationList[j]) == false) {
-            	    		if(response.rows[i].elements[j].distance.value < minDist) {
-            	    			minDist = response.rows[i].elements[j].distance.value;
-            	    			nearestId = j;
-       
-            	    		}
-            	    	 }
-            	    	 
-            	     }
-            		 dict.push(destinationList[nearestId]);
-            		 mapDest.set(destinationList[nearestId], true);
-            		 mapDest.set(originList[i], true);
-            			i = 0;
-            			j = 0;
-        		 }
-  
-       
-        	 }
-     
-        	 for(var i = 1; i < dict.length - 1; i++) {
-        		 addAdress(dict[i]);
-        	 }
-        	 
-        	 displayRouteDemo(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);
-    	}
          
          'use strict';
          
@@ -343,21 +256,7 @@
        	  idRows = 1;
        	  initMap();
          }
-         
-         function replace(arrayId) {
-        	 
-        	 	var content = window.document.getElementById("map"); // get you map details
-        	 	
-        	    var newWindow = window.open(); // open a new window
-        	    newWindow.document.write(content.innerHTML); // write the map into the new window
-        	    newWindow.print(); // print the new window
-	     		newWindow.close();
 
-            }
-
-         
-         
-         
          
          function calculationOfTheOptimalRoute(origin) {
         	 $.ajax({
@@ -373,11 +272,10 @@
                 	 addresses.push(response[i + 1]);
                 	 destinations.push(response[i + 1]);
                  }            
-
                  
           	  var origin = 'Вінниця, Юності 1';     //начальная точка
          	  addresses.unshift(origin);
-              
+         	 addMarkerByAddress(geocoder, map, addresses[0]);
                	 
                	distanceService.getDistanceMatrix(
              			  {
@@ -489,57 +387,8 @@
         		 addAdress(dict[i]);
         	 }
         	 
-        	 displayRouteDemo(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);
+        	 displayRoute(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);
     	}
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         $('.map-print').on('click',
-
-        		    // printAnyMaps ::
-        		    function printAnyMaps() {
-        		      const $body = $('body');
-        		      const $mapContainer = $('.map');
-        		      const $mapContainerParent = $mapContainer.parent();
-        		      const $printContainer = $('<div style="position:relative;">');
-
-        		      $printContainer
-        		        .height($mapContainer.height())
-        		        .append($mapContainer)
-        		        .prependTo($body);
-
-        		      const $content = $body
-        		        .children()
-        		        .not($printContainer)
-        		        .not('script')
-        		        .detach();
-
-        		      /**
-        		       * Needed for those who use Bootstrap 3.x, because some of
-        		       * its `@media print` styles ain't play nicely when printing.
-        		       */
-        		      const $patchedStyle = $('<style media="print">')
-        		        .text(`
-        		          img { max-width: none !important; }
-        		          a[href]:after { content: ""; }
-        		        `)
-        		        .appendTo('head');
-
-        		      window.print();
-
-        		      $body.prepend($content);
-        		      $mapContainerParent.prepend($mapContainer);
-
-        		      $printContainer.remove();
-        		      $patchedStyle.remove();
-        		    });
-
 
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2yYUDCCpAl1ZiP-pN5Xs6L4Ze2rekTIc&callback=initMap&language=uk">
