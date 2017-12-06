@@ -142,7 +142,9 @@
         	polylineOptions: {
                 strokeWeight: 5,
                 strokeOpacity: 0.8,
-                strokeColor:  '#000080' 
+      //          strokeColor:  '#000080'
+    //  				strokeColor: '#836FFF'
+      					strokeColor: '#009ACD'
             },
             draggable: false,
             map: map,
@@ -160,7 +162,7 @@
 
        	 if(array.length > 0) {
        		 for(var i = 0; i < array.length; i++) {
-       			addMarkerByAddress(geocoder, map, array[i], labels[i]);	 
+       			addMarkerByAddress(geocoder, map, array[i].address, labels[i], array[i].info);	 
        		 }
        		
        	 }
@@ -168,7 +170,7 @@
     }
       
     
-    function addMarkerByAddress(geocoder, map, address, newLabel) {
+    function addMarkerByAddress(geocoder, map, address, newLabel, infoContent) {
         geocoder.geocode({'address': address}, function(results, status) {
           if (status === 'OK') {
      //       map.setCenter(results[0].geometry.location);
@@ -186,13 +188,14 @@
 
      
      var infowindow = new google.maps.InfoWindow({
-          content: contentString
+          content: infoContent
         });
+
      
             var marker = new google.maps.Marker({
               map: map,
               position: results[0].geometry.location,
-              label: {text: newLabel, color: "white"}  
+              label: {text: newLabel, color: "white"},
             });
 			
             marker.addListener('click', function() {
@@ -262,6 +265,16 @@
         	  }
 
         	}
+         
+         
+         class MarkerInfo {
+
+       	  constructor(address, info) {
+       	    this.address = address;
+       	 	this.info = info;
+       	  }
+
+       	}
 
      
          
@@ -324,6 +337,7 @@
         	 var originList = response.originAddresses;
         	 var destinationList = response.destinationAddresses;
         	 var dict = [];
+        	 var markersInfo = [];
 			 
         	 for(var i = 0; i < orders.length; i++) {
         		 orders[i].address = destinationList[i];
@@ -380,6 +394,22 @@
                 		 orders[nearestId].status = true;
                 		 mapDest.set(orders[nearestId].id, true);
                 		 
+                		 
+                		 markersInfo.push(new MarkerInfo(orders[nearestId].address, '<div id="content">'+
+                			     '<div id="siteNotice">'+
+                			     '</div>'+
+                			     '<h3 id="firstHeading" class="firstHeading">Інформація</h3><br>'+
+                			     '<div id="bodyContent">'+
+                			     '<p>' +
+                			     '<b>Адреса:</b> ' + orders[nearestId].address + 
+                			     '<b><br>ID заказу:</b> ' + orders[nearestId].id +
+                			     '<b><br>Ім\'я клієнта:</b> ' + orders[nearestId].shortName +
+                			     '<b><br>Тип:</b> ' + 'Відправник' +
+                			     '</p>' +
+                			     '</div>'+
+                			     '</div>'));
+                		 
+                		 
                 			i = 0;
                 			j = 0;
 
@@ -387,13 +417,28 @@
                 			 ttable.rows[idRows].cells[1].innerHTML = orders[nearestId].shortAddress;
                 			 ttable.rows[idRows].cells[2].innerHTML = orders[nearestId].shortName;
                 			 ttable.rows[idRows].cells[3].innerHTML = 'Відправник';
-                	//		 ttable.rows[idRows].cells[3].innerHTML =  ttable.rows[orders[nearestId].id].cells[3].innerHTML;
+
                 			 idRows++;
                 			
         			 }
         			 if(orders[nearestId].type == 'RECIPIENT') {
         				 dict.push(destinationList[nearestId]);
         				 orders[nearestId].status = true;
+        				 
+        				 
+        				 markersInfo.push(new MarkerInfo(orders[nearestId].address, '<div id="content">'+
+                			     '<div id="siteNotice">'+
+                			     '</div>'+
+                			     '<h3 id="firstHeading" class="firstHeading">Інформація</h3><br>'+
+                			     '<div id="bodyContent">'+
+                			     '<p>' +
+                			     '<b>Адреса:</b> ' + orders[nearestId].address + 
+                			     '<b><br>ID заказу:</b> ' + orders[nearestId].id +
+                			     '<b><br>Ім\'я клієнта:</b> ' + orders[nearestId].shortName +
+                			     '<b><br>Тип:</b> ' + 'Отримувач' +
+                			     '</p>' +
+                			     '</div>'+
+                			     '</div>'));
  				 
                 		 i = 0;
              			 j = 0;
@@ -413,7 +458,21 @@
         		 addAdress(dict[i]);
         	 }
        
-        	 initMap(dict);
+        	 
+        	 markersInfo.unshift(new MarkerInfo(dict[0], '<div id="content">'+
+    			     '<div id="siteNotice">'+
+    			     '</div>'+
+    			     '<h3 id="firstHeading" class="firstHeading">Інформація</h3><br>'+
+    			     '<div id="bodyContent">'+
+    			     '<p>' +
+    			     '<b>Адреса:</b> ' + dict[0] + 
+    			     '<b><br>Тип:</b> ' + 'Початкова адреса' +
+    			     '</p>' +
+    			     '</div>'+
+    			     '</div>'));
+
+        	 
+        	 initMap(markersInfo);
         	 displayRoute(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);
     	}
 
