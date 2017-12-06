@@ -172,9 +172,21 @@
         geocoder.geocode({'address': address}, function(results, status) {
           if (status === 'OK') {
      //       map.setCenter(results[0].geometry.location);
-     	
+
+     var contentString = '<div id="content">'+
+     '<div id="siteNotice">'+
+     '</div>'+
+     '<h3 id="firstHeading" class="firstHeading">Інформація</h3><br>'+
+     '<div id="bodyContent">'+
+     '<p>' +
+     '<b>Адреса:</b> ' + address + 
+     '</p>' +
+     '</div>'+
+     '</div>';
+
+     
      var infowindow = new google.maps.InfoWindow({
-          content: address
+          content: contentString
         });
      
             var marker = new google.maps.Marker({
@@ -235,8 +247,7 @@
               }
           });
       }
-    
-         
+  
          'use strict';
          
          class Order {
@@ -251,14 +262,7 @@
         	  }
 
         	}
-         
-         class MarkerInfo {
-        	 constructor(id, address, info) {
-         	    this.id = id;
-         	    this.address = address;
-         	    this.info = info;
-         	  }
-         }
+
      
          
          var orders = []; // массив объектов типа Order
@@ -320,7 +324,6 @@
         	 var originList = response.originAddresses;
         	 var destinationList = response.destinationAddresses;
         	 var dict = [];
-        	 var dictOrders = [];
 			 
         	 for(var i = 0; i < orders.length; i++) {
         		 orders[i].address = destinationList[i];
@@ -374,7 +377,6 @@
         			 
         			 if(orders[nearestId].type == 'SENDER') {
         				dict.push(destinationList[nearestId]);
-        				dictOrders.push(orders[nearestId]);
                 		 orders[nearestId].status = true;
                 		 mapDest.set(orders[nearestId].id, true);
                 		 
@@ -391,7 +393,6 @@
         			 }
         			 if(orders[nearestId].type == 'RECIPIENT') {
         				 dict.push(destinationList[nearestId]);
-        				 dictOrders.push(orders[nearestId]);
         				 orders[nearestId].status = true;
  				 
                 		 i = 0;
