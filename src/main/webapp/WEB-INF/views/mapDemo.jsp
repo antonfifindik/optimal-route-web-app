@@ -393,6 +393,37 @@
         	 
     	}
 
+  		var imageStart = {
+ 				path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+ 		        fillColor: '#EE4000',
+ 		        fillOpacity: 1,
+ 		        strokeColor: '#000',
+ 		        strokeWeight: 1,
+ 		        scale: 1.2,
+ 		       labelOrigin: new google.maps.Point(0, -27)
+ 		};
+ 		
+ 		var imageSender = {
+ 				path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+ 		       fillColor: '#B0C4DE', ОТПРАВИТЕЛЬ
+ 		        fillOpacity: 1,
+ 		        strokeColor: '#000',
+ 		        strokeWeight: 1,
+ 		        scale: 1.2,
+ 		       labelOrigin: new google.maps.Point(0, -27)
+ 		};
+ 		
+ 		var imageRecipient = {
+ 				path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+ 		       fillColor: '#B0C4DE', ОТПРАВИТЕЛЬ
+ 		        fillOpacity: 1,
+ 		        strokeColor: '#000',
+ 		        strokeWeight: 1,
+ 		        scale: 1.2,
+ 		       labelOrigin: new google.maps.Point(0, -27)
+ 		};
+         
+         
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2yYUDCCpAl1ZiP-pN5Xs6L4Ze2rekTIc&callback=initMap&language=uk">
     async defer></script>

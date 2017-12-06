@@ -125,7 +125,6 @@
     var map;
     var waypts = [];
     var markers = [];
-
     
     function initMap(array) {
     	
@@ -134,9 +133,7 @@
             zoom: 13,
             center: {lat: 49.234167, lng: 28.458371}
         });
-
         map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-
         directionsService = new google.maps.DirectionsService;
         directionsDisplay = new google.maps.DirectionsRenderer({
         	polylineOptions: {
@@ -151,30 +148,25 @@
             suppressMarkers: true
         });
         distanceService = new google.maps.DistanceMatrixService();
-
         directionsDisplay.addListener('directions_changed', function () {
             computeTotalDistance(directionsDisplay.getDirections());
         });
   
         geocoder = new google.maps.Geocoder();
        	var labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'];
-
-
        	 if(array.length > 0) {
        		 for(var i = 0; i < array.length; i++) {
-       			addMarkerByAddress(geocoder, map, array[i].address, labels[i], array[i].info);	 
+       			addMarkerByAddress(geocoder, map, array[i].address, labels[i], array[i].info, array[i].type);	 
        		 }
        		
        	 }
-
     }
       
     
-    function addMarkerByAddress(geocoder, map, address, newLabel, infoContent) {
+    function addMarkerByAddress(geocoder, map, address, newLabel, infoContent, type) {
         geocoder.geocode({'address': address}, function(results, status) {
           if (status === 'OK') {
      //       map.setCenter(results[0].geometry.location);
-
      var contentString = '<div id="content">'+
      '<div id="siteNotice">'+
      '</div>'+
@@ -185,17 +177,56 @@
      '</p>' +
      '</div>'+
      '</div>';
-
      
      var infowindow = new google.maps.InfoWindow({
           content: infoContent
         });
+     
+     var startColor = '#CDCD00';
+     var senderColor = '#B0C4DE';
+     var recipientColor = '#FF7F50';
+     var image;
+     
+     if(type == 'start') {
+    	 image = {
+ 				path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+ 		        fillColor: startColor,
+ 		        fillOpacity: 1,
+ 		        strokeColor: '#000',
+ 		        strokeWeight: 1,
+ 		        scale: 1.2,
+ 		       labelOrigin: new google.maps.Point(0, -27)
+ 		};
+     }
+     else if(type == 'sender') {
+    	 image = {
+  				path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+  		        fillColor: senderColor,
+  		        fillOpacity: 1,
+  		        strokeColor: '#000',
+  		        strokeWeight: 1,
+  		        scale: 1.2,
+  		       labelOrigin: new google.maps.Point(0, -27)
+  		};
+     }
+     else if(type == 'recipient') {
+    	 image = {
+  				path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z',
+  		        fillColor: recipientColor,
+  		        fillOpacity: 1,
+  		        strokeColor: '#000',
+  		        strokeWeight: 1,
+  		        scale: 1.2,
+  		       labelOrigin: new google.maps.Point(0, -27)
+  		};
+     }
 
      
             var marker = new google.maps.Marker({
               map: map,
               position: results[0].geometry.location,
               label: {text: newLabel, color: "white"},
+              icon: image
             });
 			
             marker.addListener('click', function() {
@@ -222,7 +253,6 @@
     		
       }
       
-
       function addAdress(adress) {
           waypts.push({
               location: adress,
@@ -254,7 +284,6 @@
          'use strict';
          
          class Order {
-
         	  constructor(id, address, type, status, shortAddress, shortName) {
         	    this.id = id;
         	    this.address = address;
@@ -263,19 +292,16 @@
         	    this.shortAddress = shortAddress
         	    this.shortName = shortName;
         	  }
-
         	}
          
          
          class MarkerInfo {
-
-       	  constructor(address, info) {
+       	  constructor(address, info, type) {
        	    this.address = address;
        	 	this.info = info;
+       	 	this.type = type;
        	  }
-
        	}
-
      
          
          var orders = []; // массив объектов типа Order
@@ -289,14 +315,12 @@
        	  idRows = 1;
        	  initMap();
          }
-
          
          function calculationOfTheOptimalRoute(origin) {
         	 $.ajax({
                  type: 'GET',
                  url: './getTenAddressesByCourier',
                  success: function (response) {
-
                  var addresses = [];
                  var destinations = [];
                  
@@ -407,17 +431,15 @@
                 			     '<b><br>Тип:</b> ' + 'Відправник' +
                 			     '</p>' +
                 			     '</div>'+
-                			     '</div>'));
+                			     '</div>', 'sender'));
                 		 
                 		 
                 			i = 0;
                 			j = 0;
-
                 			 ttable.rows[idRows].cells[0].innerHTML = orders[nearestId].id;
                 			 ttable.rows[idRows].cells[1].innerHTML = orders[nearestId].shortAddress;
                 			 ttable.rows[idRows].cells[2].innerHTML = orders[nearestId].shortName;
                 			 ttable.rows[idRows].cells[3].innerHTML = 'Відправник';
-
                 			 idRows++;
                 			
         			 }
@@ -438,11 +460,10 @@
                 			     '<b><br>Тип:</b> ' + 'Отримувач' +
                 			     '</p>' +
                 			     '</div>'+
-                			     '</div>'));
+                			     '</div>', 'recipient'));
  				 
                 		 i = 0;
              			 j = 0;
-
              			
              			 ttable.rows[idRows].cells[0].innerHTML = orders[nearestId].id;
              			 ttable.rows[idRows].cells[1].innerHTML = orders[nearestId].shortAddress;
@@ -469,13 +490,11 @@
     			     '<b><br>Тип:</b> ' + 'Початкова адреса' +
     			     '</p>' +
     			     '</div>'+
-    			     '</div>'));
-
+    			     '</div>', 'start'));
         	 
         	 initMap(markersInfo);
         	 displayRoute(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);
     	}
-
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2yYUDCCpAl1ZiP-pN5Xs6L4Ze2rekTIc&callback=initMap&language=uk">
     async defer></script>
