@@ -95,12 +95,14 @@
    <table id='table'  style="width: 45%; margin-left: 20px; float: left;" class="table table-striped table-hover table-condensed table-responsive table-bordered">
    <th width="5%">id</th>
    <th>Адреса</th>
+   <th>Клієнт</th>
    <th width="17%">Відпр/отрим</th>
    <th width="26%"></th>
    <c:forEach var="item" items="${ordersForCourierList}" varStatus="status">
    <tr>
    <td>${item.idOrder}</td>
    <td>${item.address}</td>
+   <td>${item.client.getShortName()}</td>
    <td>${item.orderType == 'SENDER' ? 'Відправник':'Отримувач'}</td>
    <td class="active">
    	<a href="./infoOrder?id=${item.idOrder}" class="btn btn-xs btn-warning"  role="button"><span style="margin-right: 5px" class="glyphicon glyphicon-comment"></span>Інфо</a>
@@ -138,9 +140,9 @@
         directionsService = new google.maps.DirectionsService;
         directionsDisplay = new google.maps.DirectionsRenderer({
         	polylineOptions: {
-                strokeWeight: 8,
-                strokeOpacity: 0.7,
-                strokeColor:  '#00468c' 
+                strokeWeight: 5,
+                strokeOpacity: 0.8,
+                strokeColor:  '#000080' 
             },
             draggable: false,
             map: map,
@@ -154,6 +156,7 @@
   
         geocoder = new google.maps.Geocoder();
        	var labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16'];
+
 
        	 if(array.length > 0) {
        		 for(var i = 0; i < array.length; i++) {
@@ -177,7 +180,7 @@
             var marker = new google.maps.Marker({
               map: map,
               position: results[0].geometry.location,
-              label: {text: newLabel, color: "white"}
+              label: {text: newLabel, color: "white"}  
             });
 			
             marker.addListener('click', function() {
@@ -238,15 +241,24 @@
          
          class Order {
 
-        	  constructor(id, address, type, status, shortAddress) {
+        	  constructor(id, address, type, status, shortAddress, shortName) {
         	    this.id = id;
         	    this.address = address;
         	    this.type = type;
         	    this.status = status;
         	    this.shortAddress = shortAddress
+        	    this.shortName = shortName;
         	  }
 
         	}
+         
+         class MarkerInfo {
+        	 constructor(id, address, info) {
+         	    this.id = id;
+         	    this.address = address;
+         	    this.info = info;
+         	  }
+         }
      
          
          var orders = []; // массив объектов типа Order
@@ -271,8 +283,8 @@
                  var addresses = [];
                  var destinations = [];
                  
-                 for(var i = 0, j = 0; i < response.length; i+=4, j++) {
-                	 orders.push(new Order(response[i], response[i + 1], response[i + 2], false, response[i + 3]));
+                 for(var i = 0, j = 0; i < response.length; i+=5, j++) {
+                	 orders.push(new Order(response[i], response[i + 1], response[i + 2], false, response[i + 3], response[i + 4]));
                 	 addresses.push(response[i + 1]);
                 	 destinations.push(response[i + 1]);
                  }            
@@ -307,7 +319,8 @@
         	 
         	 var originList = response.originAddresses;
         	 var destinationList = response.destinationAddresses;
-        	 var dict = [];                                         
+        	 var dict = [];
+        	 var dictOrders = [];
 			 
         	 for(var i = 0; i < orders.length; i++) {
         		 orders[i].address = destinationList[i];
@@ -361,6 +374,7 @@
         			 
         			 if(orders[nearestId].type == 'SENDER') {
         				dict.push(destinationList[nearestId]);
+        				dictOrders.push(orders[nearestId]);
                 		 orders[nearestId].status = true;
                 		 mapDest.set(orders[nearestId].id, true);
                 		 
@@ -369,13 +383,15 @@
 
                 			 ttable.rows[idRows].cells[0].innerHTML = orders[nearestId].id;
                 			 ttable.rows[idRows].cells[1].innerHTML = orders[nearestId].shortAddress;
-                			 ttable.rows[idRows].cells[2].innerHTML = 'Відправник';
+                			 ttable.rows[idRows].cells[2].innerHTML = orders[nearestId].shortName;
+                			 ttable.rows[idRows].cells[3].innerHTML = 'Відправник';
                 	//		 ttable.rows[idRows].cells[3].innerHTML =  ttable.rows[orders[nearestId].id].cells[3].innerHTML;
                 			 idRows++;
                 			
         			 }
         			 if(orders[nearestId].type == 'RECIPIENT') {
-        				 dict.push(destinationList[nearestId]);			 
+        				 dict.push(destinationList[nearestId]);
+        				 dictOrders.push(orders[nearestId]);
         				 orders[nearestId].status = true;
  				 
                 		 i = 0;
@@ -384,7 +400,8 @@
              			
              			 ttable.rows[idRows].cells[0].innerHTML = orders[nearestId].id;
              			 ttable.rows[idRows].cells[1].innerHTML = orders[nearestId].shortAddress;
-             			 ttable.rows[idRows].cells[2].innerHTML = 'Отримувач';
+             			 ttable.rows[idRows].cells[2].innerHTML = orders[nearestId].shortName;
+             			 ttable.rows[idRows].cells[3].innerHTML = 'Отримувач';
              		//	 ttable.rows[idRows].cells[3].innerHTML =  ttable.rows[orders[nearestId].id].cells[3].innerHTML;
              			 idRows++;
         			 } 
@@ -394,6 +411,7 @@
         	 for(var i = 1; i < dict.length - 1; i++) {
         		 addAdress(dict[i]);
         	 }
+       
         	 initMap(dict);
         	 displayRoute(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);
     	}

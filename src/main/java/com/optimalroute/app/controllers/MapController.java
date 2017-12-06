@@ -35,11 +35,13 @@ public class MapController {
 				ofcSender.setIdOrder(o.getId());
 				ofcSender.setAddress(o.getSenderAddress());
 				ofcSender.setOrderType(OrderType.SENDER);
+				ofcSender.setClient(o.getSender());
 
 				OrderForCourier ofcRecipient = new OrderForCourier();
 				ofcRecipient.setIdOrder(o.getId());
 				ofcRecipient.setAddress(o.getRecipientAddress());
 				ofcRecipient.setOrderType(OrderType.RECIPIENT);
+				ofcRecipient.setClient(o.getRecipient());
 
 				ordersForCourierList.add(ofcSender);
 				ordersForCourierList.add(ofcRecipient);
@@ -65,13 +67,14 @@ public class MapController {
 	@RequestMapping(value = "/getTenAddressesByCourier", method = RequestMethod.GET)
 	public @ResponseBody String[] getTenAddressesByCourier() {
 
-		String[] result = new String[(ordersForCourierList.size() > 10 ? 40 : ordersForCourierList.size() * 4)];
+		String[] result = new String[(ordersForCourierList.size() > 10 ? 50 : ordersForCourierList.size() * 5)];
 
-		for (int i = 0, j = 0; i < (ordersForCourierList.size() > 10 ? 40 : ordersForCourierList.size() * 4); i += 4, j++) {
+		for (int i = 0, j = 0; i < (ordersForCourierList.size() > 10 ? 50 : ordersForCourierList.size() * 5); i += 5, j++) {
 			result[i] = String.valueOf(ordersForCourierList.get(j).getIdOrder());
 			result[i + 1] = ordersForCourierList.get(j).getAddress().getCity() + ", " + ordersForCourierList.get(j).getAddress().getStreet() + ", " + ordersForCourierList.get(j).getAddress().getHouseNumber();
 			result[i + 2] = String.valueOf(ordersForCourierList.get(j).getOrderType());
 			result[i + 3] = ordersForCourierList.get(j).getAddress().toString();
+			result[i + 4] = ordersForCourierList.get(j).getClient().getShortName();
 		}
 
 		return result;

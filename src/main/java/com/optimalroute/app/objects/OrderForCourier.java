@@ -7,7 +7,16 @@ public class OrderForCourier {
 
 	private int idOrder;
 	private Address address;
+	private Client client;
 	OrderType orderType;
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
 	public int getIdOrder() {
 		return idOrder;

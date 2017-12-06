@@ -50,6 +50,10 @@ public class Client {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public String getShortName() {
+		return surname + " " + name.substring(0, 1) + ". " + surname.substring(0, 1) + ".";
+	}
+
 	@Override
 	public String toString() {
 		return surname + " " + name + " " + patronymic;
