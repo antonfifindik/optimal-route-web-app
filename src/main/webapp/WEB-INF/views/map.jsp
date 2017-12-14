@@ -636,11 +636,26 @@
         		 orders[l].status = false;
                  mapDest.set(orders[l].id, false); 
         	 }
-
+                        
+                
+                  if(minFullDistance == undefined) {
+                      minFullDistance = dictDistance;
+                      minDict = currentDict;
+                  }
+                    else if(dictDistance < minFullDistance) {
+                        minFullDistance = dictDistance;
+                        minDict = currentDict;
+                    }
                      
                   alert('fullDistance ' + i + ' : ' + dictDistance);
                      
                  } //конец if(orders[i].type == 'SENDER') 
+                 
+             }
+             alert('Минимальная дистанция: ' + minFullDistance);
+             
+             for(var i = 0; i < minDict.length; i++) {
+                 alert(minDict[i].id + ' ' + minDict[i].address + ' ' + minDict[i].type);
              }
              
     	}
