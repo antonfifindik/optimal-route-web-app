@@ -568,14 +568,16 @@
                 	 mapDest.set(orders[i].id, true);
                      orders[i].status = true;
                      
-                	 
+                	 var dictDistance = response.rows[0].elements[i].distance.value; //инициализируем расстоянием от стартовой точки до первого отправителя
+
+                     
                      for(var j = 0; j < originList.length; j++) {
                          
                          if(currentDict.length == destinationList.length + 1) {
                              break;
                          }
                          
-                         var minDist = 100000;
+                         var minDist = 1000000;
         		         var nearestId = 0;
                          
                          if(currentDict[currentDict.length - 1].address == originList[j]) {    //если последний адресс в текущем маршруте равен
@@ -589,7 +591,7 @@
                                             if(orders[k].type == 'SENDER') {
                                                  if(response.rows[j].elements[k].distance.value < minDist) {
         		            	    			minDist = response.rows[j].elements[k].distance.value;
-        		            	    			nearestId = k;          	    		
+        		            	    			nearestId = k;
         		            	    		}		
                                             } 
                                             
@@ -613,12 +615,14 @@
                                  mapDest.set(orders[nearestId].id, true);
                                  j = 0;
                                  k = 0;
+                                 dictDistance += minDist;
                              }
                             else if(orders[nearestId].type == 'RECIPIENT') {
                                  currentDict.push(orders[nearestId]);
                                  orders[nearestId].status = true;
                                  j = 0;
                                  k = 0;
+                                 dictDistance += minDist;
                             } 
                             
                          }
@@ -632,11 +636,9 @@
         		 orders[l].status = false;
                  mapDest.set(orders[l].id, false); 
         	 }
-                   
+
                      
-                     for(var b = 0; b < currentDict.length; b++) {
-                         alert(currentDict[b].address + '   ' + i);
-                     }
+                  alert('fullDistance ' + i + ' : ' + dictDistance);
                      
                  } //конец if(orders[i].type == 'SENDER') 
              }
