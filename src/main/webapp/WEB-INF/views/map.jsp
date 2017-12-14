@@ -362,7 +362,8 @@
         	 var destinationList = response.destinationAddresses;
         	 var dict = [];
         	 var markersInfo = [];
-			 
+			 var fullDistance = 0;
+             
         	 for(var i = 0; i < orders.length; i++) {
         		 orders[i].address = destinationList[i];
         	 }
@@ -411,13 +412,13 @@
         							 }      							 
         						 }
         				 }
-        			 }
+        			 } 
         			 
         			 if(orders[nearestId].type == 'SENDER') {
         				dict.push(destinationList[nearestId]);
                 		 orders[nearestId].status = true;
                 		 mapDest.set(orders[nearestId].id, true);
-                		 
+                		 fullDistance += minDist;
                 		 
                 		 markersInfo.push(new MarkerInfo(orders[nearestId].address, '<div id="content">'+
                 			     '<div id="siteNotice">'+
@@ -446,7 +447,7 @@
         			 if(orders[nearestId].type == 'RECIPIENT') {
         				 dict.push(destinationList[nearestId]);
         				 orders[nearestId].status = true;
-        				 
+        				 fullDistance += minDist;
         				 
         				 markersInfo.push(new MarkerInfo(orders[nearestId].address, '<div id="content">'+
                 			     '<div id="siteNotice">'+
@@ -494,6 +495,7 @@
         	 
         	 initMap(markersInfo);
         	 displayRoute(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);
+             alert(fullDistance);
     	}
          
          
@@ -552,6 +554,7 @@
              let mapDest = new Map;
              
              var minDict = [];
+             var markersInfo = [];
              var currentDict;
              var minFullDistance;
         	 
@@ -569,7 +572,6 @@
                      orders[i].status = true;
                      
                 	 var dictDistance = response.rows[0].elements[i].distance.value; //инициализируем расстоянием от стартовой точки до первого отправителя
-
                      
                      for(var j = 0; j < originList.length; j++) {
                          
@@ -600,14 +602,9 @@
         		            	    			minDist = response.rows[j].elements[k].distance.value;
         		            	    			nearestId = k;          	    		
         		            	    		}	
-                                            }
-                                         
+                                            }                              
                                      }
-                                     
-                                     
                                  }
-                                 
-                                 
                              }
                              if(orders[nearestId].type == 'SENDER') {
                                  currentDict.push(orders[nearestId]);
@@ -623,20 +620,14 @@
                                  j = 0;
                                  k = 0;
                                  dictDistance += minDist;
-                            } 
-                            
-                         }
-                         
-                     }    
-                
-                     
-//                   alert(minFullDistance == undefined ? 'ДА!!!!!!!' : 'НЕЕЕЕТ');         
+                            }   
+                         }                       
+                     }           
                      
                 for(var l = 0; l < orders.length; l++) {
         		 orders[l].status = false;
                  mapDest.set(orders[l].id, false); 
-        	 }
-                        
+        	 }                   
                 
                   if(minFullDistance == undefined) {
                       minFullDistance = dictDistance;
@@ -646,18 +637,73 @@
                         minFullDistance = dictDistance;
                         minDict = currentDict;
                     }
-                     
-                  alert('fullDistance ' + i + ' : ' + dictDistance);
-                     
-                 } //конец if(orders[i].type == 'SENDER') 
-                 
+                 }
              }
-             alert('Минимальная дистанция: ' + minFullDistance);
              
              for(var i = 0; i < minDict.length; i++) {
-                 alert(minDict[i].id + ' ' + minDict[i].address + ' ' + minDict[i].type);
+                 if(minDict[i].type == 'START') {
+                     markersInfo.push(new MarkerInfo(minDict[i].address, '<div id="content">'+
+    			     '<div id="siteNotice">'+
+    			     '</div>'+
+    			     '<h3 id="firstHeading" class="firstHeading">Інформація</h3><br>'+
+    			     '<div id="bodyContent">'+
+    			     '<p>' +
+    			     '<b>Адреса:</b> ' + minDict[i].address + 
+    			     '<b><br>Тип:</b> ' + 'Початкова адреса' +
+    			     '</p>' +
+    			     '</div>'+
+    			     '</div>', 'start'));
+                 }
+                 else if(minDict[i].type == 'SENDER') {
+                     markersInfo.push(new MarkerInfo(minDict[i].address, '<div id="content">'+
+                			     '<div id="siteNotice">'+
+                			     '</div>'+
+                			     '<h3 id="firstHeading" class="firstHeading">Інформація</h3><br>'+
+                			     '<div id="bodyContent">'+
+                			     '<p>' +
+                			     '<b>Адреса:</b> ' + minDict[i].address + 
+                			     '<b><br>ID заказу:</b> ' + minDict[i].id +
+                			     '<b><br>Ім\'я клієнта:</b> ' + minDict[i].shortName +
+                			     '<b><br>Тип:</b> ' + 'Відправник' +
+                			     '</p>' +
+                			     '</div>'+
+                			     '</div>', 'sender'));
+                     
+                             ttable.rows[idRows].cells[0].innerHTML = minDict[i].id;
+                			 ttable.rows[idRows].cells[1].innerHTML = minDict[i].shortAddress;
+                			 ttable.rows[idRows].cells[2].innerHTML = minDict[i].shortName;
+                			 ttable.rows[idRows].cells[3].innerHTML = 'Відправник';
+                			 idRows++;
+                 }
+                 else if(minDict[i].type == 'RECIPIENT') {
+                     markersInfo.push(new MarkerInfo(minDict[i].address, '<div id="content">'+
+                			     '<div id="siteNotice">'+
+                			     '</div>'+
+                			     '<h3 id="firstHeading" class="firstHeading">Інформація</h3><br>'+
+                			     '<div id="bodyContent">'+
+                			     '<p>' +
+                			     '<b>Адреса:</b> ' + minDict[i].address + 
+                			     '<b><br>ID заказу:</b> ' + minDict[i].id +
+                			     '<b><br>Ім\'я клієнта:</b> ' + minDict[i].shortName +
+                			     '<b><br>Тип:</b> ' + 'Отримувач' +
+                			     '</p>' +
+                			     '</div>'+
+                			     '</div>', 'recipient'));
+                     
+                             ttable.rows[idRows].cells[0].innerHTML = minDict[i].id;
+                			 ttable.rows[idRows].cells[1].innerHTML = minDict[i].shortAddress;
+                			 ttable.rows[idRows].cells[2].innerHTML = minDict[i].shortName;
+                			 ttable.rows[idRows].cells[3].innerHTML = 'Отримувач';
+                			 idRows++;
+                 }
+             }
+             for(var i = 1; i < minDict.length - 1; i++) {
+                 addAdress(minDict[i].address);
              }
              
+             initMap(markersInfo);
+             displayRoute(minDict[0].address, minDict[minDict.length - 1].address, directionsService, directionsDisplay);
+             alert(minFullDistance);
     	}
          
 
