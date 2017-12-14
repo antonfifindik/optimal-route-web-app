@@ -40,7 +40,7 @@
 		</div>	
 	<div>
 		<ul class="nav navbar-nav">
-			<li><a href="./home">Закази</a></li>
+			<li><a href="./home">Замовлення</a></li>
 			<li><a href="addresses">Адреси</a></li>
 			<li><a href="clients">Клієнти</a></li>
 			<li><a href="couriers">Кур'єри</a></li>
@@ -81,7 +81,7 @@
 		
 
 		
-		<input type="submit" value="Видалити" class="btn btn-danger aligntop">  <input type="button" class="btn btn-default aligntop" value="Отмена" onclick="location.href='./'" />	
+		<input type="submit" value="Видалити" class="btn btn-danger aligntop">  <input type="button" class="btn btn-default aligntop" value="Відмінити" onclick="location.href='./'" />	
 	</form></div>
 	
 </body>

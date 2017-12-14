@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Новий заказ</title>
+<title>Нове замовлення</title>
 
 	<style>
 	
@@ -49,7 +49,7 @@
 		</div>	
 	<div>
 		<ul class="nav navbar-nav">
-			<li><a href="./home">Закази</a></li>
+			<li><a href="./home">Замовлення</a></li>
 			<li><a href="addresses">Адреси</a></li>
 			<li><a href="clients">Клієнти</a></li>
 			<li><a href="couriers">Кур'єри</a></li>
@@ -67,7 +67,7 @@
 
 <div class="container" align="center">
    <div class="page-header">
-  <h1>Новий заказ</h1>
+  <h1>Нове замовлення</h1>
 </div>
 		<form name="order" action="./addOrder" method="post">
 		<div style="display: flex; justify-content:center;" class="aligntop">

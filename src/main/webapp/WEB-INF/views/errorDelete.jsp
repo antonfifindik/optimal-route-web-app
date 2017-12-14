@@ -25,7 +25,7 @@
 		</div>	
 	<div>
 		<ul class="nav navbar-nav">
-			<li><a href="./home">Закази</a></li>
+			<li><a href="./home">Замовлення</a></li>
 			<li><a href="addresses">Адреси</a></li>
 			<li><a href="clients">Клієнти</a></li>
 			<li><a href="couriers">Кур'єри</a></li>

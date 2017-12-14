@@ -65,7 +65,7 @@
 		</div>	
 	<div>
 		<ul class="nav navbar-nav">
-			<li><a href="./home">Закази</a></li>
+			<li><a href="./home">Замовлення</a></li>
 			<li><a href="addresses">Адреси</a></li>
 			<li><a href="clients">Клієнти</a></li>
 			<li><a href="couriers">Кур'єри</a></li>
@@ -86,7 +86,7 @@
   </div>
 
 <!--   <button class="btn btn-info" type="button" onclick="calculationOfTheOptimalRouteDemo()">Построить оптимальный маршрут без учёта отправителей</button>  -->
-   <button style="margin-bottom: 10px; margin-left: 20px;" class="btn btn-success" type="button" onclick="calculationOfTheOptimalRoute()"><span style="margin-right: 5px" class="glyphicon glyphicon-road"></span>Прокласти маршрут</button>
+   <button style="margin-bottom: 10px; margin-left: 20px;" class="btn btn-success" type="button" onclick="calculationOfTheOptimalRouteNew()"><span style="margin-right: 5px" class="glyphicon glyphicon-road"></span>Прокласти маршрут</button>
    <button style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button" onclick="window.print()"><span style="margin-right: 5px" class="glyphicon glyphicon-print"></span>Роздрук. маршрут</button>
    <button style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button" onclick="cleanMap()"><span style="margin-right: 5px" class="glyphicon glyphicon-globe"></span>Очистити мапу</button>
    
@@ -225,7 +225,7 @@
             var marker = new google.maps.Marker({
               map: map,
               position: results[0].geometry.location,
-              label: {text: newLabel, color: "white"},
+              label: {text: newLabel, color: "black"},
               icon: image
             });
 			
@@ -422,7 +422,7 @@
                 		 markersInfo.push(new MarkerInfo(orders[nearestId].address, '<div id="content">'+
                 			     '<div id="siteNotice">'+
                 			     '</div>'+
-                			     '<h3 id="firstHeading" class="firstHeading">Інформація</h3><br>'+
+                			     '<h3 id="firstHeading" class="firstHeading">Інформація:</h3><br>'+
                 			     '<div id="bodyContent">'+
                 			     '<p>' +
                 			     '<b>Адреса:</b> ' + orders[nearestId].address + 
@@ -451,7 +451,7 @@
         				 markersInfo.push(new MarkerInfo(orders[nearestId].address, '<div id="content">'+
                 			     '<div id="siteNotice">'+
                 			     '</div>'+
-                			     '<h3 id="firstHeading" class="firstHeading">Інформація</h3><br>'+
+                			     '<h3 id="firstHeading" class="firstHeading">Інформація:</h3><br>'+
                 			     '<div id="bodyContent">'+
                 			     '<p>' +
                 			     '<b>Адреса:</b> ' + orders[nearestId].address + 
@@ -483,11 +483,11 @@
         	 markersInfo.unshift(new MarkerInfo(dict[0], '<div id="content">'+
     			     '<div id="siteNotice">'+
     			     '</div>'+
-    			     '<h3 id="firstHeading" class="firstHeading">Інформація</h3><br>'+
+    			     '<h3 id="firstHeading" class="firstHeading">Інформація:</h3><br>'+
     			     '<div id="bodyContent">'+
     			     '<p>' +
     			     '<b>Адреса:</b> ' + dict[0] + 
-    			     '<b><br>Тип:</b> ' + 'Початкова адреса' +
+    			     '<b><br>Тип:</b> ' + 'Початкова адреса та кінцева адреса' +
     			     '</p>' +
     			     '</div>'+
     			     '</div>', 'start'));
@@ -495,6 +495,155 @@
         	 initMap(markersInfo);
         	 displayRoute(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);
     	}
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         function calculationOfTheOptimalRouteNew(origin) {
+        	 $.ajax({
+                 type: 'GET',
+                 url: './getTenAddressesByCourier',
+                 success: function (response) {
+                 var addresses = [];
+                 var destinations = [];
+                 
+                 for(var i = 0, j = 0; i < response.length; i+=5, j++) {
+                	 orders.push(new Order(response[i], response[i + 1], response[i + 2], false, response[i + 3], response[i + 4]));
+                	 addresses.push(response[i + 1]);
+                	 destinations.push(response[i + 1]);
+                 }            
+                 
+          	  var origin = 'Вінниця, Юності 1';     //начальная точка
+         	  addresses.unshift(origin);
+               	 
+               	distanceService.getDistanceMatrix(
+             			  {
+             			    origins: addresses,
+             			    destinations: destinations,
+             			    travelMode: 'DRIVING',
+             			    unitSystem: google.maps.UnitSystem.METRIC,
+             		        avoidHighways: false,
+             		        avoidTolls: false
+             			  }, callbackcalculationOfTheOptimalRouteNew);
+                 
+               	  
+                 },
+                 error: function (err) {
+                     alert('Error..');
+                 }
+             });
+         }        
+         
+         function callbackcalculationOfTheOptimalRouteNew(response, status) {
+				
+        	 var originList = response.originAddresses;
+        	 var destinationList = response.destinationAddresses;
+             let mapDest = new Map;
+             
+             var minDict = [];
+             var currentDict;
+             var minFullDistance;
+        	 
+        	  for(var i = 0; i < orders.length; i++) {
+        		 orders[i].address = destinationList[i];
+                 mapDest.set(orders[i].id, false); 
+        	 }
+        	 
+             for(var i = 0; i < orders.length; i++) {
+                 if(orders[i].type == 'SENDER') {
+                	 currentDict = [];
+                     currentDict.push(new Order('100', originList[0], 'START', true, 'null', 'null'));
+                     currentDict.push(orders[i]);
+                	 mapDest.set(orders[i].id, true);
+                     orders[i].status = true;
+                     
+                	 
+                     for(var j = 0; j < originList.length; j++) {
+                         
+                         if(currentDict.length == destinationList.length + 1) {
+                             break;
+                         }
+                         
+                         var minDist = 100000;
+        		         var nearestId = 0;
+                         
+                         if(currentDict[currentDict.length - 1].address == originList[j]) {    //если последний адресс в текущем маршруте равен
+                             
+                             for(var k = 0; k < destinationList.length; k++) {    //j k
+                                 
+                                 if(originList[j] != destinationList[k]) {
+                                     
+                                     if(orders[k].status == false) {
+                                         
+                                            if(orders[k].type == 'SENDER') {
+                                                 if(response.rows[j].elements[k].distance.value < minDist) {
+        		            	    			minDist = response.rows[j].elements[k].distance.value;
+        		            	    			nearestId = k;          	    		
+        		            	    		}		
+                                            } 
+                                            
+                                            if(orders[k].type == 'RECIPIENT' && mapDest.get(orders[k].id) == true) {
+                                                if(response.rows[j].elements[k].distance.value < minDist) {
+        		            	    			minDist = response.rows[j].elements[k].distance.value;
+        		            	    			nearestId = k;          	    		
+        		            	    		}	
+                                            }
+                                         
+                                     }
+                                     
+                                     
+                                 }
+                                 
+                                 
+                             }
+                             if(orders[nearestId].type == 'SENDER') {
+                                 currentDict.push(orders[nearestId]);
+                                 orders[nearestId].status = true;
+                                 mapDest.set(orders[nearestId].id, true);
+                                 j = 0;
+                                 k = 0;
+                             }
+                            else if(orders[nearestId].type == 'RECIPIENT') {
+                                 currentDict.push(orders[nearestId]);
+                                 orders[nearestId].status = true;
+                                 j = 0;
+                                 k = 0;
+                            } 
+                            
+                         }
+                         
+                     }    
+                
+                     
+//                   alert(minFullDistance == undefined ? 'ДА!!!!!!!' : 'НЕЕЕЕТ');         
+                     
+                for(var l = 0; l < orders.length; l++) {
+        		 orders[l].status = false;
+                 mapDest.set(orders[l].id, false); 
+        	 }
+                   
+                     
+                     for(var b = 0; b < currentDict.length; b++) {
+                         alert(currentDict[b].address + '   ' + i);
+                     }
+                     
+                 } //конец if(orders[i].type == 'SENDER') 
+             }
+             
+    	}
+         
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2yYUDCCpAl1ZiP-pN5Xs6L4Ze2rekTIc&callback=initMap&language=uk">
     async defer></script>
