@@ -50,6 +50,10 @@ public class Address {
 		this.apartmentNumber = apartmentNumber;
 	}
 
+	public String getAddressWithoutApartmentNumber() {
+		return city + ", " + street + ", " + houseNumber;
+	}
+
 	@Override
 	public String toString() {
 		return street + ", " + houseNumber + "/" + apartmentNumber;

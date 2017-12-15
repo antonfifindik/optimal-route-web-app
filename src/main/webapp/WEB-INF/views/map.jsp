@@ -86,12 +86,18 @@
   </div>
 
 <!--   <button class="btn btn-info" type="button" onclick="calculationOfTheOptimalRouteDemo()">Построить оптимальный маршрут без учёта отправителей</button>  -->
-   <button style="margin-bottom: 10px; margin-left: 20px;" class="btn btn-success" type="button" onclick="calculationOfTheOptimalRouteNew()"><span style="margin-right: 5px" class="glyphicon glyphicon-road"></span>Прокласти маршрут</button>
+   <button style="margin-bottom: 10px; margin-left: 20px;" class="btn btn-success" type="button" onclick="calculationOfTheOptimalRouteNew()"><span style="margin-right: 5px" class="glyphicon glyphicon-road"></span>Прокласти маршрут</span></button>
    <button style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button" onclick="window.print()"><span style="margin-right: 5px" class="glyphicon glyphicon-print"></span>Роздрук. маршрут</button>
    <button style="margin-bottom: 10px; margin-left: 10px;" class="btn btn-primary" type="button" onclick="cleanMap()"><span style="margin-right: 5px" class="glyphicon glyphicon-globe"></span>Очистити мапу</button>
    
-   <div id="canvas"> 
-   
+   <div style="width: 15%; margin-left: 20px; float: left;" id="canvas"> 
+   <select class="form-control" id="startAddresses" name="recipientAddress" required>
+		<option  selected disabled value=''>Початкова адреса</option>
+                <c:forEach items="${addressesList}" var="item">
+                 <option value ="${item.getAddressWithoutApartmentNumber()}">${item}</option>
+                </c:forEach>
+                 </select>
+                 	</div>
    <table id='table'  style="width: 45%; margin-left: 20px; float: left;" class="table table-striped table-hover table-condensed table-responsive table-bordered">
    <th width="5%">id</th>
    <th>Адреса</th>
@@ -306,6 +312,7 @@
          
          var orders = []; // массив объектов типа Order
          var ttable = document.getElementById("table");
+         var startAddresses = document.getElementById("startAddresses");
          var idRows = 1;
          var idid = [];
          
@@ -525,8 +532,16 @@
                 	 addresses.push(response[i + 1]);
                 	 destinations.push(response[i + 1]);
                  }            
-                 
-          	  var origin = 'Вінниця, Юності 1';     //начальная точка
+                
+                 var origin;
+                 if(startAddresses.value == '') {
+                	 origin = 'Вінниця, Юності 1';     //начальная точка
+                 }
+                 else {
+                	 origin = startAddresses.value;
+                 }
+
+          	  
          	  addresses.unshift(origin);
                	 
                	distanceService.getDistanceMatrix(
@@ -628,7 +643,6 @@
         		 orders[l].status = false;
                  mapDest.set(orders[l].id, false); 
         	 }                   
-                
                   if(minFullDistance == undefined) {
                       minFullDistance = dictDistance;
                       minDict = currentDict;

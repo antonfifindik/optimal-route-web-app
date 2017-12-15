@@ -1,6 +1,7 @@
 package com.optimalroute.app.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.optimalroute.app.interfaces.IAddressService;
 import com.optimalroute.app.interfaces.IOrderService;
+import com.optimalroute.app.objects.Address;
 import com.optimalroute.app.objects.OrderForCourier;
 import com.optimalroute.app.objects.OrderType;
 
@@ -46,11 +48,19 @@ public class MapController {
 				ordersForCourierList.add(ofcSender);
 				ordersForCourierList.add(ofcRecipient);
 			});
-
-			model.addAttribute("ordersForCourierList", ordersForCourierList);
 		}
 
+		ArrayList<Address> expulsionList = new ArrayList<>();
+		List<Address> addressesList = addressService.findAllAddresses();
+
+		for (OrderForCourier ofc : ordersForCourierList)
+			expulsionList.add(ofc.getAddress());
+
+		addressesList.removeAll(expulsionList);
+
+		model.addAttribute("ordersForCourierList", ordersForCourierList);
 		model.addAttribute("account", HomeController.getCurrentAccount());
+		model.addAttribute("addressesList", addressesList);
 
 		return "map";
 	}
