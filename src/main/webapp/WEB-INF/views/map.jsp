@@ -97,7 +97,7 @@
                  <option value ="${item.getAddressWithoutApartmentNumber()}">${item}</option>
                 </c:forEach>
                  </select>
-                 	</div>
+                 	</div> <br>
    <table id='table'  style="width: 45%; margin-left: 20px; float: left;" class="table table-striped table-hover table-condensed table-responsive table-bordered">
    <th width="5%">id</th>
    <th>Адреса</th>
@@ -167,8 +167,7 @@
        		
        	 }
     }
-      
-    
+
     function addMarkerByAddress(geocoder, map, address, newLabel, infoContent, type) {
         geocoder.geocode({'address': address}, function(results, status) {
           if (status === 'OK') {
@@ -226,7 +225,6 @@
   		       labelOrigin: new google.maps.Point(0, -27)
   		};
      }
-
      
             var marker = new google.maps.Marker({
               map: map,
@@ -238,16 +236,14 @@
             marker.addListener('click', function() {
                 infowindow.open(map, marker);
               });
-            
-            
+
           } else {
             alert('Geocode was not successful for the following reason: ' + status);
           }
         });	
         
       }
-    
-    
+
     function addDirectionMarkers(geocoder, map) {
     		
     		var blabla = ['Вінниця, Соборна, 20', 'Вінниця, Соборна, 50', 'Вінниця, Соборна, 30'];
@@ -504,19 +500,6 @@
         	 displayRoute(dict[0], dict[dict.length - 1], directionsService, directionsDisplay);
              alert(fullDistance);
     	}
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
          
          
          function calculationOfTheOptimalRouteNew(origin) {
